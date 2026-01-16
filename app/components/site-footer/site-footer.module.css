@@ -1,0 +1,32 @@
+/* Site Footer */
+.footer {
+  background: var(--color-neutral-2);
+  border-top: var(--border-size-1) solid var(--color-neutral-4);
+  padding: var(--space-7) var(--space-6);
+  text-align: center;
+}
+
+.footerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.footerSignature {
+  font: var(--font-signature);
+  color: var(--color-accent-9);
+  font-size: var(--font-size-5);
+}
+
+.socialLinks {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.footerText {
+  color: var(--color-neutral-10);
+  font-size: var(--font-size-1);
+}

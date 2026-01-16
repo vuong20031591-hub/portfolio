@@ -1,0 +1,223 @@
+/* Experience Section */
+.section {
+  padding: var(--space-9) var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-6) 0;
+  text-align: center;
+  letter-spacing: var(--font-letterspacing-1);
+}
+
+.experienceContainer {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-4) 0;
+}
+
+/* Central Line */
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--color-accent-9),
+    var(--color-accent-9),
+    transparent
+  );
+  transform: translateX(-50%);
+  z-index: 0;
+  box-shadow: 0 0 15px var(--color-accent-9);
+}
+
+.timelineEntry {
+  position: relative;
+  width: 50%;
+  z-index: 1;
+}
+
+/* Alternating Layout */
+.timelineEntry:nth-child(odd) {
+  align-self: flex-start;
+  padding-right: var(--space-8);
+  text-align: right;
+}
+
+.timelineEntry:nth-child(even) {
+  align-self: flex-end;
+  padding-left: var(--space-8);
+  text-align: left;
+}
+
+/* Item/Card Style */
+.timelineItem {
+  position: relative;
+  background: var(--color-neutral-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-4);
+  border: 1px solid var(--color-neutral-4);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.timelineItem:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3), 0 0 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--color-accent-8);
+}
+
+/* The Connector Dot */
+.timelineDot {
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  background: var(--color-neutral-1);
+  border: 2px solid var(--color-accent-9);
+  border-radius: 50%;
+  z-index: 2;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+  box-shadow: 0 0 0 4px var(--color-neutral-1);
+}
+
+/* Position Dot on the Center Line */
+.timelineEntry:nth-child(odd) .timelineDot {
+  right: calc(var(--space-8) * -1 - 9px);
+  top: 28px;
+  transform: translateY(-50%);
+}
+
+.timelineEntry:nth-child(even) .timelineDot {
+  left: calc(var(--space-8) * -1 - 9px);
+  top: 28px;
+  transform: translateY(-50%);
+}
+
+/* Hover Effect for Dot */
+.timelineItem:hover .timelineDot {
+  transform: translateY(-50%) scale(1.5);
+  background: var(--color-accent-9);
+  box-shadow: 0 0 15px var(--color-accent-9);
+}
+
+/* Content Styling */
+.timelineContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.timelineHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+/* Alignment adjustments for odd items */
+.timelineEntry:nth-child(odd) .timelineHeader {
+  align-items: flex-end;
+}
+.timelineEntry:nth-child(even) .timelineHeader {
+  align-items: flex-start;
+}
+
+.jobRole {
+  font: var(--font-heading);
+  font-size: var(--font-size-4);
+  color: var(--color-neutral-12);
+}
+
+.jobPeriod {
+  font-size: var(--font-size-1);
+  color: var(--color-accent-11);
+  background: var(--color-accent-3);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-2);
+  width: fit-content;
+}
+
+.jobCompany {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-11);
+  font-weight: 500;
+  margin-bottom: var(--space-4);
+}
+
+.jobDescription {
+  color: var(--color-neutral-10);
+  line-height: var(--font-lineheight-2);
+  font-size: var(--font-size-2);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-7) var(--space-4);
+  }
+
+  /* Move timeline line to left edge with proper spacing */
+  .timeline::before {
+    left: var(--space-4);
+    transform: none;
+  }
+
+  .timelineEntry {
+    width: 100% !important;
+  }
+
+  .timelineEntry:nth-child(odd),
+  .timelineEntry:nth-child(even) {
+    align-self: flex-start;
+    padding-left: calc(var(--space-4) + var(--space-6));
+    padding-right: 0;
+    text-align: left;
+  }
+  
+  .timelineEntry:nth-child(odd) .timelineHeader,
+  .timelineEntry:nth-child(even) .timelineHeader {
+    align-items: flex-start;
+  }
+
+  /* Position dots OUTSIDE card, on the timeline line */
+  .timelineEntry:nth-child(odd) .timelineDot,
+  .timelineEntry:nth-child(even) .timelineDot {
+    left: calc(-1 * var(--space-6) - 8px);
+    right: auto;
+    top: 28px;
+    transform: translateY(-50%);
+  }
+
+  /* Smaller dot on mobile for better visibility */
+  .timelineDot {
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 0 3px var(--color-neutral-1);
+  }
+
+  .timelineItem {
+    padding: var(--space-4);
+  }
+
+  .jobRole {
+    font-size: var(--font-size-3);
+  }
+
+  .jobDescription {
+    font-size: var(--font-size-1);
+  }
+}

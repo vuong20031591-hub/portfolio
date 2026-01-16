@@ -1,0 +1,236 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "skipToContent": "Skip to main content",
+    "ariaLabel": "Main navigation",
+    "homeAriaLabel": "Go to homepage"
+  },
+  "hero": {
+    "greeting": "Hey, I'm Vuong",
+    "title": "Web Developer",
+    "subtitle": "I build web experiences that users actually enjoy. Passionate about clean code, thoughtful design, and constantly learning new things."
+  },
+  "skills": {
+    "title": "What I Do",
+    "subtitle": "I bring ideas to life through code and design.",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "React, TypeScript, Next.js — building interfaces that are fast, accessible, and a joy to use."
+    },
+    "backend": {
+      "title": "Backend & Infrastructure",
+      "description": "Node.js, databases, cloud services — the invisible foundation that makes everything work."
+    },
+    "design": {
+      "title": "UI/UX Design",
+      "description": "From wireframes to polished interfaces — I care about every pixel and every interaction."
+    },
+    "architecture": {
+      "title": "System Design",
+      "description": "Scalable architecture, clean patterns, and tech choices that stand the test of time."
+    }
+  },
+  "experience": {
+    "title": "Where I've Worked"
+  },
+  "projects": {
+    "title": "Selected Work",
+    "subtitle": "A few things I've built recently.",
+    "viewCase": "View Case Study",
+    "viewLive": "View Live",
+    "code": "Source Code"
+  },
+  "testimonials": {
+    "title": "My Values",
+    "subtitle": "The principles that guide my work.",
+    "items": [
+      {
+        "quote": "I believe great code is code that others can understand. I always aim for clarity over cleverness.",
+        "author": "Code Quality",
+        "title": "My Standard"
+      },
+      {
+        "quote": "Every bug is a learning opportunity. I embrace mistakes as part of the growth process.",
+        "author": "Continuous Improvement",
+        "title": "My Approach"
+      },
+      {
+        "quote": "The best interfaces are the ones users don't have to think about. Simplicity is the ultimate sophistication.",
+        "author": "User-Centric Design",
+        "title": "My Focus"
+      },
+      {
+        "quote": "I'm not afraid to ask questions or admit what I don't know. That's how real learning happens.",
+        "author": "Collaborative Mindset",
+        "title": "My Attitude"
+      },
+      {
+        "quote": "Building something from scratch and seeing it work is the best feeling. That's why I code.",
+        "author": "Driven by Impact",
+        "title": "My Motivation"
+      },
+      {
+        "quote": "The tech world moves fast. I'm committed to continuous learning and staying up to date.",
+        "author": "Lifelong Learning",
+        "title": "My Commitment"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Looking for a",
+    "titleHighlight": "junior developer?",
+    "text": "I'm eager to learn, grow, and contribute to real projects. If you have an opportunity or just want to connect, I'd love to hear from you.",
+    "getInTouch": "Let's Talk",
+    "viewResume": "View Resume"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Drop me a message and I'll get back to you soon.",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "message": "Message",
+    "messagePlaceholder": "Tell me about your project or just say hello...",
+    "send": "Send Message",
+    "heroTitle": "Let's Connect",
+    "heroSubtitle": "Got a project idea, a question, or just want to chat? I'd love to hear from you.",
+    "emailLabel": "Email",
+    "facebook": "Facebook",
+    "facebookValue": "Let's connect",
+    "telegram": "Telegram",
+    "telegramValue": "Message me",
+    "github": "GitHub",
+    "githubValue": "See my code",
+    "formTitle": "Send a Message",
+    "formSubtitle": "I'll get back to you as soon as possible",
+    "sendEmail": "Send an email",
+    "successMessage": "Thanks for reaching out! I'll get back to you soon."
+  },
+  "footer": {
+    "copyright": "© 2026 Vuong. Built with care."
+  },
+  "github": {
+    "title": "GitHub Activity",
+    "repos": "Repos",
+    "stars": "Stars",
+    "forks": "Forks",
+    "followers": "Followers",
+    "topLanguages": "Top Languages",
+    "topRepos": "Top Repositories",
+    "viewProfile": "Profile",
+    "error": "Failed to load GitHub stats",
+    "contributions": "contributions in the last year",
+    "less": "Less",
+    "more": "More",
+    "noContributions": "No contribution data available",
+    "contributionGraph": "GitHub contribution graph",
+    "contributionGrid": "Contribution activity grid",
+    "legendLabel": "Contribution levels",
+    "statsLabel": "GitHub statistics"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong"
+  },
+  "process": {
+    "discovery": {
+      "title": "Listen",
+      "text": "starts with understanding. I dig deep into your goals, users, and constraints before writing a single line of code."
+    },
+    "strategy": {
+      "title": "Plan",
+      "text": "maps the path forward. Together we define the user journey, technical approach, and success metrics."
+    },
+    "creation": {
+      "title": "Build",
+      "text": "is where ideas become real. Clean code, thoughtful design, and constant iteration until it feels right."
+    },
+    "refinement": {
+      "title": "Polish",
+      "text": "makes good work great. Performance tuning, micro-interactions, and sweating the small stuff."
+    }
+  },
+  "about": {
+    "title": "About Me",
+    "text1": "I'm a developer at the beginning of my journey, and I'm loving every moment of it. There's something exciting about learning something new every day and seeing my skills grow with each project I build.",
+    "text2": "My approach is simple: stay curious, build things, and learn from mistakes. I care about writing clean code and creating interfaces that feel good to use — even if I'm still figuring things out.",
+    "text3": "When I'm not coding, you'll find me exploring new tools, watching tutorials, or working on side projects. I believe the best way to learn is by doing, and I'm always looking for the next challenge.",
+    "skillsTitle": "What I Bring",
+    "skills": {
+      "frontend": {
+        "title": "Frontend Craft",
+        "description": "React, TypeScript, modern CSS. Building interfaces that are fast, accessible, and delightful to use."
+      },
+      "design": {
+        "title": "Design Sensibility",
+        "description": "An eye for detail and a deep appreciation for good UX. I bridge the gap between design and code."
+      },
+      "performance": {
+        "title": "Performance Focus",
+        "description": "Speed matters. I optimize for real-world performance, not just benchmarks."
+      },
+      "collaboration": {
+        "title": "Clear Communication",
+        "description": "I explain technical concepts simply and keep everyone aligned throughout the project."
+      }
+    }
+  },
+  "projectsPage": {
+    "title": "My Work",
+    "subtitle": "Projects I've built, problems I've solved"
+  },
+  "homeProjects": {
+    "ecommerce": {
+      "title": "E-Commerce Platform",
+      "description": "A complete shopping experience with real-time inventory, smooth checkout, and a design that converts."
+    },
+    "designSystem": {
+      "title": "Design System",
+      "description": "A comprehensive component library built for accessibility, consistency, and developer happiness."
+    },
+    "mobileApp": {
+      "title": "Mobile App",
+      "description": "Cross-platform app with offline support, real-time sync, and native-feeling interactions."
+    }
+  },
+  "projectModal": {
+    "challenge": "The Challenge",
+    "challengeText": "The goal was ambitious: create an interface that handles complex real-time data while maintaining smooth 60fps performance across all devices. The existing solution was slow and frustrating for users.",
+    "solution": "The Solution",
+    "solutionText": "I rebuilt the architecture from the ground up — optimized state management, efficient rendering, and a design system that scales. Every decision was driven by real user needs and performance data.",
+    "results": "The Results",
+    "resultsText": "40% increase in user engagement, 60% faster load times, and feedback that made the effort worthwhile. Users actually enjoy using it now.",
+    "client": "Client",
+    "clientValue": "Tech Ventures Ltd",
+    "timeline": "Timeline",
+    "timelineValue": "12 Weeks",
+    "role": "Role",
+    "roleValue": "Lead Developer",
+    "stack": "Tech Stack",
+    "visitLive": "View Live Project"
+  },
+  "homeExperience": {
+    "job1": {
+      "role": "Web Developer",
+      "company": "Self-learning & Projects",
+      "period": "2025 — Present",
+      "description": "Building personal projects and learning modern web technologies. Focused on React, TypeScript, and creating real-world applications."
+    },
+    "job2": {
+      "role": "Open Source Contributor",
+      "company": "GitHub Community",
+      "period": "2025 — Present",
+      "description": "Contributing to open source projects and learning from the developer community."
+    },
+    "job3": {
+      "role": "Continuous Learner",
+      "company": "Online Courses & Tutorials",
+      "period": "2025 — Present",
+      "description": "Completing courses on frontend development, backend basics, and best practices in software engineering."
+    }
+  }
+}

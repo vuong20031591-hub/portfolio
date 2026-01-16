@@ -1,0 +1,232 @@
+/* Projects Section */
+.section {
+  padding: var(--space-9) var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-6) 0;
+  text-align: center;
+  letter-spacing: var(--font-letterspacing-1);
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: var(--color-neutral-10);
+  font-size: var(--font-size-3);
+  max-width: 600px;
+  margin: calc(var(--space-6) * -0.5) auto var(--space-8);
+}
+
+/* Showcase Grid */
+.showcaseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.showcaseItem {
+  position: relative;
+  height: 400px;
+}
+
+.showcaseFeatured {
+  grid-column: span 2;
+  height: 500px;
+}
+
+.projectCard {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-5);
+  overflow: hidden;
+  background: var(--color-neutral-3);
+  box-shadow: var(--shadow-2);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  isolation: isolate;
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-4), 0 0 30px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.projectImageWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.projectOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.6) 40%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.4s var(--ease);
+}
+
+.projectContent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-7);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  transform: translateY(20px);
+  transition: transform 0.4s var(--ease);
+}
+
+.projectCard:hover .projectContent {
+  transform: translateY(0);
+}
+
+.projectHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.projectTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  flex: 1;
+}
+
+.projectTag {
+  font-size: var(--font-size-0);
+  padding: var(--space-1) var(--space-3);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  color: white;
+  border-radius: var(--radius-4);
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Project Actions (GitHub, Live links) */
+.projectActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+/* Project Stats (Stars, Forks) */
+.projectStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-right: var(--space-2);
+}
+
+.projectStat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-1);
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.projectLink {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s var(--ease);
+}
+
+.projectLink:hover {
+  background: white;
+  color: black;
+}
+
+.projectInfo {
+  color: white;
+}
+
+.projectTitle {
+  font: var(--font-heading);
+  font-size: var(--font-size-5);
+  margin: 0 0 var(--space-2) 0;
+  color: white;
+}
+
+.projectDescription {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: var(--font-size-2);
+  line-height: var(--font-lineheight-2);
+  max-width: 90%;
+  margin-bottom: var(--space-4);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.showcaseFeatured .projectTitle {
+  font-size: var(--font-size-7);
+}
+
+.showcaseFeatured .projectDescription {
+  font-size: var(--font-size-3);
+  max-width: 70%;
+}
+
+.projectAction {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent-5);
+  font-weight: 600;
+  font-size: var(--font-size-2);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s var(--ease);
+}
+
+.projectCard:hover .projectAction {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.arrowIcon {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease);
+}
+
+.projectCard:hover .arrowIcon {
+  transform: translateX(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .showcaseGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .showcaseFeatured {
+    grid-column: span 1;
+    height: 400px;
+  }
+}

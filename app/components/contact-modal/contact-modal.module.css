@@ -1,0 +1,244 @@
+/* Contact Modal */
+.fullscreenOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: -1;
+}
+
+.expandedCard {
+  width: 100%;
+  height: 100%;
+  background: var(--color-neutral-1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ctaBackground {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(circle at top left, var(--color-neutral-2), transparent 40%),
+              radial-gradient(circle at bottom right, var(--color-neutral-2), transparent 40%);
+}
+
+.ctaGradient {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(
+    circle at center,
+    var(--color-accent-5) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  opacity: 0.15;
+  filter: blur(80px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  z-index: 20;
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-3);
+  border-radius: var(--radius-round);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  color: var(--color-neutral-11);
+}
+
+.closeButton:hover {
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-12);
+  transform: rotate(90deg);
+}
+
+.expandedContent {
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-6);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeInUp 0.5s var(--ease) 0.3s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.expandedHeader {
+  text-align: center;
+  margin-bottom: var(--space-4);
+}
+
+.expandedTitle {
+  font: var(--font-heading);
+  font-size: var(--font-size-6);
+  color: var(--color-neutral-12);
+  margin-bottom: var(--space-2);
+}
+
+.expandedSubtitle {
+  color: var(--color-neutral-10);
+  font-size: var(--font-size-3);
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.formLabel {
+  font-weight: 500;
+  color: var(--color-neutral-11);
+  font-size: var(--font-size-2);
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-9);
+}
+
+.textareaIcon {
+  position: absolute;
+  left: 12px;
+  top: 14px;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-9);
+}
+
+.formInput {
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-4);
+  padding: var(--space-3) var(--space-4);
+  padding-left: 2.8rem;
+  border-radius: var(--radius-3);
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-12);
+  transition: border-color 0.2s var(--ease);
+  width: 100%;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--color-accent-9);
+  box-shadow: 0 0 0 2px var(--color-accent-4);
+}
+
+.formTextarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submitButton {
+  margin-top: var(--space-4);
+  width: 100%;
+  background: var(--color-neutral-12);
+  color: var(--color-neutral-1);
+  height: 52px;
+  font-size: var(--font-size-2);
+  border-radius: var(--radius-round);
+  transition: all 0.2s var(--ease);
+  font-weight: 500;
+  border: 1px solid var(--color-neutral-12);
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-3);
+  background: var(--color-accent-9);
+  border-color: var(--color-accent-9);
+  color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .expandedContent {
+    padding: var(--space-4);
+    width: 90%;
+  }
+}
+
+
+/* Success Message */
+.successMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  padding: var(--space-8);
+  text-align: center;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-success-9, #22c55e);
+}
+
+.successMessage p {
+  font-size: var(--font-size-4);
+  color: var(--color-neutral-11);
+  max-width: 400px;
+}
+
+/* Disabled state */
+.formInput:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}

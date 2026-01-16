@@ -1,0 +1,124 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
+  padding-top: 80px;
+}
+
+.hero {
+  padding: var(--space-9) var(--space-6) var(--space-7);
+  max-width: 1400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  font: var(--font-display);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-4) 0;
+  letter-spacing: var(--font-letterspacing-0);
+}
+
+.subtitle {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-10);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: var(--font-lineheight-3);
+}
+
+.projectsSection {
+  padding: 0 var(--space-6) var(--space-9);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-6);
+}
+
+.projectCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition:
+    transform 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-4);
+}
+
+.projectImage {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  border-radius: var(--radius-3) var(--radius-3) 0 0;
+  position: relative;
+}
+
+.projectImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s var(--ease);
+}
+
+.projectCard:hover .projectImage img {
+  transform: scale(1.1);
+}
+
+.tags {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+}
+
+.tag {
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-accent-3);
+  color: var(--color-accent-11);
+  border-radius: var(--radius-2);
+  font-size: var(--font-size-0);
+  font-weight: 500;
+}
+
+.projectStats {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  margin-bottom: var(--space-3);
+  color: var(--color-neutral-10);
+  font-size: var(--font-size-1);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.language {
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-neutral-4);
+  color: var(--color-neutral-11);
+  border-radius: var(--radius-1);
+  font-size: var(--font-size-0);
+}
+
+.errorMessage {
+  text-align: center;
+  padding: var(--space-8);
+  color: var(--color-error-11);
+  font-size: var(--font-size-2);
+}
+
+@media (max-width: 768px) {
+  .projectsGrid {
+    grid-template-columns: 1fr;
+  }
+}

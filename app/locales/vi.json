@@ -1,0 +1,236 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "projects": "Dự án",
+    "contact": "Liên hệ",
+    "skipToContent": "Chuyển đến nội dung chính",
+    "ariaLabel": "Điều hướng chính",
+    "homeAriaLabel": "Về trang chủ"
+  },
+  "hero": {
+    "greeting": "Chào, mình là Vương",
+    "title": "Web Developer",
+    "subtitle": "Mình xây dựng những trải nghiệm web mà người dùng thực sự thích. Đam mê code sạch, thiết kế có chiều sâu, và không ngừng học hỏi mỗi ngày."
+  },
+  "skills": {
+    "title": "Mình làm gì",
+    "subtitle": "Biến ý tưởng thành hiện thực qua code và thiết kế.",
+    "frontend": {
+      "title": "Frontend Development",
+      "description": "React, TypeScript, Next.js — xây dựng giao diện nhanh, dễ tiếp cận và dùng thấy thích."
+    },
+    "backend": {
+      "title": "Backend & Infrastructure",
+      "description": "Node.js, database, cloud — nền tảng vô hình giúp mọi thứ hoạt động trơn tru."
+    },
+    "design": {
+      "title": "UI/UX Design",
+      "description": "Từ wireframe đến giao diện hoàn chỉnh — mình quan tâm từng pixel và từng tương tác."
+    },
+    "architecture": {
+      "title": "System Design",
+      "description": "Kiến trúc có khả năng mở rộng, pattern sạch, và những lựa chọn công nghệ bền vững."
+    }
+  },
+  "experience": {
+    "title": "Nơi mình đã làm việc"
+  },
+  "projects": {
+    "title": "Dự án tiêu biểu",
+    "subtitle": "Một vài thứ mình đã xây dựng gần đây.",
+    "viewCase": "Xem chi tiết",
+    "viewLive": "Xem demo",
+    "code": "Mã nguồn"
+  },
+  "testimonials": {
+    "title": "Giá trị của mình",
+    "subtitle": "Những nguyên tắc định hướng công việc của mình.",
+    "items": [
+      {
+        "quote": "Code tốt là code mà người khác có thể hiểu được. Mình luôn ưu tiên sự rõ ràng hơn sự phức tạp.",
+        "author": "Code Quality",
+        "title": "Tiêu chuẩn"
+      },
+      {
+        "quote": "Mỗi bug là một cơ hội học hỏi. Mình đón nhận sai lầm như một phần của quá trình phát triển.",
+        "author": "Continuous Improvement",
+        "title": "Cách tiếp cận"
+      },
+      {
+        "quote": "Giao diện tốt nhất là giao diện người dùng không cần suy nghĩ. Đơn giản là đỉnh cao của tinh tế.",
+        "author": "User-Centric Design",
+        "title": "Trọng tâm"
+      },
+      {
+        "quote": "Mình không ngại hỏi hay thừa nhận điều mình chưa biết. Đó là cách học thực sự diễn ra.",
+        "author": "Collaborative Mindset",
+        "title": "Thái độ"
+      },
+      {
+        "quote": "Xây dựng thứ gì đó từ đầu và thấy nó hoạt động là cảm giác tuyệt vời nhất. Đó là lý do mình code.",
+        "author": "Driven by Impact",
+        "title": "Động lực"
+      },
+      {
+        "quote": "Thế giới công nghệ thay đổi nhanh. Mình cam kết học hỏi liên tục và cập nhật kiến thức.",
+        "author": "Lifelong Learning",
+        "title": "Cam kết"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Đang tìm",
+    "titleHighlight": "junior developer?",
+    "text": "Mình háo hức được học hỏi, phát triển và đóng góp vào các dự án thực tế. Nếu bạn có cơ hội hoặc chỉ muốn kết nối, mình rất muốn nghe từ bạn.",
+    "getInTouch": "Trò chuyện nào",
+    "viewResume": "Xem CV"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "subtitle": "Gửi tin nhắn và mình sẽ phản hồi sớm.",
+    "name": "Tên",
+    "namePlaceholder": "Tên của bạn",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "message": "Tin nhắn",
+    "messagePlaceholder": "Kể về dự án của bạn hoặc chỉ đơn giản là chào hỏi...",
+    "send": "Gửi tin nhắn",
+    "heroTitle": "Kết nối nào",
+    "heroSubtitle": "Có ý tưởng dự án, câu hỏi, hay chỉ muốn trò chuyện? Mình rất muốn nghe từ bạn.",
+    "emailLabel": "Email",
+    "facebook": "Facebook",
+    "facebookValue": "Kết nối nhé",
+    "telegram": "Telegram",
+    "telegramValue": "Nhắn tin nào",
+    "github": "GitHub",
+    "githubValue": "Xem code",
+    "formTitle": "Gửi tin nhắn",
+    "formSubtitle": "Mình sẽ phản hồi sớm nhất có thể",
+    "sendEmail": "Gửi email",
+    "successMessage": "Cảm ơn bạn đã liên hệ! Mình sẽ phản hồi sớm."
+  },
+  "footer": {
+    "copyright": "© 2026 Vương. Được xây dựng với tâm huyết."
+  },
+  "github": {
+    "title": "Hoạt động GitHub",
+    "repos": "Repos",
+    "stars": "Stars",
+    "forks": "Forks",
+    "followers": "Followers",
+    "topLanguages": "Ngôn ngữ chính",
+    "topRepos": "Repo nổi bật",
+    "viewProfile": "Hồ sơ",
+    "error": "Không thể tải thống kê GitHub",
+    "contributions": "đóng góp trong năm qua",
+    "less": "Ít",
+    "more": "Nhiều",
+    "noContributions": "Chưa có dữ liệu đóng góp",
+    "contributionGraph": "Biểu đồ đóng góp GitHub",
+    "contributionGrid": "Lưới hoạt động đóng góp",
+    "legendLabel": "Mức độ đóng góp",
+    "statsLabel": "Thống kê GitHub"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Đã có lỗi xảy ra"
+  },
+  "process": {
+    "discovery": {
+      "title": "Lắng nghe",
+      "text": "bắt đầu từ việc thấu hiểu. Mình tìm hiểu kỹ mục tiêu, người dùng và ràng buộc trước khi viết dòng code đầu tiên."
+    },
+    "strategy": {
+      "title": "Lên kế hoạch",
+      "text": "vạch ra con đường phía trước. Cùng nhau định nghĩa hành trình người dùng, cách tiếp cận kỹ thuật và tiêu chí thành công."
+    },
+    "creation": {
+      "title": "Xây dựng",
+      "text": "là lúc ý tưởng thành hiện thực. Code sạch, thiết kế có chiều sâu, và liên tục cải tiến cho đến khi cảm thấy đúng."
+    },
+    "refinement": {
+      "title": "Hoàn thiện",
+      "text": "biến tốt thành xuất sắc. Tối ưu hiệu suất, micro-interaction, và chăm chút từng chi tiết nhỏ."
+    }
+  },
+  "about": {
+    "title": "Về mình",
+    "text1": "Mình là developer đang ở đầu hành trình, và mình yêu thích từng khoảnh khắc của nó. Có điều gì đó thú vị khi mỗi ngày học được điều mới và thấy kỹ năng của mình phát triển qua từng dự án.",
+    "text2": "Cách tiếp cận của mình đơn giản: tò mò, xây dựng, và học từ sai lầm. Mình quan tâm đến việc viết code sạch và tạo giao diện dễ dùng — dù vẫn đang trong quá trình tìm hiểu.",
+    "text3": "Khi không code, bạn sẽ thấy mình khám phá công cụ mới, xem tutorial, hoặc làm side project. Mình tin cách tốt nhất để học là thực hành, và luôn tìm kiếm thử thách tiếp theo.",
+    "skillsTitle": "Mình mang đến gì",
+    "skills": {
+      "frontend": {
+        "title": "Frontend Craft",
+        "description": "React, TypeScript, CSS hiện đại. Xây dựng giao diện nhanh, dễ tiếp cận và dùng thấy thích."
+      },
+      "design": {
+        "title": "Cảm quan thiết kế",
+        "description": "Mắt nhìn chi tiết và trân trọng UX tốt. Mình là cầu nối giữa design và code."
+      },
+      "performance": {
+        "title": "Tập trung hiệu suất",
+        "description": "Tốc độ quan trọng. Mình tối ưu cho hiệu suất thực tế, không chỉ benchmark."
+      },
+      "collaboration": {
+        "title": "Giao tiếp rõ ràng",
+        "description": "Giải thích khái niệm kỹ thuật đơn giản và giữ mọi người đồng bộ xuyên suốt dự án."
+      }
+    }
+  },
+  "projectsPage": {
+    "title": "Dự án của mình",
+    "subtitle": "Những dự án đã xây dựng, vấn đề đã giải quyết"
+  },
+  "homeProjects": {
+    "ecommerce": {
+      "title": "Nền tảng E-Commerce",
+      "description": "Trải nghiệm mua sắm hoàn chỉnh với inventory real-time, checkout mượt mà, và thiết kế tối ưu chuyển đổi."
+    },
+    "designSystem": {
+      "title": "Design System",
+      "description": "Thư viện component toàn diện được xây dựng cho accessibility, tính nhất quán, và developer happiness."
+    },
+    "mobileApp": {
+      "title": "Mobile App",
+      "description": "App đa nền tảng với offline support, đồng bộ real-time, và tương tác như native."
+    }
+  },
+  "projectModal": {
+    "challenge": "Thách thức",
+    "challengeText": "Mục tiêu đầy tham vọng: tạo giao diện xử lý dữ liệu real-time phức tạp trong khi duy trì 60fps mượt mà trên mọi thiết bị. Giải pháp cũ chậm và gây khó chịu cho người dùng.",
+    "solution": "Giải pháp",
+    "solutionText": "Mình xây dựng lại kiến trúc từ đầu — tối ưu state management, rendering hiệu quả, và design system có khả năng mở rộng. Mọi quyết định đều dựa trên nhu cầu thực của người dùng và dữ liệu hiệu suất.",
+    "results": "Kết quả",
+    "resultsText": "Tăng 40% engagement, giảm 60% thời gian tải, và phản hồi khiến mọi nỗ lực đều xứng đáng. Người dùng thực sự thích dùng nó.",
+    "client": "Khách hàng",
+    "clientValue": "Tech Ventures Ltd",
+    "timeline": "Thời gian",
+    "timelineValue": "12 Tuần",
+    "role": "Vai trò",
+    "roleValue": "Lead Developer",
+    "stack": "Tech Stack",
+    "visitLive": "Xem dự án"
+  },
+  "homeExperience": {
+    "job1": {
+      "role": "Web Developer",
+      "company": "Tự học & Dự án cá nhân",
+      "period": "2025 — Hiện tại",
+      "description": "Xây dựng các dự án cá nhân và học công nghệ web hiện đại. Tập trung vào React, TypeScript và tạo ứng dụng thực tế."
+    },
+    "job2": {
+      "role": "Open Source Contributor",
+      "company": "Cộng đồng GitHub",
+      "period": "2025 — Hiện tại",
+      "description": "Đóng góp cho các dự án mã nguồn mở và học hỏi từ cộng đồng developer."
+    },
+    "job3": {
+      "role": "Học viên",
+      "company": "Khóa học Online & Tutorial",
+      "period": "2025 — Hiện tại",
+      "description": "Hoàn thành các khóa học về frontend, backend cơ bản và best practices trong software engineering."
+    }
+  }
+}

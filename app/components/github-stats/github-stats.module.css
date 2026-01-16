@@ -1,0 +1,306 @@
+.container {
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-3);
+  padding: var(--space-6);
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent-6);
+}
+
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font: var(--font-subheading);
+  font-weight: 600;
+  color: var(--color-neutral-12);
+  margin: 0;
+}
+
+.username {
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 640px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  background: var(--color-neutral-3);
+  border-radius: var(--radius-2);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  background: var(--color-neutral-4);
+}
+
+.statIcon {
+  color: var(--color-accent-9);
+}
+
+.statValue {
+  font-size: var(--font-size-4);
+  font-weight: 700;
+  color: var(--color-neutral-12);
+}
+
+.statLabel {
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+}
+
+/* Languages */
+.languages {
+  border-top: 1px solid var(--color-neutral-4);
+  padding-top: var(--space-5);
+}
+
+.languagesTitle {
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.languageBar {
+  display: flex;
+  height: 8px;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.languageSegment {
+  transition: opacity 0.2s ease;
+}
+
+.languageSegment:hover {
+  opacity: 0.8;
+}
+
+.languageList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+}
+
+.languageItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.languageDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.languageName {
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-11);
+}
+
+.languagePercent {
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-9);
+}
+
+/* Loading Skeleton */
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.skeletonHeader {
+  height: 56px;
+  background: linear-gradient(90deg, var(--color-neutral-3) 25%, var(--color-neutral-4) 50%, var(--color-neutral-3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-2);
+}
+
+.skeletonStats {
+  height: 100px;
+  background: linear-gradient(90deg, var(--color-neutral-3) 25%, var(--color-neutral-4) 50%, var(--color-neutral-3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-2);
+}
+
+.skeletonLanguages {
+  height: 60px;
+  background: linear-gradient(90deg, var(--color-neutral-3) 25%, var(--color-neutral-4) 50%, var(--color-neutral-3) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-2);
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Error State */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-8);
+  color: var(--color-neutral-9);
+}
+
+.errorIcon {
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+}
+
+/* Repositories Section */
+.repos {
+  border-top: 1px solid var(--color-neutral-4);
+  padding-top: var(--space-5);
+  margin-top: var(--space-5);
+}
+
+.reposTitle {
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  color: var(--color-neutral-11);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.reposGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 640px) {
+  .reposGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.repoCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--color-neutral-3);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-2);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.repoCard:hover {
+  border-color: var(--color-accent-6);
+  background: var(--color-neutral-4);
+  transform: translateY(-2px);
+}
+
+.repoHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.repoIcon {
+  color: var(--color-neutral-9);
+  flex-shrink: 0;
+}
+
+.repoName {
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  color: var(--color-accent-11);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.repoDescription {
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.repoMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: auto;
+  padding-top: var(--space-2);
+}
+
+.repoLang {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+}
+
+.langDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.repoStat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-9);
+}

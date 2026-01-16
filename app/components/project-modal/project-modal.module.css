@@ -1,0 +1,382 @@
+/* Project Modal */
+.fullscreenOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: -1;
+}
+
+.expandedCard {
+  width: 100%;
+  height: 100%;
+  background: var(--color-neutral-1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  z-index: 20;
+  background: var(--color-neutral-1);
+  border: 1px solid var(--color-neutral-3);
+  border-radius: var(--radius-round);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+  color: var(--color-neutral-11);
+}
+
+.closeButton:hover {
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-12);
+  transform: rotate(90deg);
+}
+
+.expandedProjectContainer {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+  background: var(--color-neutral-1);
+}
+
+.expandedProjectImageHeader {
+  width: 100%;
+  height: 50vh;
+  position: relative;
+}
+
+.expandedProjectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.projectOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.6) 40%,
+    rgba(0, 0, 0, 0.2) 100%
+  );
+  z-index: 1;
+}
+
+.expandedProjectBody {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-9) var(--space-6);
+  animation: fadeInUp 0.6s var(--ease) 0.2s backwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.expandedProjectMeta {
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-neutral-4);
+  padding-bottom: var(--space-6);
+}
+
+.expandedProjectTitle {
+  font: var(--font-display);
+  font-size: var(--font-size-8);
+  color: var(--color-neutral-12);
+  margin-bottom: var(--space-4);
+  line-height: 1.1;
+}
+
+.expandedProjectTags {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-6);
+}
+
+.expandedProjectTag {
+  font-size: var(--font-size-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-round);
+  background: var(--color-neutral-3);
+  color: var(--color-neutral-11);
+  border: 1px solid var(--color-neutral-4);
+}
+
+.expandedProjectDescription {
+  font-size: var(--font-size-4);
+  color: var(--color-neutral-11);
+  line-height: var(--font-lineheight-3);
+  max-width: 800px;
+}
+
+.caseStudyGrid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-9);
+}
+
+.caseStudyContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.caseStudySectionTitle {
+  font: var(--font-heading);
+  font-size: var(--font-size-5);
+  color: var(--color-neutral-12);
+  margin-bottom: var(--space-3);
+}
+
+.caseStudyParagraph {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-10);
+  line-height: var(--font-lineheight-3);
+}
+
+.caseStudySidebar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-top: var(--space-2);
+}
+
+.projectStat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.projectStatLabel {
+  font-size: var(--font-size-1);
+  color: var(--color-neutral-9);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.projectStatValue {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-12);
+  font-weight: 500;
+}
+
+/* GitHub Stats */
+.githubStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+.githubStat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-2);
+  color: var(--color-neutral-10);
+  font-weight: 500;
+}
+
+.languageDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-accent-9);
+}
+
+/* Image Header Content */
+.imageHeaderContent {
+  position: absolute;
+  bottom: var(--space-6);
+  left: var(--space-6);
+  right: var(--space-6);
+  z-index: 2;
+}
+
+.imageHeaderContent .expandedProjectTitle {
+  color: white;
+  margin-bottom: 0;
+}
+
+/* Features List */
+.featuresList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.featureItem {
+  font-size: var(--font-size-3);
+  color: var(--color-neutral-10);
+  line-height: var(--font-lineheight-2);
+  padding-left: var(--space-5);
+  position: relative;
+}
+
+.featureItem::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent-9);
+  font-weight: 600;
+}
+
+/* Tech Stack Grid */
+.techStackGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.techItem {
+  font-size: var(--font-size-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-3);
+  background: var(--color-accent-3);
+  color: var(--color-accent-11);
+  border: 1px solid var(--color-accent-6);
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* View Toggle */
+.viewToggle {
+  position: absolute;
+  top: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: row; /* Luôn hiển thị theo chiều ngang */
+  gap: var(--space-2);
+  background: var(--color-neutral-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-4);
+  border: 1px solid var(--color-neutral-4);
+  backdrop-filter: blur(10px);
+}
+
+.toggleButton {
+  min-width: 120px;
+  transition: all 0.2s var(--ease);
+}
+
+/* Iframe Container */
+.iframeContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: var(--color-neutral-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+}
+
+/* View Toggle Bottom - Khi đang xem Live Demo trên mobile */
+.viewToggleBottom {
+  position: fixed;
+  top: 50%;
+  left: 21.6px;
+  transform: translate(-50%, -21px) rotate(90deg);
+  transform-origin: center center;
+  border-radius: var(--radius-4);
+  border: 1px solid var(--color-neutral-4);
+  flex-direction: row;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .expandedProjectTitle {
+    font-size: var(--font-size-6);
+  }
+
+  .caseStudyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .expandedProjectImageHeader {
+    height: 40vh;
+  }
+
+  .viewToggle {
+    top: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    transform: none;
+    width: auto;
+    flex-direction: row;
+  }
+
+  .toggleButton {
+    flex: 1;
+    min-width: auto;
+  }
+
+  /* Iframe mode responsive - ViewToggle xoay 90 độ, sát viền trái, giữa màn hình */
+  :global(.in-iframe) .viewToggle,
+  .viewToggleBottom {
+    position: fixed;
+    top: 50%;
+    left: 21.6px;
+    transform: translate(-50%, -21px) rotate(90deg);
+    transform-origin: center center;
+    border-radius: var(--radius-4);
+    border: 1px solid var(--color-neutral-4);
+    flex-direction: row;
+    width: auto;
+    right: auto;
+  }
+
+  .viewToggleBottom .toggleButton {
+    min-width: 100px;
+    flex: 0 0 auto;
+  }
+}

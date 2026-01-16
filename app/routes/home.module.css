@@ -1,0 +1,5 @@
+/* Home Page - Shared Styles */
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
+}

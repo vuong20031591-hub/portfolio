@@ -1,0 +1,188 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 400vh;
+  background-color: var(--color-neutral-1);
+  z-index: 2;
+}
+
+.stickyWrapper {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.cardsTrack {
+  display: flex;
+  gap: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cardContainer {
+  min-width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Card với layout ngang: ảnh tròn bên trái + nội dung bên phải */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  max-width: 1100px; /* Tăng thêm */
+  width: 100%;
+  position: relative;
+}
+
+/* Vùng chứa ảnh tròn - nhô ra ngoài */
+.visualArea {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  margin-right: -70px; /* Nhô vào content area nhiều hơn */
+}
+
+.visualCircle {
+  width: clamp(200px, 28vw, 320px); /* Tăng thêm nhiều */
+  height: clamp(200px, 28vw, 320px);
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-accent-2), var(--color-neutral-2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px var(--color-accent-3);
+  overflow: hidden;
+  position: relative;
+}
+
+.visualCircle::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  border: 1px dashed var(--color-accent-5);
+  opacity: 0.4;
+}
+
+.visualImage {
+  width: 90%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Vùng nội dung - khung bo góc bên phải */
+.textArea {
+  flex: 1;
+  background: var(--color-neutral-3);
+  padding: var(--space-9) var(--space-10);
+  padding-left: 110px; 
+  border-radius: 0 var(--radius-4) var(--radius-4) 0;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Bo góc trái cong theo ảnh */
+.textArea::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 140px; /* Tăng để match với padding */
+  background: var(--color-neutral-3);
+  border-radius: 50% 0 0 50% / 50% 0 0 50%;
+}
+
+/* Số thứ tự mờ - nằm trong textArea */
+.cardNumber {
+  position: absolute;
+  bottom: -25px;
+  right: 25px;
+  font-size: clamp(12rem, 22vw, 18rem); /* Tăng size */
+  font-weight: 900;
+  line-height: 1;
+  color: var(--color-neutral-4);
+  z-index: 0;
+  pointer-events: none;
+  font-family: var(--font-heading);
+  opacity: 0.5;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4.5vw, 3rem); /* Tăng thêm */
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  color: var(--color-neutral-12);
+  line-height: 1.2;
+  position: relative;
+  z-index: 2;
+}
+
+.description {
+  font-family: var(--font-body);
+  font-size: clamp(1.15rem, 2.2vw, 1.5rem); /* Tăng thêm */
+  line-height: 1.7;
+  color: var(--color-neutral-11);
+  position: relative;
+  z-index: 2;
+}
+
+.decoration {
+  display: none;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 640px) {
+  .card {
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 400px;
+  }
+
+  .cardNumber {
+    bottom: -15px;
+    right: 15px;
+    font-size: 8rem;
+  }
+
+  .visualArea {
+    margin-right: 0;
+    margin-bottom: -50px;
+  }
+
+  .visualCircle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .textArea {
+    padding: var(--space-7);
+    padding-top: calc(var(--space-7) + 40px);
+    border-radius: var(--radius-4);
+    text-align: center;
+    min-height: 200px;
+  }
+
+  .textArea::before {
+    display: none;
+  }
+}

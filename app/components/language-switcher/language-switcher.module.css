@@ -1,0 +1,41 @@
+.currentFlag {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.currentCode {
+  font-size: var(--font-size-1);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.label {
+  margin-left: var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  cursor: pointer;
+}
+
+.option[data-selected="true"] {
+  background-color: var(--color-accent-3);
+  color: var(--color-accent-11);
+}
+
+.flag {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.langLabel {
+  font-size: var(--font-size-sm);
+}

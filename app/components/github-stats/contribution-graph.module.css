@@ -1,0 +1,169 @@
+.container {
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-2);
+  padding: var(--space-4);
+}
+
+.header {
+  margin-bottom: var(--space-3);
+}
+
+.totalText {
+  font-size: var(--font-size-1);
+  color: var(--color-neutral-11);
+}
+
+.graphWrapper {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.dayLabels {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-top: 20px;
+}
+
+.dayLabel {
+  font-size: 9px;
+  color: var(--color-neutral-9);
+  height: 11px;
+  line-height: 11px;
+}
+
+.graphContainer {
+  flex: 1;
+  min-width: 0;
+}
+
+.monthLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+  padding-right: var(--space-2);
+}
+
+.monthLabel {
+  font-size: 10px;
+  color: var(--color-neutral-9);
+  flex: 1;
+  text-align: left;
+}
+
+.graph {
+  display: flex;
+  gap: 3px;
+}
+
+.week {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.day {
+  width: 11px;
+  height: 11px;
+  border-radius: 2px;
+  transition: transform 0.1s ease;
+}
+
+.day:hover {
+  transform: scale(1.2);
+}
+
+.day:focus {
+  outline: 2px solid var(--color-accent-9);
+  outline-offset: 1px;
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.empty {
+  background: transparent;
+}
+
+/* Contribution levels - GitHub green colors */
+.level0 {
+  background: var(--color-neutral-4);
+}
+
+.level1 {
+  background: #0e4429;
+}
+
+.level2 {
+  background: #006d32;
+}
+
+.level3 {
+  background: #26a641;
+}
+
+.level4 {
+  background: #39d353;
+}
+
+/* Light mode adjustments */
+:global(.light) .level0 {
+  background: #ebedf0;
+}
+
+:global(.light) .level1 {
+  background: #9be9a8;
+}
+
+:global(.light) .level2 {
+  background: #40c463;
+}
+
+:global(.light) .level3 {
+  background: #30a14e;
+}
+
+:global(.light) .level4 {
+  background: #216e39;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  margin-top: var(--space-3);
+}
+
+.legendText {
+  font-size: 10px;
+  color: var(--color-neutral-9);
+  margin: 0 var(--space-1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .graphWrapper {
+    overflow-x: auto;
+  }
+  
+  .graph {
+    min-width: 700px;
+  }
+}
+
+/* Empty & Error states */
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  color: var(--color-neutral-9);
+  font-size: var(--font-size-1);
+}
+
+.errorText {
+  color: var(--color-red-9);
+}

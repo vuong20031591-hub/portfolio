@@ -1,0 +1,110 @@
+/* Back to Top Button Styles */
+
+.backToTop {
+  /* Fixed position bottom-right */
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 100;
+
+  /* Size & Shape */
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-round);
+  border: none;
+  
+  /* Colors - sử dụng semantic colors từ design system */
+  background: var(--color-neutral-12);
+  color: var(--color-neutral-1);
+  
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Cursor */
+  cursor: pointer;
+  
+  /* Shadow */
+  box-shadow: var(--shadow-3);
+  
+  /* Transitions */
+  transition: 
+    opacity 0.3s var(--ease),
+    transform 0.3s var(--ease),
+    background-color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+  
+  /* Initial hidden state */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+}
+
+/* Visible state */
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Hover state */
+.backToTop:hover {
+  background: var(--color-accent-9);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-4);
+}
+
+/* Active/Pressed state */
+.backToTop:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-2);
+}
+
+/* Focus state cho keyboard users */
+.backToTop:focus-visible {
+  outline: none;
+  box-shadow: 
+    0 0 0 3px var(--color-neutral-1),
+    0 0 0 5px var(--color-accent-9);
+}
+
+/* Icon styling */
+.icon {
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+/* Reduced motion - disable animations */
+@media (prefers-reduced-motion: reduce) {
+  .backToTop {
+    transition: none;
+  }
+  
+  .backToTop:hover {
+    transform: none;
+  }
+}
+
+/* Responsive - smaller on mobile */
+@media (max-width: 640px) {
+  .backToTop {
+    width: 44px;
+    height: 44px;
+    bottom: var(--space-4);
+    right: var(--space-4);
+  }
+  
+  .icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Iframe Mode - Ẩn back-to-top button */
+:global(.in-iframe) .backToTop,
+:global(.modal-iframe-active) .backToTop,
+:global(.modal-info-active) .backToTop {
+  display: none !important;
+}

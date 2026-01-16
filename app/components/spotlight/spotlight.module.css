@@ -1,0 +1,33 @@
+/* Spotlight cursor effect - follows mouse position */
+.spotlight {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+  
+  /* Radial gradient spotlight */
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--spotlight-x) var(--spotlight-y),
+    rgba(var(--color-accent-rgb, 139, 92, 246), 0.08) 0%,
+    rgba(var(--color-accent-rgb, 139, 92, 246), 0.04) 25%,
+    transparent 60%
+  );
+}
+
+/* Hide on mobile/touch devices */
+@media (pointer: coarse) {
+  .spotlight {
+    display: none;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spotlight {
+    display: none;
+  }
+}

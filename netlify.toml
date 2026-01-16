@@ -1,0 +1,33 @@
+# Netlify Configuration
+[build]
+  command = "npm run build"
+  publish = "build/client"
+  functions = ".netlify/functions"
+
+# Build settings
+[build.environment]
+  NODE_VERSION = "20"
+
+# Forms configuration
+[[plugins]]
+  package = "@netlify/plugin-forms"
+
+# Form spam protection
+[forms]
+  # Enable spam filtering
+  spam_filter = true
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirects and rewrites
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
