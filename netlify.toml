@@ -20,9 +20,3 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# React Router SSR - Redirect all requests to server function
-[[redirects]]
-  from = "/*"
-  to = "/.netlify/functions/react-router-server/:splat"
-  status = 200
-  force = true
