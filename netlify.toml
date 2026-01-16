@@ -2,7 +2,9 @@
 [build]
   command = "npm run build"
   publish = "build/client"
-  functions = ".netlify/functions"
+
+[functions]
+  directory = ".netlify/v1/functions"
 
 # Build settings
 [build.environment]
@@ -22,8 +24,8 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Redirects and rewrites
+# Redirects for React Router SSR
 [[redirects]]
   from = "/*"
-  to = "/index.html"
+  to = "/.netlify/functions/react-router-server"
   status = 200
