@@ -1,10 +1,7 @@
-# Netlify Configuration
+# Netlify Configuration for React Router v7
 [build]
   command = "npm run build"
   publish = "build/client"
-
-[functions]
-  directory = ".netlify/v1/functions"
 
 # Build settings
 [build.environment]
@@ -12,7 +9,6 @@
 
 # Form spam protection
 [forms]
-  # Enable spam filtering
   spam_filter = true
 
 # Headers for security
@@ -24,8 +20,9 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Redirects for React Router SSR
+# React Router SSR - Redirect all requests to server function
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/react-router-server"
+  to = "/.netlify/functions/react-router-server/:splat"
   status = 200
+  force = true
