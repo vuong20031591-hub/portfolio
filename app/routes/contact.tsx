@@ -7,7 +7,7 @@ import { ScrollReveal } from "~/components/ui/scroll-reveal";
 import { useLanguage } from "~/contexts/language";
 import { useContactForm } from "~/hooks/use-contact-form";
 
-const FORM_NAME = "contact-page";
+const FORM_NAME = "contact";
 
 export function meta({}: Route.MetaArgs) {
   return [
