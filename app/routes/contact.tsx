@@ -7,8 +7,6 @@ import { ScrollReveal } from "~/components/ui/scroll-reveal";
 import { useLanguage } from "~/contexts/language";
 import { useContactForm } from "~/hooks/use-contact-form";
 
-const FORM_NAME = "contact";
-
 export function meta({}: Route.MetaArgs) {
   return [
     { title: "Contact - VuongTech" },
@@ -21,7 +19,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Contact() {
   const { t } = useLanguage();
-  const { formData, status, handleChange, handleSubmit } = useContactForm(FORM_NAME);
+  const { formData, status, handleChange, handleSubmit } = useContactForm("contact");
   const isLoading = status === "loading";
 
   return (
@@ -126,18 +124,7 @@ export default function Contact() {
                   <p>{t.contact.successMessage}</p>
                 </div>
               ) : (
-                <>
-                  {/* Hidden form for Netlify detection */}
-                  <form name={FORM_NAME} data-netlify="true" data-netlify-honeypot="bot-field" hidden>
-                    <input type="text" name="name" />
-                    <input type="email" name="email" />
-                    <textarea name="message" />
-                  </form>
-
-                  <form className={styles.form} onSubmit={handleSubmit}>
-                    <input type="hidden" name="form-name" value={FORM_NAME} />
-                    {/* Honeypot field - chống spam bot */}
-                    <input type="text" name="bot-field" style={{ display: 'none' }} tabIndex={-1} autoComplete="off" />
+                <form className={styles.form} onSubmit={handleSubmit}>
 
                     <div className={styles.formGroup}>
                       <label htmlFor="name" className={styles.label}>
@@ -206,7 +193,6 @@ export default function Contact() {
                       )}
                     </button>
                   </form>
-                </>
               )}
             </div>
           </ScrollReveal>

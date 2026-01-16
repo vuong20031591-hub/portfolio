@@ -51,8 +51,8 @@ Portfolio website hiện đại được thiết kế để showcase các dự �
 - **Filtering & Search** - (Roadmap feature)
 
 ### Contact
-- **Contact Form** - React Hook Form + Zod validation
-- **Rate Limiting** - Spam protection
+- **Contact Form** - Web3Forms integration với spam protection
+- **Rate Limiting** - Ngăn chặn spam submissions
 - **Toast Notifications** - User feedback với Sonner
 
 ---
@@ -110,8 +110,51 @@ graph TB
 | **State Management** | Context API |
 | **Data Fetching** | React Router Loaders (SSR) |
 | **Build Tool** | Vite 7 |
-| **Deployment** | Netlify |
-| **APIs** | GitHub GraphQL & REST API |
+| **Deployment** | Vercel |
+| **APIs** | GitHub GraphQL & REST API, Web3Forms |
+
+---
+
+## Deployment
+
+### Deploy to Vercel
+
+1. **Push code lên GitHub:**
+```bash
+git add .
+git commit -m "chore: migrate from Netlify to Vercel"
+git push origin main
+```
+
+2. **Import project vào Vercel:**
+   - Truy cập [Vercel Dashboard](https://vercel.com/new)
+   - Click "Import Project"
+   - Chọn repository GitHub của bạn
+   - Vercel sẽ tự động detect React Router v7
+
+3. **Configure Environment Variables:**
+   
+   Trong Vercel Dashboard → Settings → Environment Variables, thêm:
+   
+   ```env
+   GITHUB_TOKEN=ghp_your_token_here
+   VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key_here
+   VITE_CONTACT_FORM_MAX_SUBMISSIONS=3
+   VITE_CONTACT_FORM_RATE_LIMIT_WINDOW=60000
+   ```
+
+4. **Deploy:**
+   - Click "Deploy"
+   - Đợi build hoàn tất (2-3 phút)
+   - Website sẽ live tại `https://your-project.vercel.app`
+
+### Web3Forms Setup
+
+1. Truy cập [Web3Forms](https://web3forms.com)
+2. Nhập email của bạn để nhận submissions
+3. Copy Access Key
+4. Paste vào `VITE_WEB3FORMS_ACCESS_KEY` trong Vercel Environment Variables
+5. Test form bằng cách submit thử
 
 ---
 

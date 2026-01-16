@@ -98,7 +98,7 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_DATA);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const submitTimeoutRef = useRef<NodeJS.Timeout>();
+  const submitTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const handleChange = useCallback((field: keyof ContactFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -130,19 +130,34 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
     setErrorMessage("");
 
     try {
-      // Encode form data cho Netlify Forms
-      const body = new URLSearchParams({
-        "form-name": formName,
-        ...formData,
-      }).toString();
+      // Get Web3Forms access key from environment
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      
+      if (!accessKey) {
+        throw new Error("Web3Forms access key not configured. Please add VITE_WEB3FORMS_ACCESS_KEY to .env");
+      }
 
-      const response = await fetch("/", {
+      // Prepare form data for Web3Forms
+      const formPayload = {
+        access_key: accessKey,
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        subject: `New Contact Form Submission from ${formData.name}`,
+      };
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
+        headers: { 
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(formPayload),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (result.success) {
         // Ghi nhận submission thành công
         recordSubmission(formName);
         
@@ -154,13 +169,7 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
           setStatus("idle");
         }, 5000);
       } else {
-        // Xử lý error chi tiết hơn
-        const errorMsg = response.status === 404
-          ? "Form configuration error. Please contact support."
-          : response.status === 429
-          ? "Too many requests. Please try again later."
-          : "Failed to send message. Please try again.";
-        throw new Error(errorMsg);
+        throw new Error(result.message || "Failed to send message. Please try again.");
       }
     } catch (error) {
       setStatus("error");
