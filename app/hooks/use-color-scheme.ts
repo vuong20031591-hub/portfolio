@@ -44,15 +44,36 @@ export function useColorScheme(): UseColorSchemeReturn {
     resolveScheme(getStoredScheme())
   );
 
+  // ⚡ Áp dụng theme ngay khi component mount (hydration)
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.className = resolvedScheme;
+      document.documentElement.style.colorScheme = resolvedScheme;
+    }
+  }, []); // Chỉ chạy 1 lần khi mount
+
   useEffect(() => {
     // Update resolved scheme when config changes
-    setResolvedScheme(resolveScheme(configScheme));
+    const newResolvedScheme = resolveScheme(configScheme);
+    setResolvedScheme(newResolvedScheme);
+
+    // ⚡ Cập nhật DOM trực tiếp để theme thay đổi ngay lập tức
+    if (typeof document !== "undefined") {
+      document.documentElement.className = newResolvedScheme;
+      document.documentElement.style.colorScheme = newResolvedScheme;
+    }
 
     // Listen to system preference changes
     const mediaQuery = window.matchMedia(MEDIA_QUERY);
     const handleChange = () => {
       if (configScheme === "system") {
-        setResolvedScheme(getSystemScheme());
+        const systemScheme = getSystemScheme();
+        setResolvedScheme(systemScheme);
+        // ⚡ Cập nhật DOM khi system preference thay đổi
+        if (typeof document !== "undefined") {
+          document.documentElement.className = systemScheme;
+          document.documentElement.style.colorScheme = systemScheme;
+        }
       }
     };
 
