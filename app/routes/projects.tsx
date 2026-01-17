@@ -29,7 +29,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   try {
     // Access Cloudflare Secrets via context.cloudflare.env
-    const env = context.cloudflare?.env as Record<string, unknown> | undefined;
+    // Type assertion needed because React Router types don't include Cloudflare-specific context
+    const env = (context as any).cloudflare?.env as Record<string, unknown> | undefined;
     console.log("🔍 Loader - context.env.GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
     
     const projects = await fetchFeaturedProjects(language, env);

@@ -36,7 +36,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   try {
     // Access Cloudflare Secrets via context.cloudflare.env
-    const env = context.cloudflare?.env as Record<string, unknown> | undefined;
+    // Type assertion needed because React Router types don't include Cloudflare-specific context
+    const env = (context as any).cloudflare?.env as Record<string, unknown> | undefined;
     const projects = await fetchFeaturedProjects(language, env);
     return { projects, error: null };
   } catch (error) {
