@@ -61,7 +61,8 @@ function getContributionLevel(count: number): 0 | 1 | 2 | 3 | 4 {
  * Includes in-memory caching to avoid repeated API calls
  */
 export async function fetchGitHubContributions(
-  username: string
+  username: string,
+  env?: Record<string, unknown>
 ): Promise<GitHubContributions> {
   // Check cache first
   const cached = contributionsCache.get(username);
@@ -70,7 +71,7 @@ export async function fetchGitHubContributions(
   }
 
   const { getEnv } = await import("~/lib/env.server");
-  const token = getEnv("GITHUB_TOKEN");
+  const token = getEnv("GITHUB_TOKEN", env);
 
   if (!token) {
     return {
@@ -234,7 +235,10 @@ const statsCache = new Map<string, { data: GitHubStatsData; timestamp: number }>
  * Fetch GitHub user stats (profile + repos)
  * Server-side only with caching
  */
-export async function fetchGitHubStats(username: string): Promise<GitHubStatsData> {
+export async function fetchGitHubStats(
+  username: string,
+  env?: Record<string, unknown>
+): Promise<GitHubStatsData> {
   // Check cache first
   const cached = statsCache.get(username);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
@@ -242,7 +246,7 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStatsDat
   }
 
   const { getEnv } = await import("~/lib/env.server");
-  const token = getEnv("GITHUB_TOKEN");
+  const token = getEnv("GITHUB_TOKEN", env);
   const headers: HeadersInit = {
     Accept: "application/vnd.github.v3+json",
   };

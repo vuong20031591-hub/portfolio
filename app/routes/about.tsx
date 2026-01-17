@@ -32,14 +32,18 @@ export function meta({}: Route.MetaArgs) {
  * Server-side loader to fetch GitHub data
  * This runs on the server and has access to environment variables
  */
-export async function loader({}: Route.LoaderArgs): Promise<{ 
+export async function loader({ context }: Route.LoaderArgs): Promise<{ 
   contributions: GitHubContributions;
   stats: GitHubStatsData;
 }> {
+  // Access Cloudflare Secrets via context.cloudflare.env
+  const cloudflareContext = context as { cloudflare?: { env?: Record<string, unknown> } };
+  const env = cloudflareContext.cloudflare?.env;
+  
   // Fetch both contributions and stats in parallel
   const [contributions, stats] = await Promise.all([
-    fetchGitHubContributions(GITHUB_USERNAME),
-    fetchGitHubStats(GITHUB_USERNAME),
+    fetchGitHubContributions(GITHUB_USERNAME, env),
+    fetchGitHubStats(GITHUB_USERNAME, env),
   ]);
   
   return { contributions, stats };
