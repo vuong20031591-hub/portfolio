@@ -11,8 +11,14 @@ export const onRequest = createPagesFunctionHandler({
     // NOT from context.cloudflare.env
     // See: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables
     
-    console.log("🔍 Functions adapter - context.env keys:", Object.keys(context.env));
-    console.log("🔍 Functions adapter - GITHUB_TOKEN exists:", "GITHUB_TOKEN" in context.env);
+    try {
+      // Safe logging
+      const envKeys = context.env ? Object.keys(context.env) : [];
+      console.log("🔍 Functions adapter - env keys:", envKeys.join(", "));
+      console.log("🔍 Functions adapter - GITHUB_TOKEN exists:", context.env && "GITHUB_TOKEN" in context.env);
+    } catch (error) {
+      console.error("Error logging env:", error);
+    }
     
     return {
       cloudflare: {
