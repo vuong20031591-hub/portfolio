@@ -3,9 +3,7 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "build/client"
 
-# Environment variables - IMPORTANT: Set actual values in Cloudflare Dashboard
-# These are just placeholders to tell Cloudflare which vars to inject
-# Go to: Dashboard > Workers & Pages > portfolio > Settings > Variables and Secrets
-[vars]
-# Placeholder - actual value must be set as Secret in Cloudflare Dashboard
-# GITHUB_TOKEN will be injected from Dashboard at runtime
+# Secrets are managed via Cloudflare Dashboard:
+# Dashboard > Workers & Pages > portfolio > Settings > Variables and Secrets
+# Required secrets:
+# - GITHUB_TOKEN (encrypted)
