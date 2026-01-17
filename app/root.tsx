@@ -38,9 +38,13 @@ export const links: Route.LinksFunction = () => [
 /**
  * Loader to inject R2 CDN URL into client-side
  */
-export async function loader() {
+export async function loader({ context }: Route.LoaderArgs) {
+  // Access Cloudflare Secrets via context.cloudflare.env
+  const cloudflareContext = context as { cloudflare?: { env?: Record<string, unknown> } };
+  const env = cloudflareContext.cloudflare?.env;
+  
   return {
-    r2PublicUrl: getR2PublicUrl(),
+    r2PublicUrl: getR2PublicUrl(env),
   };
 }
 

@@ -29,9 +29,13 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   try {
     // Access Cloudflare Secrets via context.cloudflare.env
-    // Type assertion needed because React Router types don't include Cloudflare-specific context
-    const env = (context as any).cloudflare?.env as Record<string, unknown> | undefined;
-    console.log("🔍 Loader - context.env.GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
+    // Cloudflare injects secrets into context.cloudflare.env
+    const cloudflareContext = context as { cloudflare?: { env?: Record<string, unknown> } };
+    const env = cloudflareContext.cloudflare?.env;
+    
+    console.log("🔍 Loader - has cloudflare context:", !!cloudflareContext.cloudflare);
+    console.log("🔍 Loader - has env:", !!env);
+    console.log("🔍 Loader - GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
     
     const projects = await fetchFeaturedProjects(language, env);
     
@@ -49,7 +53,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     
     return { projects, error: null };
   } catch (error) {
-    console.error("Failed to fetch GitHub projects:", error);
+    console.error("❌ Loader error:", error);
     return { projects: [], error: "Failed to load projects" };
   }
 }

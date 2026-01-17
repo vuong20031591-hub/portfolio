@@ -86,7 +86,15 @@ export const CDN_CONFIG = {
 /**
  * Helper to inject R2_PUBLIC_URL into client-side
  * Call this in root.tsx loader
+ * @param env - Optional Cloudflare env object (for production)
  */
-export function getR2PublicUrl(): string {
+export function getR2PublicUrl(env?: Record<string, unknown>): string {
+  // Priority 1: Use env from Cloudflare context (production)
+  if (env && 'R2_PUBLIC_URL' in env) {
+    const value = env.R2_PUBLIC_URL;
+    return typeof value === 'string' ? value : String(value);
+  }
+  
+  // Priority 2: Fallback to process.env (local dev)
   return process.env.R2_PUBLIC_URL || '';
 }

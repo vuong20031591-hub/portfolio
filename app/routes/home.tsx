@@ -36,12 +36,12 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   try {
     // Access Cloudflare Secrets via context.cloudflare.env
-    // Type assertion needed because React Router types don't include Cloudflare-specific context
-    const env = (context as any).cloudflare?.env as Record<string, unknown> | undefined;
+    const cloudflareContext = context as { cloudflare?: { env?: Record<string, unknown> } };
+    const env = cloudflareContext.cloudflare?.env;
     const projects = await fetchFeaturedProjects(language, env);
     return { projects, error: null };
   } catch (error) {
-    console.error("Failed to fetch GitHub projects:", error);
+    console.error("❌ Home loader error:", error);
     return { projects: [], error: "Failed to load projects" };
   }
 }
