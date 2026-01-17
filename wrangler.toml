@@ -3,7 +3,6 @@ compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 pages_build_output_dir = "build/client"
 
-# Environment variables
+# Environment variables for development
 [vars]
-# Add your environment variables here
-# GITHUB_TOKEN will be set in Cloudflare dashboard
+# These will be overridden by Cloudflare Dashboard secrets in production

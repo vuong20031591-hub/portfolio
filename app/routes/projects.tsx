@@ -22,13 +22,7 @@ export function meta({}: Route.MetaArgs) {
 }
 
 // Loader để fetch GitHub projects từ server
-export async function loader({ request, context }: Route.LoaderArgs) {
-  // Set Cloudflare context for env access
-  if (context?.cloudflare?.env) {
-    const { setRequestContext } = await import("~/lib/env.server");
-    setRequestContext({ env: context.cloudflare.env });
-  }
-
+export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie") || "";
   const langMatch = cookieHeader.match(/preferred-language=(en|vi)/);
   const language = (langMatch?.[1] as "en" | "vi") || "en";
@@ -39,12 +33,6 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   } catch (error) {
     console.error("Failed to fetch GitHub projects:", error);
     return { projects: [], error: "Failed to load projects" };
-  } finally {
-    // Clear context after request
-    if (context?.cloudflare?.env) {
-      const { clearRequestContext } = await import("~/lib/env.server");
-      clearRequestContext();
-    }
   }
 }
 
