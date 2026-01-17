@@ -105,6 +105,7 @@ export async function fetchGitHubContributions(
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
+        "User-Agent": "Portfolio-App/1.0",
       },
       body: JSON.stringify({
         query,
@@ -249,9 +250,10 @@ export async function fetchGitHubStats(
   const token = getEnv("GITHUB_TOKEN", env);
   const headers: HeadersInit = {
     Accept: "application/vnd.github.v3+json",
+    "User-Agent": "Portfolio-App/1.0",
   };
   if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    headers.Authorization = `token ${token}`;
   }
 
   try {
