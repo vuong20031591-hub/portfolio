@@ -264,7 +264,8 @@ async function fetchRepoInfo(
       Accept: "application/vnd.github.v3+json",
     };
     if (token) {
-      headers.Authorization = `Bearer ${token}`;
+      // GitHub Personal Access Tokens use "token" prefix, not "Bearer"
+      headers.Authorization = `token ${token}`;
     }
 
     const response = await fetch(
@@ -327,7 +328,8 @@ async function fetchReadme(
       Accept: "application/vnd.github.v3.raw",
     };
     if (token) {
-      headers.Authorization = `Bearer ${token}`;
+      // GitHub Personal Access Tokens use "token" prefix, not "Bearer"
+      headers.Authorization = `token ${token}`;
     }
 
     const response = await fetch(
