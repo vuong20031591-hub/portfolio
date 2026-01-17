@@ -29,6 +29,19 @@ export async function loader({ request }: Route.LoaderArgs) {
 
   try {
     const projects = await fetchFeaturedProjects(language);
+    
+    // If no projects returned, check if it's due to missing token
+    if (projects.length === 0) {
+      const { getEnv } = await import("~/lib/env.server");
+      const token = getEnv("GITHUB_TOKEN");
+      if (!token) {
+        return { 
+          projects: [], 
+          error: "GitHub token not configured. Please contact administrator." 
+        };
+      }
+    }
+    
     return { projects, error: null };
   } catch (error) {
     console.error("Failed to fetch GitHub projects:", error);

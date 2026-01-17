@@ -117,15 +117,91 @@ graph TB
 
 ## Deployment
 
-### Deploy to Vercel
+### Deploy to Cloudflare Pages
 
 1. **Push code lên GitHub:**
 ```bash
 git add .
-git commit -m "chore: migrate from Netlify to Vercel"
+git commit -m "chore: deploy to Cloudflare Pages"
 git push origin main
 ```
 
+2. **Connect repository với Cloudflare Pages:**
+   - Truy cập [Cloudflare Dashboard](https://dash.cloudflare.com)
+   - Vào **Workers & Pages** → **Create application** → **Pages**
+   - Click **Connect to Git**
+   - Chọn repository GitHub của bạn
+   - Cloudflare sẽ tự động detect React Router v7
+
+3. **Build Configuration:**
+   ```
+   Build command: npm run build
+   Build output directory: build/client
+   Root directory: (leave empty)
+   ```
+
+4. **⚠️ QUAN TRỌNG - Configure Environment Variables:**
+   
+   Sau khi deploy lần đầu, vào **Settings** → **Environment Variables**:
+   
+   **Production Environment:**
+   ```env
+   GITHUB_TOKEN=ghp_your_token_here (Type: Secret)
+   VITE_WEB3FORMS_ACCESS_KEY=your_web3forms_key_here
+   VITE_CONTACT_FORM_MAX_SUBMISSIONS=3
+   VITE_CONTACT_FORM_RATE_LIMIT_WINDOW=60000
+   ```
+   
+   **⚠️ Lưu ý:** Sau khi thêm environment variables, BẮT BUỘC phải **Redeploy**:
+   - Vào tab **Deployments**
+   - Click **...** (3 dots) trên deployment mới nhất
+   - Chọn **Retry deployment**
+   - Đợi build hoàn tất (2-3 phút)
+
+5. **Verify Deployment:**
+   - Truy cập `https://your-project.pages.dev`
+   - Kiểm tra trang `/projects` có load được danh sách projects không
+   - Nếu vẫn thấy skeleton loading → kiểm tra lại GITHUB_TOKEN đã được set chưa
+
+### Deployment Checklist
+
+Trước khi deploy production, đảm bảo:
+
+- [ ] ✅ Code đã được test kỹ ở local (`npm run dev`)
+- [ ] ✅ Build thành công (`npm run build`)
+- [ ] ✅ TypeScript không có lỗi (`npm run typecheck`)
+- [ ] ✅ Đã tạo GitHub Personal Access Token với scopes: `read:user`, `public_repo`
+- [ ] ✅ Đã config GITHUB_TOKEN trong Cloudflare Dashboard
+- [ ] ✅ Đã config Web3Forms Access Key (nếu dùng contact form)
+- [ ] ✅ Đã Redeploy sau khi thêm environment variables
+- [ ] ✅ Test tất cả pages trên production URL
+- [ ] ✅ Test responsive trên mobile/tablet
+- [ ] ✅ Test dark/light mode
+- [ ] ✅ Test language switcher (EN/VI)
+
+### Troubleshooting
+
+**Vấn đề: Trang `/projects` chỉ hiển thị skeleton loading**
+
+Nguyên nhân: `GITHUB_TOKEN` chưa được cấu hình hoặc chưa redeploy sau khi config.
+
+Giải pháp:
+1. Vào Cloudflare Dashboard → Workers & Pages → [your-project]
+2. Settings → Environment Variables
+3. Kiểm tra `GITHUB_TOKEN` đã được set chưa
+4. Nếu chưa: Add variable với type **Secret**
+5. Nếu đã có: Vào Deployments → Retry deployment
+6. Đợi build xong và test lại
+
+**Vấn đề: Build failed với error "Could not determine server runtime"**
+
+Nguyên nhân: Thiếu `app/entry.server.tsx` hoặc config sai.
+
+Giải pháp: Đảm bảo file `app/entry.server.tsx` tồn tại và có nội dung đúng.
+
+### Deploy to Vercel (Alternative)
+
+1. **Push code lên GitHub**
 2. **Import project vào Vercel:**
    - Truy cập [Vercel Dashboard](https://vercel.com/new)
    - Click "Import Project"

@@ -433,6 +433,12 @@ export async function fetchFeaturedProjects(
   const { getEnv } = await import("~/lib/env.server");
   const token = getEnv("GITHUB_TOKEN");
 
+  if (!token) {
+    console.error("❌ GITHUB_TOKEN not configured. Projects will be empty.");
+    console.error("Please set GITHUB_TOKEN in Cloudflare Dashboard > Settings > Environment Variables");
+    return [];
+  }
+
   // Fetch all repos in parallel
   const projectPromises = FEATURED_REPOS.map(async ({ owner, repo }) => {
     const [repoInfo, readme] = await Promise.all([
