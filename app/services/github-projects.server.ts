@@ -275,9 +275,7 @@ async function fetchRepoInfo(
     );
 
     if (!response.ok) {
-      const errorBody = await response.text();
-      console.error(`❌ Failed to fetch repo ${owner}/${repo}: ${response.status}`);
-      console.error(`❌ Response body:`, errorBody);
+      console.error(`Failed to fetch repo ${owner}/${repo}: ${response.status}`);
       return null;
     }
 
@@ -441,12 +439,9 @@ export async function fetchFeaturedProjects(
   const token = getEnv("GITHUB_TOKEN", env);
 
   if (!token) {
-    console.error("❌ GITHUB_TOKEN not configured. Projects will be empty.");
-    console.error("Please set GITHUB_TOKEN via: wrangler pages secret put GITHUB_TOKEN --project-name=portfolio");
+    console.error("GITHUB_TOKEN not configured");
     return [];
   }
-
-  console.log("✅ GITHUB_TOKEN found, fetching projects...");
 
   // Fetch all repos in parallel
   const projectPromises = FEATURED_REPOS.map(async ({ owner, repo }) => {

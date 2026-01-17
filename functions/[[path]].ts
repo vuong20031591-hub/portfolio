@@ -18,17 +18,13 @@ export const onRequest = createPagesFunctionHandler({
       // Secrets from Dashboard are available in context.cloudflare.env
       const env = context.cloudflare.env as CloudflareEnv;
       
-      console.log("🔍 Functions adapter - env type:", typeof env);
-      console.log("🔍 Functions adapter - GITHUB_TOKEN exists:", !!env?.GITHUB_TOKEN);
-      console.log("🔍 Functions adapter - GITHUB_TOKEN value:", env?.GITHUB_TOKEN ? "***" + env.GITHUB_TOKEN.slice(-4) : "undefined");
-      
       return {
         cloudflare: {
           env: env || {},
         },
       };
     } catch (error) {
-      console.error("❌ Functions adapter error:", error);
+      console.error("Functions adapter error:", error);
       return {
         cloudflare: {
           env: {},

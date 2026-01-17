@@ -29,13 +29,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
   try {
     // Access Cloudflare Secrets via context.cloudflare.env
-    // Cloudflare injects secrets into context.cloudflare.env
     const cloudflareContext = context as { cloudflare?: { env?: Record<string, unknown> } };
     const env = cloudflareContext.cloudflare?.env;
-    
-    console.log("🔍 Loader - has cloudflare context:", !!cloudflareContext.cloudflare);
-    console.log("🔍 Loader - has env:", !!env);
-    console.log("🔍 Loader - GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
     
     const projects = await fetchFeaturedProjects(language, env);
     
@@ -53,7 +48,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     
     return { projects, error: null };
   } catch (error) {
-    console.error("❌ Loader error:", error);
+    console.error("Projects loader error:", error);
     return { projects: [], error: "Failed to load projects" };
   }
 }

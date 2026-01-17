@@ -28,7 +28,7 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-// Loader để fetch GitHub projects từ server
+// Loader to fetch GitHub projects from server
 export async function loader({ request, context }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie") || "";
   const langMatch = cookieHeader.match(/preferred-language=(en|vi)/);
@@ -41,7 +41,7 @@ export async function loader({ request, context }: Route.LoaderArgs) {
     const projects = await fetchFeaturedProjects(language, env);
     return { projects, error: null };
   } catch (error) {
-    console.error("❌ Home loader error:", error);
+    console.error("Home loader error:", error);
     return { projects: [], error: "Failed to load projects" };
   }
 }
