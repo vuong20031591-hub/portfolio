@@ -68,6 +68,7 @@ desktop.ini
 .netlify/
 .vercel/
 .firebase/
+.wrangler/
 
 # Cache
 .cache/

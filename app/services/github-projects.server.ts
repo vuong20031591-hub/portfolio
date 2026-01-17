@@ -3,8 +3,6 @@
  * Fetches real project data from GitHub repositories
  */
 
-import "dotenv/config";
-
 // In-memory cache for projects (5 minutes TTL)
 const CACHE_TTL = 5 * 60 * 1000;
 const projectsCache = new Map<string, { data: FeaturedProject[]; timestamp: number }>();
@@ -279,7 +277,20 @@ async function fetchRepoInfo(
       return null;
     }
 
-    const data = await response.json();
+    const data = await response.json() as {
+      id: number;
+      name: string;
+      full_name: string;
+      description: string | null;
+      html_url: string;
+      homepage: string | null;
+      language: string | null;
+      topics: string[];
+      stargazers_count: number;
+      forks_count: number;
+      created_at: string;
+      updated_at: string;
+    };
 
     return {
       id: data.id.toString(),

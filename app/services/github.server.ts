@@ -3,8 +3,6 @@
  * Fetches contribution data using GitHub GraphQL API
  */
 
-import "dotenv/config";
-
 interface ContributionDay {
   date: string;
   contributionCount: number;

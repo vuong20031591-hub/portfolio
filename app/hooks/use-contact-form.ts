@@ -155,7 +155,7 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
         body: JSON.stringify(formPayload),
       });
 
-      const result = await response.json();
+      const result = await response.json() as { success: boolean; message?: string };
 
       if (result.success) {
         // Ghi nhận submission thành công
