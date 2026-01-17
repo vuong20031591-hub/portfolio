@@ -30,6 +30,12 @@ export async function loader({ request, context }: Route.LoaderArgs) {
   try {
     // Pass context.cloudflare.env to access Cloudflare environment variables
     const env = context.cloudflare?.env as Record<string, unknown> | undefined;
+    
+    // Debug: Log available env keys
+    console.log("🔍 Debug - context.cloudflare:", !!context.cloudflare);
+    console.log("🔍 Debug - env keys:", env ? Object.keys(env) : "no env");
+    console.log("🔍 Debug - GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
+    
     const projects = await fetchFeaturedProjects(language, env);
     
     // If no projects returned, check if it's due to missing token
