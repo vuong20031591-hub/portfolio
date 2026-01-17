@@ -430,7 +430,8 @@ export async function fetchFeaturedProjects(
     return cached.data;
   }
 
-  const token = process.env.GITHUB_TOKEN;
+  const { getEnv } = await import("~/lib/env.server");
+  const token = getEnv("GITHUB_TOKEN");
 
   // Fetch all repos in parallel
   const projectPromises = FEATURED_REPOS.map(async ({ owner, repo }) => {
@@ -481,7 +482,8 @@ export async function getProjectByName(
   const repoConfig = FEATURED_REPOS.find((r) => r.repo === repoName);
   if (!repoConfig) return null;
 
-  const token = process.env.GITHUB_TOKEN;
+  const { getEnv } = await import("~/lib/env.server");
+  const token = getEnv("GITHUB_TOKEN");
   const repoInfo = await fetchRepoInfo(repoConfig.owner, repoConfig.repo, token);
   if (!repoInfo) return null;
 

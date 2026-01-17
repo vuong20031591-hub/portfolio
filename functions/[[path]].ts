@@ -8,16 +8,12 @@ import * as build from "../build/server/index.js";
 export const onRequest = createPagesFunctionHandler({
   build,
   getLoadContext: (context): AppLoadContext => {
-    // Bind Cloudflare environment variables to process.env
-    // This makes them accessible in server-side code
-    if (context.env) {
-      Object.keys(context.env).forEach((key) => {
-        process.env[key] = context.env[key];
-      });
-    }
-    
     return {
-      cloudflare: context,
+      cloudflare: {
+        env: context.env,
+        cf: context.request.cf,
+        ctx: context.context,
+      },
     };
   },
 });

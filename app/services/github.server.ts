@@ -69,7 +69,8 @@ export async function fetchGitHubContributions(
     return cached.data;
   }
 
-  const token = process.env.GITHUB_TOKEN;
+  const { getEnv } = await import("~/lib/env.server");
+  const token = getEnv("GITHUB_TOKEN");
 
   if (!token) {
     return {
@@ -240,7 +241,8 @@ export async function fetchGitHubStats(username: string): Promise<GitHubStatsDat
     return cached.data;
   }
 
-  const token = process.env.GITHUB_TOKEN;
+  const { getEnv } = await import("~/lib/env.server");
+  const token = getEnv("GITHUB_TOKEN");
   const headers: HeadersInit = {
     Accept: "application/vnd.github.v3+json",
   };
