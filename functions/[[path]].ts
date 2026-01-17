@@ -4,29 +4,27 @@ import { createPagesFunctionHandler } from "@react-router/cloudflare";
 // @ts-ignore - build output will exist at runtime
 import * as build from "../build/server/index.js";
 
-// Type definition for Cloudflare Pages context
+// Type definition for Cloudflare environment
 interface CloudflareEnv {
   GITHUB_TOKEN?: string;
   [key: string]: string | undefined;
 }
 
-interface CloudflareContext {
-  env: CloudflareEnv;
-  // Add other Cloudflare context properties if needed
-}
-
 export const onRequest = createPagesFunctionHandler({
   build,
-  getLoadContext: (context: CloudflareContext) => {
+  getLoadContext: ({ context }) => {
     try {
-      // Secrets set via Wrangler CLI are available in context.env
-      console.log("🔍 Functions adapter - context.env type:", typeof context.env);
-      console.log("🔍 Functions adapter - GITHUB_TOKEN exists:", !!context.env?.GITHUB_TOKEN);
-      console.log("🔍 Functions adapter - GITHUB_TOKEN value:", context.env?.GITHUB_TOKEN ? "***" + context.env.GITHUB_TOKEN.slice(-4) : "undefined");
+      // React Router wraps Cloudflare context in args.context.cloudflare
+      // Secrets from Dashboard are available in context.cloudflare.env
+      const env = context.cloudflare.env as CloudflareEnv;
+      
+      console.log("🔍 Functions adapter - env type:", typeof env);
+      console.log("🔍 Functions adapter - GITHUB_TOKEN exists:", !!env?.GITHUB_TOKEN);
+      console.log("🔍 Functions adapter - GITHUB_TOKEN value:", env?.GITHUB_TOKEN ? "***" + env.GITHUB_TOKEN.slice(-4) : "undefined");
       
       return {
         cloudflare: {
-          env: context.env || {},
+          env: env || {},
         },
       };
     } catch (error) {
