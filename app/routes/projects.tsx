@@ -22,26 +22,21 @@ export function meta({}: Route.MetaArgs) {
 }
 
 // Loader để fetch GitHub projects từ server
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie") || "";
   const langMatch = cookieHeader.match(/preferred-language=(en|vi)/);
   const language = (langMatch?.[1] as "en" | "vi") || "en";
 
   try {
-    // Pass context.cloudflare.env to access Cloudflare environment variables
-    const env = context.cloudflare?.env as Record<string, unknown> | undefined;
+    // Debug: Check if GITHUB_TOKEN is available
+    console.log("🔍 Loader - process.env.GITHUB_TOKEN exists:", !!process.env.GITHUB_TOKEN);
     
-    // Debug: Log available env keys
-    console.log("🔍 Debug - context.cloudflare:", !!context.cloudflare);
-    console.log("🔍 Debug - env keys:", env ? Object.keys(env) : "no env");
-    console.log("🔍 Debug - GITHUB_TOKEN exists:", env && "GITHUB_TOKEN" in env);
-    
-    const projects = await fetchFeaturedProjects(language, env);
+    const projects = await fetchFeaturedProjects(language);
     
     // If no projects returned, check if it's due to missing token
     if (projects.length === 0) {
       const { getEnv } = await import("~/lib/env.server");
-      const token = getEnv("GITHUB_TOKEN", env);
+      const token = getEnv("GITHUB_TOKEN");
       if (!token) {
         return { 
           projects: [], 

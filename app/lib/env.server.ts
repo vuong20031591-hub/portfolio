@@ -1,22 +1,14 @@
 /**
  * Environment variable helper for Cloudflare Pages
  * 
- * IMPORTANT: On Cloudflare Pages, environment variables are accessed via context.env
- * This helper supports both:
- * - Local dev: process.env (from .env file)
- * - Production: context.env (from Cloudflare Dashboard) - passed as plain object
+ * IMPORTANT: Cloudflare Pages environment variables are injected into process.env
+ * NOT into context.env (which is for bindings like KV, R2, D1)
+ * 
+ * See: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables
  */
 
-export function getEnv(key: string, env?: Record<string, unknown>): string | undefined {
-  // Priority 1: Use env from context (Cloudflare Pages runtime)
-  if (env) {
-    // Direct property access (works with Proxy objects)
-    const value = env[key];
-    if (value !== undefined) {
-      return typeof value === 'string' ? value : String(value);
-    }
-  }
-  
-  // Priority 2: Fallback to process.env (local dev)
+export function getEnv(key: string, _env?: Record<string, unknown>): string | undefined {
+  // Cloudflare Pages injects environment variables into process.env
+  // This works because we have nodejs_compat flag in wrangler.toml
   return process.env[key];
 }

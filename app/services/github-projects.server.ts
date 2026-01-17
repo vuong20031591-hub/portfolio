@@ -420,8 +420,7 @@ function formatTechName(name: string): string {
  * Fetch all featured projects - Parallel fetching with caching
  */
 export async function fetchFeaturedProjects(
-  language: "en" | "vi" = "en",
-  env?: Record<string, unknown>
+  language: "en" | "vi" = "en"
 ): Promise<FeaturedProject[]> {
   const cacheKey = `projects_${language}`;
   
@@ -432,12 +431,11 @@ export async function fetchFeaturedProjects(
   }
 
   const { getEnv } = await import("~/lib/env.server");
-  const token = getEnv("GITHUB_TOKEN", env);
+  const token = getEnv("GITHUB_TOKEN");
 
   if (!token) {
     console.error("❌ GITHUB_TOKEN not configured. Projects will be empty.");
     console.error("Please set GITHUB_TOKEN in Cloudflare Dashboard > Settings > Variables and Secrets");
-    console.error("Available env keys:", env ? Object.keys(env) : "no env provided");
     return [];
   }
 
@@ -487,14 +485,13 @@ export async function fetchFeaturedProjects(
  */
 export async function getProjectByName(
   repoName: string,
-  language: "en" | "vi" = "en",
-  env?: Record<string, unknown>
+  language: "en" | "vi" = "en"
 ): Promise<FeaturedProject | null> {
   const repoConfig = FEATURED_REPOS.find((r) => r.repo === repoName);
   if (!repoConfig) return null;
 
   const { getEnv } = await import("~/lib/env.server");
-  const token = getEnv("GITHUB_TOKEN", env);
+  const token = getEnv("GITHUB_TOKEN");
   const repoInfo = await fetchRepoInfo(repoConfig.owner, repoConfig.repo, token);
   if (!repoInfo) return null;
 

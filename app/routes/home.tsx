@@ -29,15 +29,13 @@ export function meta({}: Route.MetaArgs) {
 }
 
 // Loader để fetch GitHub projects từ server
-export async function loader({ request, context }: Route.LoaderArgs) {
+export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie") || "";
   const langMatch = cookieHeader.match(/preferred-language=(en|vi)/);
   const language = (langMatch?.[1] as "en" | "vi") || "en";
 
   try {
-    // Pass context.cloudflare.env to access Cloudflare environment variables
-    const env = context.cloudflare?.env as Record<string, unknown> | undefined;
-    const projects = await fetchFeaturedProjects(language, env);
+    const projects = await fetchFeaturedProjects(language);
     return { projects, error: null };
   } catch (error) {
     console.error("Failed to fetch GitHub projects:", error);
