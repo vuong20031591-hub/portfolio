@@ -266,6 +266,9 @@ async function fetchRepoInfo(
     if (token) {
       // GitHub Personal Access Tokens use "token" prefix, not "Bearer"
       headers.Authorization = `token ${token}`;
+      console.log(`🔍 Fetching ${owner}/${repo} with token: ${token.substring(0, 10)}...${token.slice(-4)}`);
+    } else {
+      console.log(`⚠️ Fetching ${owner}/${repo} WITHOUT token`);
     }
 
     const response = await fetch(
@@ -274,7 +277,10 @@ async function fetchRepoInfo(
     );
 
     if (!response.ok) {
-      console.error(`Failed to fetch repo ${owner}/${repo}: ${response.status}`);
+      const errorBody = await response.text();
+      console.error(`❌ Failed to fetch repo ${owner}/${repo}: ${response.status}`);
+      console.error(`❌ Response body:`, errorBody);
+      console.error(`❌ Headers sent:`, JSON.stringify(headers));
       return null;
     }
 
