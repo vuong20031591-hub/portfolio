@@ -1,14 +1,19 @@
 /**
  * Environment variable helper for Cloudflare Pages
  * 
- * IMPORTANT: Cloudflare Pages environment variables are injected into process.env
- * NOT into context.env (which is for bindings like KV, R2, D1)
+ * IMPORTANT: Cloudflare Pages Secrets (set via Wrangler CLI) are available in context.env
+ * NOT in process.env!
  * 
- * See: https://developers.cloudflare.com/pages/functions/bindings/#environment-variables
+ * See: https://developers.cloudflare.com/pages/functions/bindings/#secrets
  */
 
-export function getEnv(key: string, _env?: Record<string, unknown>): string | undefined {
-  // Cloudflare Pages injects environment variables into process.env
-  // This works because we have nodejs_compat flag in wrangler.toml
+export function getEnv(key: string, env?: Record<string, unknown>): string | undefined {
+  // Priority 1: Use env from context (Cloudflare Pages Secrets)
+  if (env && key in env) {
+    const value = env[key];
+    return typeof value === 'string' ? value : String(value);
+  }
+  
+  // Priority 2: Fallback to process.env (local dev only)
   return process.env[key];
 }

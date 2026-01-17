@@ -7,8 +7,9 @@ import * as build from "../build/server/index.js";
 export const onRequest = createPagesFunctionHandler({
   build,
   getLoadContext: (context) => {
-    // Debug: Check if environment variables are in process.env
-    console.log("🔍 Functions adapter - process.env.GITHUB_TOKEN exists:", !!process.env.GITHUB_TOKEN);
+    // Secrets set via Wrangler CLI are available in context.env
+    // NOT in process.env
+    console.log("🔍 Functions adapter - context.env.GITHUB_TOKEN exists:", !!context.env.GITHUB_TOKEN);
     
     return {
       cloudflare: {
