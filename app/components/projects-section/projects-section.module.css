@@ -86,12 +86,6 @@
   position: relative;
 }
 
-.marqueeControls {
-  display: flex;
-  justify-content: center;
-  margin-top: var(--space-5);
-}
-
 /* Static mode: mobile / touch / reduced motion -> vuốt ngang có snap */
 .marqueeStatic {
   overflow-x: auto;

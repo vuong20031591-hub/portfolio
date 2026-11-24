@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ExternalLink, ArrowRight, Github, Star, GitFork, Pause, Play } from "lucide-react";
+import { ExternalLink, ArrowRight, Github, Star, GitFork } from "lucide-react";
 import { Button } from "~/components/ui/button/button";
 import { ScrollReveal } from "~/components/ui/scroll-reveal";
 import { useLanguage } from "~/contexts/language";
@@ -47,14 +47,13 @@ export function ProjectsSection({
 }: ProjectsSectionProps) {
   const { t } = useLanguage();
   const { reduceMotion, canHover } = useMarqueePreferences();
-  const [isPaused, setIsPaused] = useState(false);
 
   const handleSelectProject = (index: number, view: 'info' | 'demo' = 'info') => {
     onSelectProject?.(index, view);
   };
 
   const autoRun = canHover && !reduceMotion && projects.length > 2;
-  const isPausedNow = isPaused || selectedProject !== null;
+  const isPaused = selectedProject !== null;
 
   // Hiển thị skeleton khi đang load
   if (projects.length === 0) {
@@ -91,7 +90,7 @@ export function ProjectsSection({
 
       <div className={`${styles.marqueeViewport} ${autoRun ? "" : styles.marqueeStatic}`}>
         <div
-          className={`${styles.marqueeTrack} ${isPausedNow ? styles.marqueePaused : ""}`}
+          className={`${styles.marqueeTrack} ${isPaused ? styles.marqueePaused : ""}`}
           style={autoRun ? { animationDuration: `${projects.length * 9}s` } : undefined}
         >
           <div className={styles.marqueeGroup}>
@@ -105,20 +104,6 @@ export function ProjectsSection({
           )}
         </div>
       </div>
-
-      {autoRun && (
-        <div className={styles.marqueeControls}>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setIsPaused((paused) => !paused)}
-            aria-pressed={isPaused}
-          >
-            {isPaused ? <Play className="mr-2 h-4 w-4" /> : <Pause className="mr-2 h-4 w-4" />}
-            {isPaused ? t.projects.play : t.projects.pause}
-          </Button>
-        </div>
-      )}
     </section>
   );
 }

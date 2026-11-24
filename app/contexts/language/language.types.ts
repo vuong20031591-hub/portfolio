@@ -53,8 +53,6 @@ export interface Translations {
     viewCase: string;
     viewLive: string;
     code: string;
-    pause: string;
-    play: string;
   };
   // Testimonials/Values section
   testimonials: {
