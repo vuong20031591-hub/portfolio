@@ -43,7 +43,9 @@
     "subtitle": "A few things I've built recently.",
     "viewCase": "View Case Study",
     "viewLive": "View Live",
-    "code": "Source Code"
+    "code": "Source Code",
+    "pause": "Pause",
+    "play": "Play"
   },
   "testimonials": {
     "title": "My Values",

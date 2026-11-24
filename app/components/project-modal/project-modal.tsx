@@ -72,8 +72,11 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
             className={styles.backdrop}
           />
           <motion.div
-            layoutId={`project-card-${selectedProject}`}
             className={styles.expandedCard}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: [0.25, 0, 0.3, 1] }}
             style={{
               width: "100%",
               height: "100%",
