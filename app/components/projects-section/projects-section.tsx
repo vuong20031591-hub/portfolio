@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { ExternalLink, ArrowRight, Github, Star, GitFork } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router";
+import { ArrowUpRight, ExternalLink, Github, Star, GitFork } from "lucide-react";
 import { Button } from "~/components/ui/button/button";
 import { ScrollReveal } from "~/components/ui/scroll-reveal";
 import { useLanguage } from "~/contexts/language";
@@ -8,128 +9,202 @@ import styles from "./projects-section.module.css";
 import type { ProjectsSectionProps, ProjectItem } from "./projects-section.types";
 
 /**
- * Theo dõi prefers-reduced-motion và khả năng hover để quyết định
- * có chạy marquee tự động hay dùng cuộn ngang thủ công.
- */
-function useMarqueePreferences() {
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const [canHover, setCanHover] = useState(true);
-
-  useEffect(() => {
-    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-
-    const update = () => {
-      setReduceMotion(motionQuery.matches);
-      setCanHover(hoverQuery.matches);
-    };
-
-    update();
-    motionQuery.addEventListener("change", update);
-    hoverQuery.addEventListener("change", update);
-    return () => {
-      motionQuery.removeEventListener("change", update);
-      hoverQuery.removeEventListener("change", update);
-    };
-  }, []);
-
-  return { reduceMotion, canHover };
-}
-
-/**
- * ProjectsSection - Dải project chạy ngang, lặp liền mạch
+ * ProjectsSection — Editorial Hover-Preview List (inspired by Dennis Snellenberg)
+ * - Desktop: danh sách hàng ngang tinh gọn + khung ảnh preview nổi bám theo con trỏ chuột
+ * - Mobile / Touch: hiển thị ảnh thumbnail trực tiếp trên từng item
  */
 export function ProjectsSection({
   className,
   onSelectProject,
-  selectedProject,
   projects = [],
 }: ProjectsSectionProps) {
   const { t } = useLanguage();
-  const { reduceMotion, canHover } = useMarqueePreferences();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [canHover, setCanHover] = useState(false);
 
-  const handleSelectProject = (index: number, view: 'info' | 'demo' = 'info') => {
+  const listRef = useRef<HTMLDivElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const targetPos = useRef({ x: 0, y: 0 });
+  const currentPos = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const update = () => {
+      setCanHover(hoverQuery.matches && !motionQuery.matches);
+    };
+
+    update();
+    hoverQuery.addEventListener("change", update);
+    motionQuery.addEventListener("change", update);
+    return () => {
+      hoverQuery.removeEventListener("change", update);
+      motionQuery.removeEventListener("change", update);
+    };
+  }, []);
+
+  // Lerp mượt vị trí khung ảnh preview theo con trỏ chuột
+  useEffect(() => {
+    if (!canHover || hoveredIndex === null) {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      return;
+    }
+
+    const animate = () => {
+      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * 0.14;
+      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * 0.14;
+
+      if (previewRef.current) {
+        previewRef.current.style.transform = `translate3d(${currentPos.current.x.toFixed(1)}px, ${currentPos.current.y.toFixed(1)}px, 0) translate(-50%, -50%)`;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, [canHover, hoveredIndex]);
+
+  const handleListMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!canHover || !listRef.current) return;
+    const rect = listRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Khởi tạo vị trí tức thì ở frame đầu tiên để tránh giật từ (0, 0)
+    if (hoveredIndex === null) {
+      currentPos.current = { x, y };
+    }
+    targetPos.current = { x, y };
+  };
+
+  const handleSelectProject = (index: number, view: "info" | "demo" = "info") => {
     onSelectProject?.(index, view);
   };
 
-  const autoRun = canHover && !reduceMotion && projects.length > 2;
-  const isPaused = selectedProject !== null;
+  const visibleProjects = projects.slice(0, 4);
 
-  // Hiển thị skeleton khi đang load
   if (projects.length === 0) {
     return (
-      <section className={styles.section} id="projects">
-        <ScrollReveal variant="fade-up" width="100%">
-          <h2 className={styles.sectionTitle}>{t.projects.title}</h2>
-          <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
-        </ScrollReveal>
-        <GridSkeleton cards={6} columns={3} />
+      <section className={`${styles.section} ${className ?? ""}`} id="projects">
+        <div className={styles.inner}>
+          <header className={styles.sectionHeader}>
+            <div className={styles.headerLeft}>
+              <span className={styles.eyebrow}>05</span>
+              <h2 className={styles.sectionTitle}>{t.projects.title}</h2>
+            </div>
+            <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
+          </header>
+          <GridSkeleton cards={4} columns={2} />
+        </div>
       </section>
     );
   }
 
-  const renderCard = (project: ProjectItem, index: number, isClone = false) => (
-    <ProjectCard
-      key={`${isClone ? "clone" : "card"}-${project.id ?? index}`}
-      project={project}
-      index={index}
-      onSelect={(view) => handleSelectProject(index, view)}
-      viewCaseText={t.projects.viewCase}
-      viewGithubText={t.projectModal.viewOnGithub}
-      viewDemoText={t.projects.viewLive}
-      isClone={isClone}
-    />
-  );
-
   return (
     <section className={`${styles.section} ${className ?? ""}`} id="projects">
-      <ScrollReveal variant="fade-up" width="100%">
-        <h2 className={styles.sectionTitle}>{t.projects.title}</h2>
-        <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
-      </ScrollReveal>
+      <div className={styles.inner}>
+        <ScrollReveal variant="fade-up" width="100%">
+          <header className={styles.sectionHeader}>
+            <div className={styles.headerLeft}>
+              <span className={styles.eyebrow}>05</span>
+              <h2 className={styles.sectionTitle}>{t.projects.title}</h2>
+            </div>
+            <p className={styles.sectionSubtitle}>{t.projects.subtitle}</p>
+          </header>
+        </ScrollReveal>
 
-      <div className={`${styles.marqueeViewport} ${autoRun ? "" : styles.marqueeStatic}`}>
         <div
-          className={`${styles.marqueeTrack} ${isPaused ? styles.marqueePaused : ""}`}
-          style={autoRun ? { animationDuration: `${projects.length * 9}s` } : undefined}
+          ref={listRef}
+          className={styles.listWrapper}
+          onMouseMove={handleListMouseMove}
+          onMouseLeave={() => setHoveredIndex(null)}
         >
-          <div className={styles.marqueeGroup}>
-            {projects.map((project, index) => renderCard(project, index))}
-          </div>
-
-          {autoRun && (
-            <div className={styles.marqueeGroup} aria-hidden="true" inert>
-              {projects.map((project, index) => renderCard(project, index, true))}
+          {/* Floating Hover Preview (Desktop only) */}
+          {canHover && (
+            <div
+              ref={previewRef}
+              className={`${styles.floatingPreview} ${hoveredIndex !== null ? styles.floatingPreviewVisible : ""}`}
+              aria-hidden="true"
+            >
+              <div
+                className={styles.previewSlider}
+                style={{
+                  transform: `translate3d(0, -${(hoveredIndex ?? 0) * 100}%, 0)`,
+                }}
+              >
+                {visibleProjects.map((project, idx) => (
+                  <div key={project.id ?? idx} className={styles.previewSlide}>
+                    <img
+                      src={project.image}
+                      alt=""
+                      className={styles.previewImage}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           )}
+
+          <div className={styles.list}>
+            {visibleProjects.map((project, index) => (
+              <ProjectRow
+                key={project.id ?? index}
+                project={project}
+                index={index}
+                isDimmed={hoveredIndex !== null && hoveredIndex !== index}
+                onHover={() => setHoveredIndex(index)}
+                onSelect={(view) => handleSelectProject(index, view)}
+                viewCaseText={t.projects.viewCase}
+                viewGithubText={t.projectModal.viewOnGithub}
+                viewDemoText={t.projects.viewLive}
+              />
+            ))}
+          </div>
         </div>
+
+        {/* Nút More work (kiểu Dennis Snellenberg) ngay phía trên viền cong */}
+        {projects.length > 4 && (
+          <div className={styles.moreWorkWrap}>
+            <Link to="/projects" className={styles.moreWorkButton}>
+              <span>{t.projects.moreWork}</span>
+              <sup className={styles.moreWorkCount}>{projects.length}</sup>
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );
 }
 
-/** Props cho ProjectCard */
-interface ProjectCardProps {
+interface ProjectRowProps {
   project: ProjectItem;
   index: number;
-  onSelect: (view?: 'info' | 'demo') => void;
+  isDimmed: boolean;
+  onHover: () => void;
+  onSelect: (view?: "info" | "demo") => void;
   viewCaseText: string;
   viewGithubText: string;
   viewDemoText: string;
-  isClone?: boolean;
 }
 
-/** Component hiển thị một project card */
-function ProjectCard({
+function ProjectRow({
   project,
   index,
+  isDimmed,
+  onHover,
   onSelect,
   viewCaseText,
   viewGithubText,
   viewDemoText,
-  isClone = false,
-}: ProjectCardProps) {
-  // Xử lý click vào GitHub link (mở tab mới)
+}: ProjectRowProps) {
   const handleGitHubClick = (e: React.MouseEvent, url?: string | null) => {
     e.stopPropagation();
     if (url) {
@@ -137,122 +212,108 @@ function ProjectCard({
     }
   };
 
-  // Xử lý click vào Live Demo: nhúng iframe nếu site cho phép, ngược lại mở tab mới
   const handleLiveDemoClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (project.embed === false && project.liveUrl) {
       window.open(project.liveUrl, "_blank", "noopener,noreferrer");
       return;
     }
-    onSelect('demo'); // Mở modal ở chế độ demo
+    onSelect("demo");
   };
 
-  // Xử lý mở chi tiết project
-  const handleCardClick = (e: React.MouseEvent) => {
-    e.preventDefault(); // Ngăn scroll restoration
-    onSelect('info');
+  const handleRowClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onSelect("info");
   };
 
-  const handleCardKeyDown = (e: React.KeyboardEvent) => {
+  const handleRowKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      onSelect('info');
+      onSelect("info");
     }
   };
 
-  const cardContent = (
-    <>
-      <div className={styles.projectImageWrapper}>
+  const formattedIndex = String(index + 1).padStart(2, "0");
+
+  return (
+    <div
+      className={`${styles.row} ${isDimmed ? styles.rowDimmed : ""}`}
+      role="button"
+      tabIndex={0}
+      onMouseEnter={onHover}
+      onFocus={onHover}
+      onClick={handleRowClick}
+      onKeyDown={handleRowKeyDown}
+      aria-label={`${project.title} — ${viewCaseText}`}
+    >
+      {/* Thumbnail trực tiếp cho mobile / thiết bị không hover */}
+      <div className={styles.mobileThumbWrap}>
         <img
           src={project.image}
           alt={project.title}
-          className={styles.projectImage}
+          className={styles.mobileThumb}
           loading="lazy"
           decoding="async"
         />
-        <div className={styles.projectOverlay} />
       </div>
 
-      <div className={styles.projectActions}>
-        {(project.stars !== undefined || project.forks !== undefined) && (
-          <div className={styles.projectStats}>
-            {project.stars !== undefined && project.stars > 0 && (
-              <span className={styles.projectStat}>
-                <Star className="w-3.5 h-3.5" />
-                {project.stars}
-              </span>
-            )}
-            {project.forks !== undefined && project.forks > 0 && (
-              <span className={styles.projectStat}>
-                <GitFork className="w-3.5 h-3.5" />
-                {project.forks}
-              </span>
-            )}
-          </div>
-        )}
-        {project.githubUrl && (
-          <Button
-            variant="outline"
-            size="icon"
-            className={styles.projectLink}
-            onClick={(e) => handleGitHubClick(e, project.githubUrl)}
-            aria-label={viewGithubText}
-            tabIndex={isClone ? -1 : undefined}
-          >
-            <Github className="w-5 h-5" />
-          </Button>
-        )}
-        {project.liveUrl && (
-          <Button
-            variant="outline"
-            size="icon"
-            className={styles.projectLink}
-            onClick={handleLiveDemoClick}
-            aria-label={viewDemoText}
-            tabIndex={isClone ? -1 : undefined}
-          >
-            <ExternalLink className="w-5 h-5" />
-          </Button>
-        )}
+      <div className={styles.rowMain}>
+        <span className={styles.rowIndex}>{formattedIndex}</span>
+        <div className={styles.rowHeading}>
+          <h3 className={styles.rowTitle}>{project.title}</h3>
+          <p className={styles.rowDescription}>{project.description}</p>
+        </div>
       </div>
 
-      <div className={styles.projectContent}>
-        <div className={styles.projectTags}>
-          {project.tags.slice(0, 3).map((tag, i) => (
-            <span key={i} className={styles.projectTag}>
+      <div className={styles.rowMeta}>
+        <div className={styles.rowTags}>
+          {project.tags.slice(0, 3).map((tag) => (
+            <span key={tag} className={styles.rowTag}>
               {tag}
             </span>
           ))}
         </div>
 
-        <div className={styles.projectInfo}>
-          <h3 className={styles.projectTitle}>{project.title}</h3>
-          <p className={styles.projectDescription}>{project.description}</p>
-          <div className={styles.projectAction}>
-            <span className={styles.viewCaseText}>{viewCaseText}</span>
-            <ArrowRight className={styles.arrowIcon} />
-          </div>
+        <div className={styles.rowActions}>
+          {(project.stars !== undefined && project.stars > 0) && (
+            <span className={styles.rowStat}>
+              <Star className="w-3.5 h-3.5" />
+              {project.stars}
+            </span>
+          )}
+          {(project.forks !== undefined && project.forks > 0) && (
+            <span className={styles.rowStat}>
+              <GitFork className="w-3.5 h-3.5" />
+              {project.forks}
+            </span>
+          )}
+          {project.githubUrl && (
+            <Button
+              variant="outline"
+              size="icon"
+              className={styles.actionBtn}
+              onClick={(e) => handleGitHubClick(e, project.githubUrl)}
+              aria-label={viewGithubText}
+            >
+              <Github className="w-4 h-4" />
+            </Button>
+          )}
+          {project.liveUrl && (
+            <Button
+              variant="outline"
+              size="icon"
+              className={styles.actionBtn}
+              onClick={handleLiveDemoClick}
+              aria-label={viewDemoText}
+            >
+              <ExternalLink className="w-4 h-4" />
+            </Button>
+          )}
+          <span className={styles.rowArrow} aria-hidden="true">
+            <ArrowUpRight className="w-5 h-5" />
+          </span>
         </div>
       </div>
-    </>
-  );
-
-  return (
-    <div className={styles.marqueeCard}>
-      {isClone ? (
-        <div className={styles.projectCard}>{cardContent}</div>
-      ) : (
-        <div
-          className={styles.projectCard}
-          role="button"
-          tabIndex={0}
-          onClick={handleCardClick}
-          onKeyDown={handleCardKeyDown}
-          aria-label={`${project.title} — ${viewCaseText}`}
-        >
-          {cardContent}
-        </div>
-      )}
     </div>
   );
 }

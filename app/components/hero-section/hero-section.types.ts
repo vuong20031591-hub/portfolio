@@ -12,4 +12,8 @@ export interface HeroTranslations {
   greeting: string;
   title: string;
   subtitle: string;
+  locationLabel: string;
+  locationValue: string;
+  rolePrimary: string;
+  roleSecondary: string;
 }

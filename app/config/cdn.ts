@@ -28,27 +28,6 @@ export const CDN_CONFIG = {
    * Enable this after uploading images to R2
    */
   USE_R2_CDN: !!R2_PUBLIC_URL,
-
-  /**
-   * Spotlight frames base path
-   */
-  SPOTLIGHT_BASE_PATH: '/spotlight',
-
-  /**
-   * Get full URL for a spotlight frame
-   * @param frameNumber - Frame number (1-272)
-   * @returns Full URL to the frame image
-   */
-  getSpotlightFrameUrl(frameNumber: number): string {
-    const paddedNumber = String(frameNumber).padStart(3, '0');
-    const filename = `spotlight-frame-${paddedNumber}.webp`;
-
-    if (this.USE_R2_CDN) {
-      return `${this.R2_PUBLIC_URL}${this.SPOTLIGHT_BASE_PATH}/${filename}`;
-    } else {
-      return `/images/news/${filename}`;
-    }
-  },
 };
 
 /**

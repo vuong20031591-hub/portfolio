@@ -14,7 +14,7 @@ export interface SkillItem {
   title: string;
   description: string;
   tags: SkillTag[];
-  className: string;
+  className?: string;
 }
 
 export interface SkillsSectionProps {

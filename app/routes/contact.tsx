@@ -1,11 +1,18 @@
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { ArrowUpRight, Check, CheckCircle2, Copy, Loader2, Send } from "lucide-react";
+import { SiFacebook, SiGithub, SiTelegram } from "react-icons/si";
 import type { Route } from "./+types/contact";
 import styles from "./contact.module.css";
 import { Navigation } from "~/components/navigation/navigation";
-import { Mail, Send, User, MessageSquare, ArrowRight, Loader2, CheckCircle } from "lucide-react";
-import { SiFacebook, SiTelegram, SiGithub } from "react-icons/si";
-import { ScrollReveal } from "~/components/ui/scroll-reveal";
+import { CurvedDivider } from "~/components/ui/curved-divider";
+import { SiteFooter } from "~/components/site-footer";
+import { BackToTop } from "~/components/back-to-top";
 import { useLanguage } from "~/contexts/language";
 import { useContactForm } from "~/hooks/use-contact-form";
+
+const CONTACT_EMAIL = "vuong20032604@gmail.com";
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -18,117 +25,105 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Contact() {
-  const { t } = useLanguage();
-  const { formData, status, handleChange, handleSubmit } = useContactForm("contact");
+  const { t, language } = useLanguage();
+  const { formData, status, errorMessage, handleChange, handleSubmit, resetForm } =
+    useContactForm("contact");
+  const [copied, setCopied] = useState(false);
+
+  const prefersReducedMotion = useReducedMotion();
   const isLoading = status === "loading";
+  const isVi = language === "vi";
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT_EMAIL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // Fallback: ignore clipboard permission errors
+    }
+  };
+
+  const socials = [
+    {
+      name: t.contact.facebook,
+      hint: t.contact.facebookValue,
+      href: "https://www.facebook.com/nguyentienvuong2604",
+      icon: <SiFacebook size={16} />,
+      brandColor: "#1877F2",
+    },
+    {
+      name: t.contact.telegram,
+      hint: "@NguyenVug23",
+      href: "https://t.me/NguyenVug23",
+      icon: <SiTelegram size={16} />,
+      brandColor: "#26A5E4",
+    },
+    {
+      name: t.contact.github,
+      hint: t.contact.githubValue,
+      href: "https://github.com/nguyentienvuong2604",
+      icon: <SiGithub size={16} />,
+      brandColor: "currentColor",
+    },
+  ];
 
   return (
     <div className={styles.page}>
-      {/* Animated Background */}
-      <div className={styles.backgroundGradient}>
-        <div className={styles.gradientOrb} />
-        <div className={styles.gradientOrb} />
-        <div className={styles.gradientOrb} />
-      </div>
+      <Navigation />
 
-      <div className={styles.content}>
-        <Navigation />
-
-        {/* Hero Section */}
-        <section className={styles.hero}>
-          <ScrollReveal variant="fade-up" width="100%">
-            <h1 className={styles.title}>{t.contact.heroTitle}</h1>
-          </ScrollReveal>
-          <ScrollReveal variant="fade-up" delay={0.2} width="100%">
-            <p className={styles.subtitle}>{t.contact.heroSubtitle}</p>
-          </ScrollReveal>
-        </section>
-
-        {/* Bento Grid */}
-        <section className={styles.bentoGrid}>
-          {/* Left Column - Contact Methods */}
-          <div className={styles.contactMethods}>
-            <ScrollReveal variant="fade-up" delay={0.3} width="100%">
-              <a 
-                href="mailto:vuong20032604@gmail.com" 
-                className={`${styles.glassCard} ${styles.emailCard}`}
+      <main className={styles.main}>
+        <div className={styles.wrap}>
+          {/* Editorial Header */}
+          <header className={styles.hero}>
+            <div className={styles.titleMask}>
+              <motion.h1
+                className={styles.title}
+                initial={prefersReducedMotion ? false : { y: "100%", opacity: 0 }}
+                animate={{ y: "0%", opacity: 1 }}
+                transition={{ duration: 0.7, ease: EASE_OUT }}
               >
-                <div className={styles.cardIcon}>
-                  <Mail size={20} />
-                </div>
-                <span className={styles.cardLabel}>{t.contact.emailLabel}</span>
-                <span className={styles.cardValue}>vuong20032604@gmail.com</span>
-                <span className={styles.cardAction}>
-                  {t.contact.sendEmail} <ArrowRight size={14} />
-                </span>
-              </a>
-            </ScrollReveal>
+                {t.contact.heroTitle}
+              </motion.h1>
+            </div>
+            <motion.p
+              className={styles.subtitle}
+              initial={prefersReducedMotion ? false : { y: 16, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT }}
+            >
+              {t.contact.heroSubtitle}
+            </motion.p>
+          </header>
 
-            <ScrollReveal variant="fade-up" delay={0.4} width="100%">
-              <div className={`${styles.glassCard} ${styles.socialWrapper}`}>
-                <a
-                  href="https://www.facebook.com/nguyentienvuong2604"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.socialCard} ${styles.facebook}`}
-                >
-                  <div className={styles.socialIcon}>
-                    <SiFacebook />
-                  </div>
-                  <span className={styles.socialLabel}>{t.contact.facebook}</span>
-                  <span className={styles.socialHint}>{t.contact.facebookValue}</span>
-                </a>
-
-                <a
-                  href="https://t.me/NguyenTienVuong23"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.socialCard} ${styles.telegram}`}
-                >
-                  <div className={styles.socialIcon}>
-                    <SiTelegram />
-                  </div>
-                  <span className={styles.socialLabel}>{t.contact.telegram}</span>
-                  <span className={styles.socialHint}>{t.contact.telegramValue}</span>
-                </a>
-
-                <a
-                  href="https://github.com/nguyentienvuong2604"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${styles.socialCard} ${styles.github}`}
-                >
-                  <div className={styles.socialIcon}>
-                    <SiGithub />
-                  </div>
-                  <span className={styles.socialLabel}>{t.contact.github}</span>
-                  <span className={styles.socialHint}>{t.contact.githubValue}</span>
-                </a>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          {/* Right Column - Form */}
-          <ScrollReveal variant="fade-up" delay={0.5} width="100%" className={styles.formWrapper}>
-            <div className={`${styles.glassCard} ${styles.formCard}`}>
-              <div className={styles.formHeader}>
-                <div>
-                  <h2 className={styles.formTitle}>{t.contact.formTitle}</h2>
-                  <p className={styles.formSubtitle}>{t.contact.formSubtitle}</p>
-                </div>
-              </div>
-
+          {/* Main 2-Column Split: Editorial Form (left) + Direct Details (right) */}
+          <section className={styles.grid}>
+            {/* Left: Numbered Editorial Form */}
+            <motion.div
+              className={styles.formColumn}
+              initial={prefersReducedMotion ? false : { y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.65, delay: 0.16, ease: EASE_OUT }}
+            >
               {status === "success" ? (
-                <div className={styles.successMessage}>
-                  <CheckCircle className={styles.successIcon} />
-                  <p>{t.contact.successMessage}</p>
+                <div className={styles.successState} role="status" aria-live="polite">
+                  <CheckCircle2 size={36} strokeWidth={1.6} className={styles.successIcon} />
+                  <h2 className={styles.successTitle}>
+                    {isVi ? "Tin nhắn đã được gửi" : "Message sent"}
+                  </h2>
+                  <p className={styles.successText}>{t.contact.successMessage}</p>
+                  <button type="button" onClick={resetForm} className={styles.resetButton}>
+                    {isVi ? "Gửi tin nhắn khác" : "Send another message"}
+                  </button>
                 </div>
               ) : (
-                <form className={styles.form} onSubmit={handleSubmit}>
-
-                    <div className={styles.formGroup}>
+                <form className={styles.form} onSubmit={handleSubmit} noValidate={false}>
+                  <div className={styles.fieldRow}>
+                    <span className={styles.fieldNumber} aria-hidden="true">
+                      01
+                    </span>
+                    <div className={styles.fieldBody}>
                       <label htmlFor="name" className={styles.label}>
-                        <User size={12} className={styles.labelIcon} />
                         {t.contact.name}
                       </label>
                       <input
@@ -137,16 +132,21 @@ export default function Contact() {
                         name="name"
                         className={styles.input}
                         required
+                        autoComplete="name"
                         placeholder={t.contact.namePlaceholder}
                         value={formData.name}
                         onChange={(e) => handleChange("name", e.target.value)}
                         disabled={isLoading}
                       />
                     </div>
+                  </div>
 
-                    <div className={styles.formGroup}>
+                  <div className={styles.fieldRow}>
+                    <span className={styles.fieldNumber} aria-hidden="true">
+                      02
+                    </span>
+                    <div className={styles.fieldBody}>
                       <label htmlFor="email" className={styles.label}>
-                        <Mail size={12} className={styles.labelIcon} />
                         {t.contact.email}
                       </label>
                       <input
@@ -155,16 +155,21 @@ export default function Contact() {
                         name="email"
                         className={styles.input}
                         required
+                        autoComplete="email"
                         placeholder={t.contact.emailPlaceholder}
                         value={formData.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                         disabled={isLoading}
                       />
                     </div>
+                  </div>
 
-                    <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                  <div className={styles.fieldRow}>
+                    <span className={styles.fieldNumber} aria-hidden="true">
+                      03
+                    </span>
+                    <div className={styles.fieldBody}>
                       <label htmlFor="message" className={styles.label}>
-                        <MessageSquare size={12} className={styles.labelIcon} />
                         {t.contact.message}
                       </label>
                       <textarea
@@ -172,32 +177,140 @@ export default function Contact() {
                         name="message"
                         className={styles.textarea}
                         required
+                        rows={5}
                         placeholder={t.contact.messagePlaceholder}
                         value={formData.message}
                         onChange={(e) => handleChange("message", e.target.value)}
                         disabled={isLoading}
                       />
                     </div>
+                  </div>
 
+                  {status === "error" && errorMessage && (
+                    <p className={styles.errorText} role="alert">
+                      {errorMessage}
+                    </p>
+                  )}
+
+                  <div className={styles.submitRow}>
                     <button type="submit" className={styles.submitButton} disabled={isLoading}>
                       {isLoading ? (
                         <>
                           <Loader2 size={16} className={styles.spinner} />
-                          {t.common.loading}
+                          <span>{t.common.loading}</span>
                         </>
                       ) : (
                         <>
-                          <Send size={16} />
-                          {t.contact.send}
+                          <span>{t.contact.send}</span>
+                          <Send size={15} />
                         </>
                       )}
                     </button>
-                  </form>
+                    <span className={styles.responseNote}>{t.contact.formSubtitle}</span>
+                  </div>
+                </form>
               )}
-            </div>
-          </ScrollReveal>
-        </section>
+            </motion.div>
+
+            {/* Right: Direct Contact Details & Social Directory */}
+            <motion.aside
+              className={styles.detailsColumn}
+              initial={prefersReducedMotion ? false : { y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.65, delay: 0.24, ease: EASE_OUT }}
+            >
+              {/* Person Identity */}
+              <div className={styles.personRow}>
+                <img
+                  src="/images/avatar.webp"
+                  alt="Nguyễn Tiến Vương"
+                  className={styles.avatar}
+                  decoding="async"
+                />
+                <div className={styles.personInfo}>
+                  <span className={styles.personName}>Nguyễn Tiến Vương</span>
+                  <span className={styles.personRole}>
+                    {t.hero.rolePrimary} · {t.hero.roleSecondary}
+                  </span>
+                </div>
+              </div>
+
+              {/* Direct Email & Location */}
+              <div className={styles.detailGroup}>
+                <h2 className={styles.groupHeading}>
+                  {isVi ? "Thông tin trực tiếp" : "Contact details"}
+                </h2>
+
+                <div className={styles.emailBlock}>
+                  <a href={`mailto:${CONTACT_EMAIL}`} className={styles.emailLink}>
+                    {CONTACT_EMAIL}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={handleCopyEmail}
+                    className={styles.copyBtn}
+                    aria-label={isVi ? "Sao chép email" : "Copy email address"}
+                  >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                    <span>{copied ? (isVi ? "Đã chép" : "Copied") : isVi ? "Sao chép" : "Copy"}</span>
+                  </button>
+                </div>
+
+                <p className={styles.locationText}>
+                  {t.hero.locationLabel}: {t.hero.locationValue} (GMT+7)
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className={styles.detailGroup}>
+                <h2 className={styles.groupHeading}>
+                  {isVi ? "Mạng xã hội" : "Socials"}
+                </h2>
+
+                <ul className={styles.socialList}>
+                  {socials.map((item) => (
+                    <li key={item.name} className={styles.socialItem}>
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.socialLink}
+                      >
+                        <span
+                          className={styles.socialIcon}
+                          style={{ color: item.brandColor }}
+                          aria-hidden="true"
+                        >
+                          {item.icon}
+                        </span>
+                        <span className={styles.socialText}>
+                          <span className={styles.socialName}>{item.name}</span>
+                          <span className={styles.socialHint}>{item.hint}</span>
+                        </span>
+                        <ArrowUpRight size={16} className={styles.socialArrow} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.aside>
+          </section>
+        </div>
+      </main>
+
+      {/* Closing Band — Curved Divider + Footer */}
+      <div className={styles.closingBand}>
+        <CurvedDivider
+          topColor="var(--color-neutral-1)"
+          bottomColor="var(--closing-bg)"
+          maxHeight={160}
+        />
+        <div className={styles.closingInner}>
+          <SiteFooter />
+        </div>
       </div>
+
+      <BackToTop />
     </div>
   );
 }

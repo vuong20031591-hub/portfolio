@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import type { Route } from "./+types/home";
 import styles from "./home.module.css";
 import { Navigation } from "~/components/navigation/navigation";
 import { ScrollyTelling } from "~/components/ui/scrolly-telling/scrolly-telling";
+import { CurvedDivider } from "~/components/ui/curved-divider";
 import { useLanguage } from "~/contexts/language";
 import { fetchFeaturedProjects, type FeaturedProject } from "~/services/github-projects.server";
 
@@ -51,7 +53,15 @@ export default function Home({ loaderData }: Route.ComponentProps) {
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [projectInitialView, setProjectInitialView] = useState<'info' | 'demo'>('info');
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
+  const closingBandRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress: closingProgress } = useScroll({
+    target: closingBandRef,
+    offset: ["start end", "end end"],
+  });
+  const closingParallaxY = useTransform(closingProgress, [0, 1], [-64, 0]);
 
   // Projects từ GitHub loader
   const githubProjects = loaderData?.projects || [];
@@ -117,20 +127,33 @@ export default function Home({ loaderData }: Route.ComponentProps) {
 
       <ExperienceSection />
 
+      <TestimonialsSection />
+
       <ProjectsSection
         selectedProject={selectedProject}
         onSelectProject={handleSelectProject}
         projects={projects}
       />
 
-      <TestimonialsSection />
+      {/* Viền cong chuyển cảnh Selected Work → CTA & Footer (Dennis Snellenberg reveal) */}
+      <div ref={closingBandRef} className={styles.closingBand}>
+        <CurvedDivider
+          topColor="var(--color-neutral-1)"
+          bottomColor="var(--closing-bg)"
+          maxHeight={220}
+        />
+        <motion.div
+          className={styles.closingReveal}
+          style={{ y: prefersReducedMotion ? 0 : closingParallaxY }}
+        >
+          <CTASection
+            isContactOpen={isContactOpen}
+            onContactOpenChange={setIsContactOpen}
+          />
 
-      <CTASection
-        isContactOpen={isContactOpen}
-        onContactOpenChange={setIsContactOpen}
-      />
-
-      <SiteFooter />
+          <SiteFooter />
+        </motion.div>
+      </div>
 
       {/* Modals */}
       <ContactModal

@@ -1,0 +1,57 @@
+/* Curved Section Divider — Dennis Snellenberg scroll-driven arc */
+.divider {
+  position: relative;
+  width: 100%;
+  margin-top: -1px;
+  overflow: visible;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.curveContainer {
+  position: relative;
+  width: 100%;
+  overflow-x: clip;
+  overflow-y: visible;
+  will-change: height;
+}
+
+.curveArc {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+}
+
+.withShadow {
+  box-shadow: 0 42px 58px rgba(0, 0, 0, 0.28);
+}
+
+:global(.dark) .withShadow {
+  box-shadow: 0 42px 64px rgba(0, 0, 0, 0.58);
+}
+
+/* Overlay mode: ôm 2 góc dưới của section có ảnh full-height để ảnh chạm sát đáy viền cong */
+.overlayDivider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 7;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.overlayInner {
+  width: 100%;
+  will-change: height;
+}
+
+.overlaySvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 -10px 24px rgba(0, 0, 0, 0.12));
+}

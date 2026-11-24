@@ -131,7 +131,7 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
 
     try {
       // Get Web3Forms access key from environment
-      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
+      const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY?.trim();
       
       if (!accessKey) {
         throw new Error("Web3Forms access key not configured. Please add VITE_WEB3FORMS_ACCESS_KEY to .env");

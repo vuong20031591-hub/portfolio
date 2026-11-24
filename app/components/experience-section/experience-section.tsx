@@ -4,7 +4,7 @@ import styles from "./experience-section.module.css";
 import type { ExperienceItem } from "./experience-section.types";
 
 /**
- * ExperienceSection - Hiển thị timeline kinh nghiệm làm việc
+ * ExperienceSection — Editorial Chronological Rows
  */
 export function ExperienceSection() {
   const { t } = useLanguage();
@@ -32,30 +32,42 @@ export function ExperienceSection() {
 
   return (
     <section className={styles.section} id="experience">
-      <div className={styles.experienceContainer}>
+      <div className={styles.inner}>
         <ScrollReveal variant="fade-up" width="100%">
-          <h2 className={styles.sectionTitle}>{t.experience.title}</h2>
+          <header className={styles.sectionHeader}>
+            <div className={styles.headerLeft}>
+              <span className={styles.eyebrow}>03</span>
+              <h2 className={styles.sectionTitle}>{t.experience.title}</h2>
+            </div>
+          </header>
         </ScrollReveal>
-        <div className={styles.timeline}>
+
+        <div className={styles.list}>
           {experience.map((job, index) => (
             <ScrollReveal
-              key={index}
-              variant={index % 2 === 0 ? "fade-right" : "fade-left"}
-              delay={index * 0.1}
-              width="50%"
-              className={styles.timelineEntry}
+              key={job.role}
+              variant="fade-up"
+              delay={index * 0.08}
+              width="100%"
             >
-              <div className={styles.timelineItem}>
-                <div className={styles.timelineContent}>
-                  <div className={styles.timelineHeader}>
-                    <h3 className={styles.jobRole}>{job.role}</h3>
-                    <span className={styles.jobPeriod}>{job.period}</span>
-                  </div>
-                  <div className={styles.jobCompany}>{job.company}</div>
+              <article className={styles.row}>
+                <div className={styles.periodCol}>
+                  <span
+                    className={`${styles.period} ${index === 0 ? styles.periodActive : ""}`}
+                  >
+                    {job.period}
+                  </span>
+                </div>
+
+                <div className={styles.roleCol}>
+                  <h3 className={styles.jobRole}>{job.role}</h3>
+                  <p className={styles.jobCompany}>{job.company}</p>
+                </div>
+
+                <div className={styles.descCol}>
                   <p className={styles.jobDescription}>{job.description}</p>
                 </div>
-                <div className={styles.timelineDot} />
-              </div>
+              </article>
             </ScrollReveal>
           ))}
         </div>

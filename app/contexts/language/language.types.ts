@@ -20,6 +20,10 @@ export interface Translations {
     greeting: string;
     title: string;
     subtitle: string;
+    locationLabel: string;
+    locationValue: string;
+    rolePrimary: string;
+    roleSecondary: string;
   };
   // Skills section
   skills: {
@@ -53,6 +57,7 @@ export interface Translations {
     viewCase: string;
     viewLive: string;
     code: string;
+    moreWork: string;
   };
   // Testimonials/Values section
   testimonials: {

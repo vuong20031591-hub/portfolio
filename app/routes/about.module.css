@@ -1,94 +1,522 @@
+/* About Page — Anti-Slop Studio Architecture (design-taste-frontend) */
 .page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
-  padding-top: 80px;
+  background-color: var(--color-neutral-1);
+  color: var(--color-neutral-12);
 }
 
-.hero {
-  padding: var(--space-9) var(--space-6);
-  max-width: 1400px;
+/* Shared container: equal left & right edges across every section */
+.wrap {
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
+  padding-inline: var(--space-6);
 }
 
-.heroContent {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-9);
-  align-items: center;
-}
-
-.imageContainer {
-  position: relative;
-  border-radius: var(--radius-6);
-  overflow: hidden;
-  box-shadow: var(--shadow-4);
-  aspect-ratio: 4/5;
-}
-
-.imageContainer img {
+/* Shared photograph frame behavior: crisp crop, subtle 1.02 hover zoom, zero captions */
+.photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(1.05) contrast(1.1) saturate(1.15);
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.content {
+/* =========================================================
+   SCREEN 1: HERO (100svh, balanced 2-column split, equal edges)
+   ========================================================= */
+.heroSection {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: 108px;
+  padding-bottom: 56px;
+  background-color: var(--color-neutral-1);
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(2.5rem, 5vw, 5rem);
+  align-items: stretch;
+}
+
+.heroText {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-7);
+  padding-block: var(--space-2);
+}
+
+.heroTop {
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
 }
 
-.title {
-  font: var(--font-display);
-  color: var(--color-neutral-12);
+.titleMask {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.heroTitle {
   margin: 0;
-  letter-spacing: var(--font-letterspacing-0);
-}
-
-.text {
-  font-size: var(--font-size-2);
-  color: var(--color-neutral-11);
-  line-height: var(--font-lineheight-4);
-}
-
-.skillsSection {
-  padding: var(--space-9) var(--space-6);
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.sectionTitle {
-  font: var(--font-heading);
+  font-family: "Montserrat", var(--font-geometric-humanist);
+  font-size: clamp(2.75rem, 5.2vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
   color: var(--color-neutral-12);
-  margin: 0 0 var(--space-6) 0;
-  text-align: center;
-  letter-spacing: var(--font-letterspacing-1);
 }
 
-.skillsGrid {
+.heroLead {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.35vw, 1.25rem);
+  line-height: 1.65;
+  color: var(--color-neutral-11);
+}
+
+.heroActions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 44px;
+  transition:
+    transform 0.18s var(--ease),
+    background-color 0.2s var(--ease),
+    border-color 0.2s var(--ease);
+}
+
+.primaryAction:hover,
+.secondaryAction:hover {
+  transform: translateY(-1px);
+}
+
+.primaryAction:active,
+.secondaryAction:active {
+  transform: translateY(1px);
+}
+
+.heroFacts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-neutral-4);
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.fact dt {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-neutral-9);
+}
+
+.fact dd {
+  margin: 0;
+  font-size: var(--font-size-0);
+  font-weight: 500;
+  color: var(--color-neutral-12);
+}
+
+.inlineLink {
+  color: inherit;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  padding-bottom: 2px;
+  transition:
+    background-size 0.25s var(--ease),
+    color 0.2s var(--ease);
+}
+
+.inlineLink:hover {
+  color: var(--color-accent-9);
+  background-size: 100% 1px;
+}
+
+.heroMedia {
+  width: 100%;
+  height: clamp(460px, calc(100svh - 188px), 620px);
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  background-color: var(--color-neutral-2);
+}
+
+.heroMedia .photo {
+  object-position: center 20%;
+}
+
+.heroMedia:hover .photo {
+  transform: scale(1.02);
+}
+
+/* =========================================================
+   SHARED SECTION HEADING (top-aligned, one h2 per screen)
+   ========================================================= */
+.sectionHeading {
+  margin: 0 0 var(--space-7) 0;
+  font-family: "Montserrat", var(--font-geometric-humanist);
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  color: var(--color-neutral-12);
+}
+
+/* =========================================================
+   SCREEN 2: STORY (Surface ground separation, 50/50 split)
+   ========================================================= */
+.storySection {
+  min-height: 100svh;
+  padding-top: 120px;
+  padding-bottom: 96px;
+  background-color: var(--color-neutral-2);
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.storyMedia {
+  grid-column: 1 / span 7;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  background-color: var(--color-neutral-3);
+}
+
+.storyMedia:hover .photo {
+  transform: scale(1.02);
+}
+
+.storyCopy {
+  grid-column: 8 / span 5;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-5);
 }
 
-@media (max-width: 968px) {
-  .heroContent {
+.bodyText {
+  margin: 0;
+  font-size: clamp(1.0625rem, 1.3vw, 1.1875rem);
+  line-height: 1.75;
+  color: var(--color-neutral-12);
+}
+
+.highlightWord {
+  display: inline;
+  will-change: opacity;
+}
+
+/* =========================================================
+   SCREEN 3: WHAT I BRING (Base ground, 2x2 open grid + photo)
+   ========================================================= */
+.skillsSection {
+  min-height: 100svh;
+  padding-top: 120px;
+  padding-bottom: 96px;
+  background-color: var(--color-neutral-1);
+}
+
+.skillsLayout {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.skillsGrid {
+  grid-column: 1 / span 7;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7) var(--space-6);
+}
+
+.skillItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-neutral-4);
+}
+
+.skillItem::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-accent-9);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skillItem:hover::before {
+  transform: scaleX(1);
+}
+
+.skillTitle {
+  margin: 0;
+  font-family: "Montserrat", var(--font-geometric-humanist);
+  font-size: clamp(1.25rem, 1.7vw, 1.45rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--color-neutral-12);
+}
+
+.skillDescription {
+  margin: 0;
+  font-size: var(--font-size-1);
+  line-height: 1.68;
+  color: var(--color-neutral-10);
+}
+
+.skillsMedia {
+  grid-column: 8 / span 5;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-3);
+  overflow: hidden;
+  background-color: var(--color-neutral-2);
+}
+
+.skillsMedia:hover .photo {
+  transform: scale(1.02);
+}
+
+/* =========================================================
+   SCREEN 4: GITHUB ACTIVITY (Surface ground, equal edges)
+   ========================================================= */
+.githubSection {
+  min-height: 100svh;
+  padding-top: 120px;
+  padding-bottom: 96px;
+  background-color: var(--color-neutral-2);
+}
+
+.sectionTopRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-7);
+}
+
+.sectionTopRow .sectionHeading {
+  margin-bottom: 0;
+}
+
+.githubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 44px;
+  font-size: var(--font-size-1);
+  font-weight: 500;
+  color: var(--color-neutral-11);
+  text-decoration: none;
+  background-image: linear-gradient(var(--color-accent-9), var(--color-accent-9));
+  background-size: 0% 1px;
+  background-position: 0 calc(100% - 8px);
+  background-repeat: no-repeat;
+  transition:
+    color 0.2s var(--ease),
+    background-size 0.25s var(--ease);
+}
+
+.githubLink:hover {
+  color: var(--color-accent-9);
+  background-size: 100% 1px;
+}
+
+.githubStack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* =========================================================
+   CLOSING BAND (đồng bộ toàn site)
+   ========================================================= */
+.closingBand {
+  --closing-bg: #1c1d20;
+  --closing-surface: #25272b;
+  --closing-border: rgba(255, 255, 255, 0.12);
+  --closing-text: #ffffff;
+  --closing-muted: rgba(255, 255, 255, 0.68);
+  position: relative;
+  background-color: var(--closing-bg);
+  color: var(--closing-text);
+  overflow: hidden;
+  z-index: 1;
+}
+
+:global(.dark) .closingBand {
+  --closing-bg: #0c0c0b;
+  --closing-surface: #161615;
+  --closing-border: rgba(255, 255, 255, 0.1);
+}
+
+.closingReveal {
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+}
+
+.closingBand :global(.closing-cta-card) {
+  background: var(--closing-surface);
+  border-color: var(--closing-border);
+  color: var(--closing-text);
+}
+
+.closingBand :global(.closing-cta-card:hover) {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: color-mix(in srgb, var(--closing-surface) 92%, white 8%);
+}
+
+.closingBand :global(.closing-cta-title) {
+  color: var(--closing-text);
+}
+
+.closingBand :global(.closing-cta-text) {
+  color: var(--closing-muted);
+}
+
+.closingBand :global(.closing-cta-icon) {
+  background: var(--closing-bg);
+  border-color: var(--closing-border);
+}
+
+.closingBand :global(.closing-cta-primary) {
+  background: var(--color-accent-9);
+  border-color: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.closingBand :global(.closing-cta-primary:hover) {
+  background: var(--color-accent-10);
+  border-color: var(--color-accent-10);
+}
+
+.closingBand :global(.closing-cta-outline) {
+  color: var(--closing-text);
+  border-color: var(--closing-border);
+}
+
+.closingBand :global(.closing-cta-outline:hover) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: var(--closing-text);
+}
+
+.closingBand footer {
+  background: transparent;
+  border-top-color: var(--closing-border);
+}
+
+.closingBand footer p {
+  color: var(--closing-muted);
+}
+
+/* =========================================================
+   RESPONSIVE (1024 / 768 / 390)
+   ========================================================= */
+@media (max-width: 1023px) {
+  .heroGrid,
+  .storyGrid,
+  .skillsLayout {
     grid-template-columns: 1fr;
     gap: var(--space-6);
   }
 
-  .imageContainer {
-    max-width: 400px;
-    margin: 0 auto;
+  .heroText,
+  .heroMedia,
+  .storyMedia,
+  .storyCopy,
+  .skillsGrid,
+  .skillsMedia {
+    grid-column: 1 / -1;
+  }
+
+  .heroMedia {
+    height: auto;
+    max-height: 480px;
+    aspect-ratio: 4 / 3;
+  }
+
+  .skillsMedia {
+    aspect-ratio: 16 / 10;
   }
 }
 
-/* GitHub Section */
-.githubSection {
-  padding: var(--space-9) var(--space-6);
-  max-width: 900px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+@media (max-width: 639px) {
+  .wrap {
+    padding-inline: var(--space-4);
+  }
+
+  .heroSection,
+  .storySection,
+  .skillsSection,
+  .githubSection {
+    min-height: auto;
+    padding-top: 96px;
+    padding-bottom: 64px;
+  }
+
+  .heroActions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .primaryAction,
+  .secondaryAction {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .heroFacts,
+  .skillsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo,
+  .primaryAction,
+  .secondaryAction,
+  .inlineLink,
+  .githubLink {
+    transition: none;
+  }
+
+  .heroMedia:hover .photo,
+  .storyMedia:hover .photo,
+  .skillsMedia:hover .photo {
+    transform: none;
+  }
 }

@@ -13,7 +13,11 @@
   "hero": {
     "greeting": "Hey, I'm Vuong",
     "title": "Web Developer",
-    "subtitle": "I build web experiences that users actually enjoy. Passionate about clean code, thoughtful design, and constantly learning new things."
+    "subtitle": "I build web experiences that users actually enjoy. Passionate about clean code, thoughtful design, and constantly learning new things.",
+    "locationLabel": "Located in",
+    "locationValue": "Vietnam",
+    "rolePrimary": "Freelance",
+    "roleSecondary": "Web Developer & Designer"
   },
   "skills": {
     "title": "What I Do",
@@ -43,7 +47,8 @@
     "subtitle": "A few things I've built recently.",
     "viewCase": "View Case Study",
     "viewLive": "View Live",
-    "code": "Source Code"
+    "code": "Source Code",
+    "moreWork": "More work"
   },
   "testimonials": {
     "title": "My Values",
@@ -225,7 +230,7 @@
   "about": {
     "title": "About Me",
     "text1": "I'm a developer at the beginning of my journey, and I'm loving every moment of it. There's something exciting about learning something new every day and seeing my skills grow with each project I build.",
-    "text2": "My approach is simple: stay curious, build things, and learn from mistakes. I care about writing clean code and creating interfaces that feel good to use — even if I'm still figuring things out.",
+    "text2": "My approach is simple: stay curious, build things, and learn from mistakes. I care about writing clean code and creating interfaces that feel good to use - even if I'm still figuring things out.",
     "text3": "When I'm not coding, you'll find me exploring new tools, watching tutorials, or working on side projects. I believe the best way to learn is by doing, and I'm always looking for the next challenge.",
     "skillsTitle": "What I Bring",
     "skills": {

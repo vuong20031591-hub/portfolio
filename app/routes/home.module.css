@@ -1,5 +1,87 @@
 /* Home Page - Shared Styles */
 .page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--color-neutral-1) 0%, var(--color-neutral-2) 100%);
+  background: var(--color-neutral-1);
+}
+
+/* Closing Band (CTA + Footer) — Dennis Snellenberg dark-surface reveal */
+.closingBand {
+  --closing-bg: #1c1d20;
+  --closing-surface: #25272b;
+  --closing-border: rgba(255, 255, 255, 0.12);
+  --closing-text: #ffffff;
+  --closing-muted: rgba(255, 255, 255, 0.68);
+  position: relative;
+  background-color: var(--closing-bg);
+  color: var(--closing-text);
+  overflow: hidden;
+  z-index: 1;
+}
+
+:global(.dark) .closingBand {
+  --closing-bg: #0c0c0b;
+  --closing-surface: #161615;
+  --closing-border: rgba(255, 255, 255, 0.1);
+}
+
+.closingReveal {
+  position: relative;
+  z-index: 2;
+  will-change: transform;
+}
+
+/* Override CTA card & Footer inside closing band để hòa quyện thành 1 khối thống nhất */
+.closingBand :global(.closing-cta-card) {
+  background: var(--closing-surface);
+  border-color: var(--closing-border);
+  color: var(--closing-text);
+}
+
+.closingBand :global(.closing-cta-card:hover) {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: color-mix(in srgb, var(--closing-surface) 92%, white 8%);
+}
+
+.closingBand :global(.closing-cta-title) {
+  color: var(--closing-text);
+}
+
+.closingBand :global(.closing-cta-text) {
+  color: var(--closing-muted);
+}
+
+.closingBand :global(.closing-cta-icon) {
+  background: var(--closing-bg);
+  border-color: var(--closing-border);
+}
+
+.closingBand :global(.closing-cta-primary) {
+  background: var(--color-accent-9);
+  border-color: var(--color-accent-9);
+  color: var(--color-accent-contrast);
+}
+
+.closingBand :global(.closing-cta-primary:hover) {
+  background: var(--color-accent-10);
+  border-color: var(--color-accent-10);
+}
+
+.closingBand :global(.closing-cta-outline) {
+  color: var(--closing-text);
+  border-color: var(--closing-border);
+}
+
+.closingBand :global(.closing-cta-outline:hover) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: var(--closing-text);
+}
+
+.closingBand footer {
+  background: transparent;
+  border-top-color: var(--closing-border);
+}
+
+.closingBand footer p {
+  color: var(--closing-muted);
 }

@@ -13,7 +13,11 @@
   "hero": {
     "greeting": "Chào, mình là Vương",
     "title": "Web Developer",
-    "subtitle": "Mình xây dựng những trải nghiệm web mà người dùng thực sự thích. Đam mê code sạch, thiết kế có chiều sâu, và không ngừng học hỏi mỗi ngày."
+    "subtitle": "Mình xây dựng những trải nghiệm web mà người dùng thực sự thích. Đam mê code sạch, thiết kế có chiều sâu, và không ngừng học hỏi mỗi ngày.",
+    "locationLabel": "Làm việc tại",
+    "locationValue": "Việt Nam",
+    "rolePrimary": "Freelance",
+    "roleSecondary": "Web Developer & Designer"
   },
   "skills": {
     "title": "Mình làm gì",
@@ -43,7 +47,8 @@
     "subtitle": "Một vài thứ mình đã xây dựng gần đây.",
     "viewCase": "Xem chi tiết",
     "viewLive": "Xem demo",
-    "code": "Mã nguồn"
+    "code": "Mã nguồn",
+    "moreWork": "Xem thêm dự án"
   },
   "testimonials": {
     "title": "Giá trị của mình",
@@ -225,7 +230,7 @@
   "about": {
     "title": "Về mình",
     "text1": "Mình là developer đang ở đầu hành trình, và mình yêu thích từng khoảnh khắc của nó. Có điều gì đó thú vị khi mỗi ngày học được điều mới và thấy kỹ năng của mình phát triển qua từng dự án.",
-    "text2": "Cách tiếp cận của mình đơn giản: tò mò, xây dựng, và học từ sai lầm. Mình quan tâm đến việc viết code sạch và tạo giao diện dễ dùng — dù vẫn đang trong quá trình tìm hiểu.",
+    "text2": "Cách tiếp cận của mình đơn giản: tò mò, xây dựng, và học từ sai lầm. Mình quan tâm đến việc viết code sạch và tạo giao diện dễ dùng - dù vẫn đang trong quá trình tìm hiểu.",
     "text3": "Khi không code, bạn sẽ thấy mình khám phá công cụ mới, xem tutorial, hoặc làm side project. Mình tin cách tốt nhất để học là thực hành, và luôn tìm kiếm thử thách tiếp theo.",
     "skillsTitle": "Mình mang đến gì",
     "skills": {

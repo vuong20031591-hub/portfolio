@@ -39,7 +39,7 @@ export function CTASection({ className, isContactOpen, onContactOpenChange }: CT
           {!isContactOpen && (
             <motion.div
               layoutId="contact-card"
-              className={styles.ctaCardContainer}
+              className={`${styles.ctaCardContainer} closing-cta-card`}
               onClick={() => onContactOpenChange(true)}
               style={{ position: "absolute", inset: 0, cursor: "pointer" }}
               initial={{ opacity: 0, y: 50 }}
@@ -52,21 +52,21 @@ export function CTASection({ className, isContactOpen, onContactOpenChange }: CT
               </div>
 
               <div className={styles.ctaContent}>
-                <div className={styles.ctaIconWrapper}>
+                <div className={`${styles.ctaIconWrapper} closing-cta-icon`}>
                   <Mail className={styles.ctaIcon} />
                 </div>
 
-                <h2 className={styles.ctaTitle}>
+                <h2 className={`${styles.ctaTitle} closing-cta-title`}>
                   {t.cta.title}
                   <span>{t.cta.titleHighlight}</span>
                 </h2>
 
-                <p className={styles.ctaText}>{t.cta.text}</p>
+                <p className={`${styles.ctaText} closing-cta-text`}>{t.cta.text}</p>
 
                 <div className={styles.ctaActions}>
                   <Button
                     size="lg"
-                    className={styles.ctaButton}
+                    className={`${styles.ctaButton} closing-cta-primary`}
                     onClick={(e) => {
                       e.stopPropagation();
                       onContactOpenChange(true);
@@ -77,7 +77,7 @@ export function CTASection({ className, isContactOpen, onContactOpenChange }: CT
                   <Button
                     size="lg"
                     variant="outline"
-                    className={styles.ctaButtonOutline}
+                    className={`${styles.ctaButtonOutline} closing-cta-outline`}
                     onClick={(e) => {
                       e.stopPropagation();
                       scrollToServices();

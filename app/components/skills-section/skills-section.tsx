@@ -1,123 +1,81 @@
-import {
-  Layout,
-  Server,
-  Palette,
-  Layers,
-  Workflow,
-  PenTool,
-  Monitor,
-  Zap,
-  Globe,
-  FolderGit,
-} from "lucide-react";
-import {
-  SiReact,
-  SiTypescript,
-  SiNextdotjs,
-  SiNodedotjs,
-  SiTailwindcss,
-  SiPython,
-  SiVite,
-  SiVercel,
-  SiFigma,
-} from "react-icons/si";
-import { FaJava } from "react-icons/fa";
 import { ScrollReveal } from "~/components/ui/scroll-reveal";
 import { useLanguage } from "~/contexts/language";
 import styles from "./skills-section.module.css";
-import type { SkillItem } from "./skills-section.types";
+
+interface EditorialSkill {
+  title: string;
+  description: string;
+  stack: string[];
+}
 
 /**
- * SkillsSection - Hiển thị kỹ năng dạng Bento Grid
+ * SkillsSection — Editorial Columns (inspired by Dennis Snellenberg "I can help you with...")
+ * Không khung card nặng nề, không badge rối mắt: chỉ số thứ tự, đường kẻ hairline,
+ * typography sắc nét và dòng tech stack tinh giản.
  */
 export function SkillsSection() {
   const { t } = useLanguage();
 
-  const skills: SkillItem[] = [
+  const skills: EditorialSkill[] = [
     {
-      icon: <Layout className="w-8 h-8" />,
       title: t.skills.frontend.title,
       description: t.skills.frontend.description,
-      tags: [
-        { name: "React", icon: <SiReact /> },
-        { name: "TypeScript", icon: <SiTypescript /> },
-        { name: "Next.js", icon: <SiNextdotjs /> },
-        { name: "Tailwind CSS", icon: <SiTailwindcss /> },
-        { name: "REST APIs", icon: <Globe size={14} /> },
-      ],
-      className: styles.bentoLarge,
+      stack: ["React", "TypeScript", "Next.js", "Tailwind CSS", "REST APIs"],
     },
     {
-      icon: <Server className="w-8 h-8" />,
       title: t.skills.backend.title,
       description: t.skills.backend.description,
-      tags: [
-        { name: "Node.js", icon: <SiNodedotjs /> },
-        { name: "Python", icon: <SiPython /> },
-        { name: "Java", icon: <FaJava /> },
-        { name: "APIs", icon: <Globe size={14} /> },
-      ],
-      className: styles.bentoTall,
+      stack: ["Node.js", "Python", "Java / Spring", "APIs"],
     },
     {
-      icon: <Palette className="w-8 h-8" />,
       title: t.skills.design.title,
       description: t.skills.design.description,
-      tags: [
-        { name: "Figma", icon: <SiFigma /> },
-        { name: "Design Systems", icon: <PenTool size={14} /> },
-        { name: "Responsive UI", icon: <Monitor size={14} /> },
-        { name: "Motion", icon: <Zap size={14} /> },
-      ],
-      className: styles.bentoNormal,
+      stack: ["Figma", "Design Systems", "Responsive UI", "Motion"],
     },
     {
-      icon: <Layers className="w-8 h-8" />,
       title: t.skills.architecture.title,
       description: t.skills.architecture.description,
-      tags: [
-        { name: "Git / GitHub", icon: <FolderGit size={14} /> },
-        { name: "Vite", icon: <SiVite /> },
-        { name: "Vercel", icon: <SiVercel /> },
-        { name: "GitHub Actions", icon: <Workflow size={14} /> },
-      ],
-      className: styles.bentoNormal,
+      stack: ["Git / GitHub", "Vite", "Vercel", "GitHub Actions"],
     },
   ];
 
   return (
     <section className={styles.section} id="skills">
-      <ScrollReveal variant="fade-up" width="100%">
-        <h2 className={styles.sectionTitle}>{t.skills.title}</h2>
-        <p className={styles.sectionSubtitle}>{t.skills.subtitle}</p>
-      </ScrollReveal>
-
-      <div className={styles.bentoGrid}>
-        {skills.map((skill, index) => (
-          <ScrollReveal
-            key={index}
-            variant="fade-up"
-            delay={index * 0.1}
-            width="100%"
-            className={skill.className}
-          >
-            <div className={styles.bentoCard}>
-              <div className={styles.bentoIconWrapper}>{skill.icon}</div>
-              <div className={styles.bentoContent}>
-                <h3 className={styles.bentoTitle}>{skill.title}</h3>
-                <p className={styles.bentoDescription}>{skill.description}</p>
-                <div className={styles.bentoTags}>
-                  {skill.tags.map((tag) => (
-                    <span key={tag.name} className={styles.bentoTag}>
-                      {tag.icon}
-                      <span>{tag.name}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
+      <div className={styles.inner}>
+        <ScrollReveal variant="fade-up" width="100%">
+          <header className={styles.sectionHeader}>
+            <div className={styles.headerLeft}>
+              <span className={styles.eyebrow}>01</span>
+              <h2 className={styles.sectionTitle}>{t.skills.title}</h2>
             </div>
-          </ScrollReveal>
-        ))}
+            <p className={styles.sectionSubtitle}>{t.skills.subtitle}</p>
+          </header>
+        </ScrollReveal>
+
+        <div className={styles.columns}>
+          {skills.map((skill, index) => (
+            <ScrollReveal
+              key={skill.title}
+              variant="fade-up"
+              delay={index * 0.08}
+              width="100%"
+              className={styles.colReveal}
+            >
+              <article className={styles.column}>
+                <div className={styles.colIndexRow}>
+                  <span className={styles.colIndex}>0{index + 1}</span>
+                </div>
+
+                <h3 className={styles.colTitle}>{skill.title}</h3>
+                <p className={styles.colDescription}>{skill.description}</p>
+
+                <p className={styles.colStack}>
+                  {skill.stack.join(" · ")}
+                </p>
+              </article>
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
     </section>
   );
