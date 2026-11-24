@@ -32,6 +32,8 @@ export interface FeaturedProject {
   tags: string[];
   githubUrl: string | null;
   liveUrl: string | null;
+  /** Site có cho phép nhúng iframe không (X-Frame-Options) */
+  embed?: boolean;
   stars?: number;
   forks?: number;
   language: string | null;
@@ -276,6 +278,7 @@ function buildStaticProject(id: string, language: "en" | "vi"): FeaturedProject 
     tags: config.techStack,
     githubUrl: null,
     liveUrl: config.liveUrl,
+    embed: false,
     language: config.language,
     readme: null,
     features: config.features[language],

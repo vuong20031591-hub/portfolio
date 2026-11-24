@@ -100,9 +100,13 @@ function ProjectCard({ project, index, isSelected, onSelect, viewCaseText, viewG
     }
   };
 
-  // Xử lý click vào Live Demo (mở modal với iframe)
+  // Xử lý click vào Live Demo: nhúng iframe nếu site cho phép, ngược lại mở tab mới
   const handleLiveDemoClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    if (project.embed === false && project.liveUrl) {
+      window.open(project.liveUrl, "_blank", "noopener,noreferrer");
+      return;
+    }
     onSelect('demo'); // Mở modal ở chế độ demo
   };
 

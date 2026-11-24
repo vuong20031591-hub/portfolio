@@ -95,6 +95,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
     tags: p.tags,
     githubUrl: p.githubUrl,
     liveUrl: p.liveUrl,
+    embed: p.embed,
     stars: p.stars,
     forks: p.forks,
     language: p.language,

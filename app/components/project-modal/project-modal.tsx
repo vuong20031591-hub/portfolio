@@ -92,8 +92,8 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
               </button>
             )}
 
-            {/* Toggle button giữa Info và Demo */}
-            {project.liveUrl && (
+            {/* Toggle button giữa Info và Demo (chỉ khi site cho phép nhúng) */}
+            {project.liveUrl && project.embed !== false && (
               <div className={`${styles.viewToggle} ${showIframe ? styles.viewToggleBottom : ''}`}>
                 <Button
                   variant={!showIframe ? "default" : "outline"}
@@ -116,7 +116,7 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
               </div>
             )}
 
-            {showIframe && project.liveUrl ? (
+            {showIframe && project.liveUrl && project.embed !== false ? (
               <IframePreview url={project.liveUrl} title={t.projectModal.demoPreview} />
             ) : (
               <ModalContent 
@@ -344,7 +344,11 @@ function ProjectSidebar({ project, t, onExternalClick, onShowDemo }: ProjectSide
           <Button
             className="w-full"
             size="lg"
-            onClick={onShowDemo}
+            onClick={
+              project.embed === false
+                ? () => onExternalClick(project.liveUrl!)
+                : onShowDemo
+            }
           >
             <Monitor className="mr-2 w-4 h-4" />
             {t.projectModal.visitLive}

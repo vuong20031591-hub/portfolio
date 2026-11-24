@@ -30,6 +30,8 @@ export interface ProjectData {
   githubUrl?: string | null;
   /** Live demo URL */
   liveUrl?: string | null;
+  /** Site có cho phép nhúng iframe không (mặc định true) */
+  embed?: boolean;
   /** Số stars */
   stars?: number;
   /** Số forks */
