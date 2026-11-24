@@ -266,6 +266,37 @@ const STATIC_PROJECTS: StaticProjectConfig[] = [
       ],
     },
   },
+  {
+    id: "vianedu",
+    title: {
+      en: "VianEdu - Aptis Exam Preparation Platform",
+      vi: "VianEdu - Nền tảng luyện thi Aptis",
+    },
+    description: {
+      en: "Full-stack Aptis General exam prep platform: timed practice sets, AI-assisted feedback for Speaking and Writing, CEFR progress tracking and staff tools for managing the exam bank.",
+      vi: "Nền tảng luyện thi Aptis General full-stack: đề luyện có tính giờ, AI chấm và nhận xét Speaking/Writing, theo dõi tiến độ theo CEFR và công cụ quản trị ngân hàng đề.",
+    },
+    image: "/images/projects/vianedu.jpg",
+    liveUrl: "https://vianedu.com",
+    language: "TypeScript",
+    techStack: ["TanStack Start", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Drizzle ORM"],
+    features: {
+      en: [
+        "Timed practice exam sets with per-skill scoring",
+        "AI feedback for Speaking and Writing (Gemini)",
+        "CEFR progress tracking and attempt history",
+        "Staff panel for exam bank, media and study guides",
+        "Queue-based grading worker on PostgreSQL",
+      ],
+      vi: [
+        "Đề luyện thi có tính giờ, chấm điểm từng kỹ năng",
+        "AI chấm và nhận xét Speaking/Writing (Gemini)",
+        "Theo dõi tiến độ theo CEFR và lịch sử bài làm",
+        "Trang quản trị ngân hàng đề, media và cẩm nang",
+        "Worker chấm bài dùng queue trên PostgreSQL",
+      ],
+    },
+  },
 ];
 
 function buildStaticProject(id: string, language: "en" | "vi"): FeaturedProject {
@@ -536,6 +567,7 @@ export async function fetchFeaturedProjects(
     byRepo.get("CoolHome"),
     byRepo.get("scb-agency"),
     buildStaticProject("poseidonbike", language),
+    buildStaticProject("vianedu", language),
   ];
   const projects = ordered.filter((project): project is FeaturedProject => Boolean(project));
   
