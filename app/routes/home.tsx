@@ -9,6 +9,7 @@ import { fetchFeaturedProjects, type FeaturedProject } from "~/services/github-p
 // Section Components
 import { HeroSection } from "~/components/hero-section";
 import { SkillsSection } from "~/components/skills-section";
+import { ServicesSection } from "~/components/services-section";
 import { ExperienceSection } from "~/components/experience-section";
 import { ProjectsSection } from "~/components/projects-section";
 import { TestimonialsSection } from "~/components/testimonials-section";
@@ -110,6 +111,8 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <ScrollyTelling items={processItems} />
 
       <SkillsSection />
+
+      <ServicesSection onContactOpenChange={setIsContactOpen} />
 
       <ExperienceSection />
 

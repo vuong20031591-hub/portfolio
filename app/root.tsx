@@ -15,6 +15,9 @@ import "./styles/tokens/typography.css";
 import "./styles/theme.css";
 import { useColorScheme } from "./hooks/use-color-scheme";
 import { LanguageProvider } from "./contexts/language";
+import { ErrorPage } from "./components/error-page";
+import { Navigation } from "./components/navigation/navigation";
+import { SiteFooter } from "./components/site-footer";
 import { Spotlight } from "./components/spotlight";
 import { getR2PublicUrl } from "./config/cdn";
 
@@ -91,27 +94,38 @@ export default function App({ loaderData }: Route.ComponentProps) {
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details = error.status === 404 ? "The requested page could not be found." : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+  const isNotFound = isRouteErrorResponse(error) && error.status === 404;
+  const stack = import.meta.env.DEV && error instanceof Error ? error.stack : undefined;
 
   return (
-    <main>
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <LanguageProvider>
+      {isNotFound ? (
+        <>
+          <Navigation />
+          <main>
+            <ErrorPage variant="notFound" />
+          </main>
+          <SiteFooter />
+        </>
+      ) : (
+        <ErrorPage variant="serverError" />
+      )}
       {stack && (
-        <pre>
+        <pre
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto 48px",
+            padding: "16px",
+            overflow: "auto",
+            fontSize: "12px",
+            borderRadius: "8px",
+            background: "var(--color-neutral-3)",
+            color: "var(--color-neutral-11)",
+          }}
+        >
           <code>{stack}</code>
         </pre>
       )}
-    </main>
+    </LanguageProvider>
   );
 }

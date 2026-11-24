@@ -1,0 +1,135 @@
+/* Services Section */
+.section {
+  padding: var(--space-9) var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  font: var(--font-heading);
+  color: var(--color-neutral-12);
+  margin: 0 0 var(--space-6) 0;
+  text-align: center;
+  letter-spacing: var(--font-letterspacing-1);
+}
+
+.sectionSubtitle {
+  text-align: center;
+  color: var(--color-neutral-10);
+  font-size: var(--font-size-3);
+  max-width: 600px;
+  margin: calc(var(--space-6) * -0.5) auto var(--space-8);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-5);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  background: var(--color-neutral-2);
+  border: 1px solid var(--color-neutral-4);
+  border-radius: var(--radius-5);
+  transition:
+    transform 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-accent-7);
+  box-shadow: var(--shadow-2);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: var(--font-size-2);
+  color: var(--color-neutral-12);
+}
+
+.cardPrice {
+  margin: 0;
+  font-family: Montserrat, var(--font-geometric-humanist);
+  font-weight: 700;
+  font-size: var(--font-size-5);
+  line-height: var(--font-lineheight-0);
+  color: var(--color-accent-9);
+}
+
+.cardTimeline {
+  margin: 0;
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+}
+
+.features {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-11);
+}
+
+.feature {
+  display: flex;
+  gap: var(--space-2);
+  line-height: var(--font-lineheight-2);
+}
+
+.feature::before {
+  content: "";
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  margin-top: 0.45em;
+  border-radius: var(--radius-round);
+  background: var(--color-accent-9);
+}
+
+.cardButton {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+.note {
+  max-width: 640px;
+  margin: var(--space-6) auto 0;
+  text-align: center;
+  font-size: var(--font-size-0);
+  color: var(--color-neutral-10);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: var(--space-8) var(--space-5);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

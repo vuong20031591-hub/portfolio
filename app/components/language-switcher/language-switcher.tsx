@@ -25,7 +25,7 @@ interface LanguageSwitcherProps {
 }
 
 export function LanguageSwitcher({ showLabel = false }: LanguageSwitcherProps) {
-  const { language, setLanguage } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   
   const currentLang = LANGUAGES.find((l) => l.code === language) || LANGUAGES[0];
 
@@ -35,7 +35,7 @@ export function LanguageSwitcher({ showLabel = false }: LanguageSwitcherProps) {
         <Button 
           variant="outline" 
           size="icon" 
-          aria-label="Switch language"
+          aria-label={t.common.switchLanguage}
         >
           <span className={styles.currentFlag}>{currentLang.flag}</span>
           {showLabel && <span className={styles.currentCode}>{currentLang.code.toUpperCase()}</span>}

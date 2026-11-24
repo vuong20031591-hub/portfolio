@@ -29,7 +29,7 @@ export interface ProjectItem {
   /** Danh sách tags/technologies */
   tags: string[];
   /** GitHub URL */
-  githubUrl?: string;
+  githubUrl?: string | null;
   /** Live demo URL */
   liveUrl?: string | null;
   /** Số stars */

@@ -30,10 +30,10 @@ export interface FeaturedProject {
   description: string;
   image: string;
   tags: string[];
-  githubUrl: string;
+  githubUrl: string | null;
   liveUrl: string | null;
-  stars: number;
-  forks: number;
+  stars?: number;
+  forks?: number;
   language: string | null;
   readme: string | null;
   features: string[];
@@ -45,10 +45,8 @@ const FEATURED_REPOS = [
   { owner: "vuong20031591-hub", repo: "RentCarVN" },
   { owner: "vuong20031591-hub", repo: "VoiceToText" },
   { owner: "vuong20031591-hub", repo: "VuongTech" },
-  { owner: "vuong20031591-hub", repo: "SmartGym-Partner-Network" },
   { owner: "vuong20031591-hub", repo: "CoolHome" },
   { owner: "vuong20031591-hub", repo: "scb-agency" },
-  { owner: "vuong20031591-hub", repo: "vexe24h" },
 ];
 
 // Project metadata bổ sung (không có trong GitHub API)
@@ -141,30 +139,6 @@ const PROJECT_METADATA: Record<string, {
       ],
     },
   },
-  "SmartGym-Partner-Network": {
-    title: {
-      en: "SmartGym Partner Network",
-      vi: "SmartGym Partner Network",
-    },
-    description: {
-      en: "A comprehensive gym partner network platform connecting fitness enthusiasts with gym facilities.",
-      vi: "Nền tảng mạng lưới đối tác phòng gym toàn diện, kết nối người yêu thể hình với các cơ sở gym.",
-    },
-    image: "/images/projects/smartgym.webp",
-    liveUrl: "https://smart-gym-partner-network.vercel.app/",
-    features: {
-      en: [
-        "Partner gym network management",
-        "User-friendly interface",
-        "Real-time data synchronization",
-      ],
-      vi: [
-        "Quản lý mạng lưới đối tác gym",
-        "Giao diện thân thiện người dùng",
-        "Đồng bộ dữ liệu real-time",
-      ],
-    },
-  },
   CoolHome: {
     title: {
       en: "CoolHome - Smart Home Platform",
@@ -213,31 +187,101 @@ const PROJECT_METADATA: Record<string, {
       ],
     },
   },
-  vexe24h: {
+};
+
+// Project không nằm trên GitHub (repo private) - thêm trực tiếp vào danh sách
+interface StaticProjectConfig {
+  id: string;
+  title: { en: string; vi: string };
+  description: { en: string; vi: string };
+  image: string;
+  liveUrl: string;
+  language: string;
+  techStack: string[];
+  features: { en: string[]; vi: string[] };
+}
+
+const STATIC_PROJECTS: StaticProjectConfig[] = [
+  {
+    id: "kdgroup",
     title: {
-      en: "VeXe24h - Bus Ticket Booking",
-      vi: "VeXe24h - Đặt vé xe khách",
+      en: "KD Group - Industrial Fastener Website",
+      vi: "KD Group - Website ốc vít công nghiệp",
     },
     description: {
-      en: "Online bus ticket booking platform with real-time seat selection and multiple payment options.",
-      vi: "Nền tảng đặt vé xe khách trực tuyến với chọn ghế real-time và nhiều phương thức thanh toán.",
+      en: "Corporate website for an industrial fastener manufacturer: bilingual product catalog, quote request flow and a custom admin panel for products and content.",
+      vi: "Website doanh nghiệp cho nhà sản xuất ốc vít công nghiệp: danh mục sản phẩm song ngữ, luồng yêu cầu báo giá và trang quản trị tự viết cho sản phẩm và nội dung.",
     },
-    image: "/images/projects/vexe24h.webp",
-    liveUrl: null,
+    image: "/images/projects/kdgroup.jpg",
+    liveUrl: "https://kdgroup.vn",
+    language: "TypeScript",
+    techStack: ["TanStack Start", "React", "TypeScript", "Tailwind CSS", "Prisma", "Vite"],
     features: {
       en: [
-        "Real-time seat selection",
-        "Multiple payment methods",
-        "Route search and booking",
+        "Bilingual product catalog (VI/EN)",
+        "Quote request flow with form validation",
+        "Prisma + SQL database with migrations",
+        "Admin panel with rich-text editor (BlockNote)",
+        "Server-side rendering with TanStack Start",
       ],
       vi: [
-        "Chọn ghế real-time",
-        "Nhiều phương thức thanh toán",
-        "Tìm kiếm và đặt tuyến xe",
+        "Danh mục sản phẩm song ngữ (VI/EN)",
+        "Luồng yêu cầu báo giá có validate form",
+        "Cơ sở dữ liệu Prisma + SQL với migration",
+        "Trang quản trị có trình soạn thảo (BlockNote)",
+        "Server-side rendering với TanStack Start",
       ],
     },
   },
-};
+  {
+    id: "poseidonbike",
+    title: {
+      en: "PoseidonBike - Bicycle Brand Website",
+      vi: "PoseidonBike - Website thương hiệu xe đạp",
+    },
+    description: {
+      en: "Brand website for Poseidon bicycles: product catalog with filters, dealer locator, news section and a custom admin panel for products and content.",
+      vi: "Website thương hiệu xe đạp Poseidon: danh mục sản phẩm có bộ lọc, tìm đại lý, tin tức và trang quản trị tự viết cho sản phẩm và nội dung.",
+    },
+    image: "/images/projects/poseidonbike.jpg",
+    liveUrl: "https://poseidonbike.vn",
+    language: "TypeScript",
+    techStack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Drizzle ORM"],
+    features: {
+      en: [
+        "Next.js App Router with server rendering",
+        "Product catalog with filters and detail pages",
+        "Dealer locator and news section",
+        "Admin panel with rich-text editor (BlockNote)",
+        "Image uploads via Cloudinary, PostgreSQL with Drizzle ORM",
+      ],
+      vi: [
+        "Next.js App Router với server rendering",
+        "Danh mục sản phẩm có bộ lọc và trang chi tiết",
+        "Trang tìm đại lý và tin tức",
+        "Trang quản trị có trình soạn thảo (BlockNote)",
+        "Upload ảnh qua Cloudinary, PostgreSQL với Drizzle ORM",
+      ],
+    },
+  },
+];
+
+function buildStaticProject(id: string, language: "en" | "vi"): FeaturedProject {
+  const config = STATIC_PROJECTS.find((project) => project.id === id)!;
+  return {
+    id: config.id,
+    title: config.title[language],
+    description: config.description[language],
+    image: config.image,
+    tags: config.techStack,
+    githubUrl: null,
+    liveUrl: config.liveUrl,
+    language: config.language,
+    readme: null,
+    features: config.features[language],
+    techStack: config.techStack,
+  };
+}
 
 
 // Default images cho các project
@@ -245,10 +289,8 @@ const DEFAULT_PROJECT_IMAGES: Record<string, string> = {
   RentCarVN: "/images/projects/rent-car-vn.webp",
   VoiceToText: "/images/projects/voicetotext.webp",
   VuongTech: "/images/projects/vuongtech.webp",
-  "SmartGym-Partner-Network": "/images/projects/smartgym.webp",
   CoolHome: "/images/projects/coolhome.webp",
   "scb-agency": "/images/projects/scb-agency.webp",
-  vexe24h: "/images/projects/vexe24h.webp",
 };
 
 /**
@@ -440,7 +482,7 @@ export async function fetchFeaturedProjects(
 
   if (!token) {
     console.error("GITHUB_TOKEN not configured");
-    return [];
+    return STATIC_PROJECTS.map((project) => buildStaticProject(project.id, language));
   }
 
   // Fetch all repos in parallel
@@ -456,25 +498,43 @@ export async function fetchFeaturedProjects(
     const techStack = extractTechStack(readme, repoInfo.language, repoInfo.topics);
 
     return {
-      id: repoInfo.id,
-      title: metadata?.title[language] || repoInfo.name,
-      description: metadata?.description[language] || repoInfo.description,
-      image: DEFAULT_PROJECT_IMAGES[repo] || 
-        "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
-      tags: techStack.length > 0 ? techStack : ["Web Development"],
-      githubUrl: repoInfo.htmlUrl,
-      liveUrl: metadata?.liveUrl || repoInfo.homepage,
-      stars: repoInfo.stargazersCount,
-      forks: repoInfo.forksCount,
-      language: repoInfo.language,
-      readme,
-      features: metadata?.features[language] || [],
-      techStack,
-    } as FeaturedProject;
+      repo,
+      project: {
+        id: repoInfo.id,
+        title: metadata?.title[language] || repoInfo.name,
+        description: metadata?.description[language] || repoInfo.description,
+        image: DEFAULT_PROJECT_IMAGES[repo] || 
+          "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&q=80",
+        tags: techStack.length > 0 ? techStack : ["Web Development"],
+        githubUrl: repoInfo.htmlUrl,
+        liveUrl: metadata?.liveUrl || repoInfo.homepage,
+        stars: repoInfo.stargazersCount,
+        forks: repoInfo.forksCount,
+        language: repoInfo.language,
+        readme,
+        features: metadata?.features[language] || [],
+        techStack,
+      } as FeaturedProject,
+    };
   });
 
-  const results = await Promise.all(projectPromises);
-  const projects = results.filter((p): p is FeaturedProject => p !== null);
+  const fetched = await Promise.all(projectPromises);
+  const byRepo = new Map(
+    fetched.filter((entry): entry is { repo: string; project: FeaturedProject } => entry !== null)
+      .map((entry) => [entry.repo, entry.project])
+  );
+
+  // Thứ tự hiển thị: KD Group và PoseidonBike (repo private) thay cho SmartGym và VeXe24h cũ
+  const ordered: Array<FeaturedProject | undefined> = [
+    byRepo.get("RentCarVN"),
+    byRepo.get("VoiceToText"),
+    byRepo.get("VuongTech"),
+    buildStaticProject("kdgroup", language),
+    byRepo.get("CoolHome"),
+    byRepo.get("scb-agency"),
+    buildStaticProject("poseidonbike", language),
+  ];
+  const projects = ordered.filter((project): project is FeaturedProject => Boolean(project));
   
   // Store in cache
   projectsCache.set(cacheKey, { data: projects, timestamp: Date.now() });
@@ -490,6 +550,10 @@ export async function getProjectByName(
   language: "en" | "vi" = "en",
   env?: Record<string, unknown>
 ): Promise<FeaturedProject | null> {
+  if (STATIC_PROJECTS.some((project) => project.id === repoName)) {
+    return buildStaticProject(repoName, language);
+  }
+
   const repoConfig = FEATURED_REPOS.find((r) => r.repo === repoName);
   if (!repoConfig) return null;
 

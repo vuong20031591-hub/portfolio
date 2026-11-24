@@ -112,7 +112,7 @@ export function Navigation() {
                   size="icon"
                   className={styles.hamburger}
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                  aria-label={mobileMenuOpen ? t.nav.closeMenu : t.nav.openMenu}
                   aria-expanded={mobileMenuOpen}
                 >
                   {mobileMenuOpen ? <X /> : <Menu />}

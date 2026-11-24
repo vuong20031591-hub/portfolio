@@ -12,6 +12,8 @@ export interface Translations {
     skipToContent: string;
     ariaLabel: string;
     homeAriaLabel: string;
+    openMenu: string;
+    closeMenu: string;
   };
   // Hero section
   hero: {
@@ -68,7 +70,38 @@ export interface Translations {
     titleHighlight: string;
     text: string;
     getInTouch: string;
-    viewResume: string;
+    viewServices: string;
+  };
+  // Services section
+  services: {
+    title: string;
+    subtitle: string;
+    cta: string;
+    note: string;
+    landing: {
+      title: string;
+      price: string;
+      timeline: string;
+      features: string[];
+    };
+    bugfix: {
+      title: string;
+      price: string;
+      timeline: string;
+      features: string[];
+    };
+    automation: {
+      title: string;
+      price: string;
+      timeline: string;
+      features: string[];
+    };
+    design: {
+      title: string;
+      price: string;
+      timeline: string;
+      features: string[];
+    };
   };
   // Contact form
   contact: {
@@ -123,6 +156,23 @@ export interface Translations {
   common: {
     loading: string;
     error: string;
+    switchLanguage: string;
+    toggleColorScheme: string;
+  };
+  // Error pages
+  errors: {
+    notFound: {
+      title: string;
+      text: string;
+    };
+    serverError: {
+      title: string;
+      text: string;
+    };
+    backHome: string;
+    viewProjects: string;
+    contact: string;
+    reload: string;
   };
   // About page
   about: {
@@ -226,6 +276,12 @@ export interface Translations {
     roleValue: string;
     stack: string;
     visitLive: string;
+    info: string;
+    liveDemo: string;
+    demoPreview: string;
+    language: string;
+    githubStars: string;
+    viewOnGithub: string;
   };
 }
 

@@ -131,14 +131,16 @@ export default function Projects() {
                           {t.projects.viewLive}
                         </Button>
                       )}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => window.open(project.githubUrl, "_blank", "noopener,noreferrer")}
-                      >
-                        <Github />
-                        {t.projects.code}
-                      </Button>
+                      {project.githubUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => window.open(project.githubUrl!, "_blank", "noopener,noreferrer")}
+                        >
+                          <Github />
+                          {t.projects.code}
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

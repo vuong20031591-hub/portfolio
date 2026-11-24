@@ -6,7 +6,9 @@
     "contact": "Contact",
     "skipToContent": "Skip to main content",
     "ariaLabel": "Main navigation",
-    "homeAriaLabel": "Go to homepage"
+    "homeAriaLabel": "Go to homepage",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
     "greeting": "Hey, I'm Vuong",
@@ -21,20 +23,20 @@
       "description": "React, TypeScript, Next.js — building interfaces that are fast, accessible, and a joy to use."
     },
     "backend": {
-      "title": "Backend & Infrastructure",
-      "description": "Node.js, databases, cloud services — the invisible foundation that makes everything work."
+      "title": "Backend & Scripting",
+      "description": "Python APIs and automation scripts, Java/Spring and Node.js — enough to make a front-end feature work end to end."
     },
     "design": {
-      "title": "UI/UX Design",
-      "description": "From wireframes to polished interfaces — I care about every pixel and every interaction."
+      "title": "UI Design",
+      "description": "Clean, readable interfaces built on one component system — from layout and spacing to motion."
     },
     "architecture": {
-      "title": "System Design",
-      "description": "Scalable architecture, clean patterns, and tech choices that stand the test of time."
+      "title": "Tools & Delivery",
+      "description": "The parts that make a project ship: version control, fast builds, deploy previews and CI."
     }
   },
   "experience": {
-    "title": "Where I've Worked"
+    "title": "Experience & Availability"
   },
   "projects": {
     "title": "Selected Work",
@@ -80,11 +82,61 @@
     ]
   },
   "cta": {
-    "title": "Looking for a",
-    "titleHighlight": "junior developer?",
-    "text": "I'm eager to learn, grow, and contribute to real projects. If you have an opportunity or just want to connect, I'd love to hear from you.",
-    "getInTouch": "Let's Talk",
-    "viewResume": "View Resume"
+    "title": "Need a landing page,",
+    "titleHighlight": "a bug fix, or a script?",
+    "text": "I build React/Next.js landing pages, fix front-end bugs and write small Python automation scripts. Remote, GMT+7 — I reply within a few hours.",
+    "getInTouch": "Start a project",
+    "viewServices": "See services"
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "Fixed scope, fixed price, clear deadline. PayPal or bank transfer.",
+    "cta": "Start a project",
+    "note": "Not sure what you need? Send a short message with your goal — I'll reply with a scope and a price within a few hours (GMT+7).",
+    "landing": {
+      "title": "Landing page",
+      "price": "from $35",
+      "timeline": "2–4 days",
+      "features": [
+        "React / Next.js + Tailwind",
+        "Mobile-first responsive layout",
+        "Contact form + basic SEO tags",
+        "2 rounds of revisions"
+      ]
+    },
+    "bugfix": {
+      "title": "Bug fix",
+      "price": "from $10",
+      "timeline": "24–48 hours",
+      "features": [
+        "HTML/CSS/JS or React",
+        "Layout and responsive issues",
+        "Short report of what was fixed",
+        "Updated files, not screenshots"
+      ]
+    },
+    "automation": {
+      "title": "Python automation",
+      "price": "from $25",
+      "timeline": "2–5 days",
+      "features": [
+        "Bulk file processing, API sync",
+        "CLI script or small desktop tool",
+        "Test run on your sample data",
+        "README + 1 revision"
+      ]
+    },
+    "design": {
+      "title": "Social design pack",
+      "price": "from $15",
+      "timeline": "1–2 days",
+      "features": [
+        "5 banners, one consistent style",
+        "Correct sizes per platform",
+        "Source file + PNG exports",
+        "2 rounds of revisions"
+      ]
+    }
   },
   "contact": {
     "title": "Get in Touch",
@@ -134,7 +186,23 @@
   },
   "common": {
     "loading": "Loading...",
-    "error": "Something went wrong"
+    "error": "Something went wrong",
+    "switchLanguage": "Switch language",
+    "toggleColorScheme": "Toggle color scheme"
+  },
+  "errors": {
+    "notFound": {
+      "title": "Page not found",
+      "text": "The link may be broken, or the page may have been moved. Let's get you back on track."
+    },
+    "serverError": {
+      "title": "Something went wrong",
+      "text": "An unexpected error occurred while loading this page. Try again, or head back home."
+    },
+    "backHome": "Back to home",
+    "viewProjects": "View projects",
+    "contact": "Contact me",
+    "reload": "Try again"
   },
   "process": {
     "discovery": {
@@ -209,28 +277,34 @@
     "timeline": "Timeline",
     "timelineValue": "12 Weeks",
     "role": "Role",
-    "roleValue": "Lead Developer",
     "stack": "Tech Stack",
-    "visitLive": "View Live Project"
+    "visitLive": "View Live Project",
+    "info": "Info",
+    "liveDemo": "Live Demo",
+    "demoPreview": "Live Demo Preview",
+    "language": "Language",
+    "githubStars": "GitHub Stars",
+    "roleValue": "Developer",
+    "viewOnGithub": "View on GitHub"
   },
   "homeExperience": {
     "job1": {
-      "role": "Web Developer",
-      "company": "Self-learning & Projects",
-      "period": "2025 — Present",
-      "description": "Building personal projects and learning modern web technologies. Focused on React, TypeScript, and creating real-world applications."
+      "role": "Freelance Front-end Developer",
+      "company": "Available now — remote, GMT+7",
+      "period": "2026",
+      "description": "Landing pages and front-end bug fixes with React, Next.js and TypeScript. Scope confirmed in writing before starting, reply within a few hours."
     },
     "job2": {
-      "role": "Open Source Contributor",
-      "company": "GitHub Community",
-      "period": "2025 — Present",
-      "description": "Contributing to open source projects and learning from the developer community."
+      "role": "Python & AI Tooling",
+      "company": "Open-source projects on GitHub",
+      "period": "2025 — 2026",
+      "description": "VoiceToText — a Vietnamese speech-to-text desktop app with .exe releases; and an AI image upscaling REST API built on Real-ESRGAN."
     },
     "job3": {
-      "role": "Continuous Learner",
-      "company": "Online Courses & Tutorials",
-      "period": "2025 — Present",
-      "description": "Completing courses on frontend development, backend basics, and best practices in software engineering."
+      "role": "Full-stack Study Projects",
+      "company": "Java/Spring, Flutter, React",
+      "period": "2025 — 2026",
+      "description": "Web ban hoa (Java backend), DatVe360 (Flutter ticket booking app) and multiple React/Next.js interfaces."
     }
   }
 }

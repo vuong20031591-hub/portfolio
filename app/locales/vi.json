@@ -6,7 +6,9 @@
     "contact": "Liên hệ",
     "skipToContent": "Chuyển đến nội dung chính",
     "ariaLabel": "Điều hướng chính",
-    "homeAriaLabel": "Về trang chủ"
+    "homeAriaLabel": "Về trang chủ",
+    "openMenu": "Mở menu",
+    "closeMenu": "Đóng menu"
   },
   "hero": {
     "greeting": "Chào, mình là Vương",
@@ -21,20 +23,20 @@
       "description": "React, TypeScript, Next.js — xây dựng giao diện nhanh, dễ tiếp cận và dùng thấy thích."
     },
     "backend": {
-      "title": "Backend & Infrastructure",
-      "description": "Node.js, database, cloud — nền tảng vô hình giúp mọi thứ hoạt động trơn tru."
+      "title": "Backend & Scripting",
+      "description": "API và script Python, Java/Spring, Node.js — đủ để một tính năng front-end chạy được từ đầu đến cuối."
     },
     "design": {
-      "title": "UI/UX Design",
-      "description": "Từ wireframe đến giao diện hoàn chỉnh — mình quan tâm từng pixel và từng tương tác."
+      "title": "Thiết kế giao diện",
+      "description": "Giao diện gọn, dễ đọc, dựng trên một hệ component thống nhất — từ layout, khoảng cách đến chuyển động."
     },
     "architecture": {
-      "title": "System Design",
-      "description": "Kiến trúc có khả năng mở rộng, pattern sạch, và những lựa chọn công nghệ bền vững."
+      "title": "Công cụ & Triển khai",
+      "description": "Những phần giúp dự án thực sự chạy: quản lý phiên bản, build nhanh, preview và CI."
     }
   },
   "experience": {
-    "title": "Nơi mình đã làm việc"
+    "title": "Kinh nghiệm & Nhận việc"
   },
   "projects": {
     "title": "Dự án tiêu biểu",
@@ -80,11 +82,61 @@
     ]
   },
   "cta": {
-    "title": "Đang tìm",
-    "titleHighlight": "junior developer?",
-    "text": "Mình háo hức được học hỏi, phát triển và đóng góp vào các dự án thực tế. Nếu bạn có cơ hội hoặc chỉ muốn kết nối, mình rất muốn nghe từ bạn.",
-    "getInTouch": "Trò chuyện nào",
-    "viewResume": "Xem CV"
+    "title": "Cần landing page,",
+    "titleHighlight": "sửa bug, hay script tự động?",
+    "text": "Mình làm landing page React/Next.js, sửa lỗi front-end và viết script Python. Làm remote, GMT+7 — phản hồi trong vài giờ.",
+    "getInTouch": "Bắt đầu dự án",
+    "viewServices": "Xem dịch vụ"
+  },
+  "services": {
+    "title": "Dịch vụ",
+    "subtitle": "Phạm vi rõ, giá rõ, hạn giao rõ. Thanh toán PayPal hoặc chuyển khoản.",
+    "cta": "Bắt đầu dự án",
+    "note": "Chưa rõ cần gì? Gửi một tin nhắn ngắn về mục tiêu — mình sẽ báo phạm vi và giá trong vài giờ (GMT+7).",
+    "landing": {
+      "title": "Landing page",
+      "price": "từ 900.000đ",
+      "timeline": "2–4 ngày",
+      "features": [
+        "React / Next.js + Tailwind",
+        "Responsive, ưu tiên mobile",
+        "Form liên hệ + SEO cơ bản",
+        "2 lần sửa"
+      ]
+    },
+    "bugfix": {
+      "title": "Sửa lỗi giao diện",
+      "price": "từ 250.000đ",
+      "timeline": "24–48 giờ",
+      "features": [
+        "HTML/CSS/JS hoặc React",
+        "Lỗi layout và responsive",
+        "Ghi chú ngắn những gì đã sửa",
+        "Giao file, không giao ảnh chụp"
+      ]
+    },
+    "automation": {
+      "title": "Script Python tự động hoá",
+      "price": "từ 600.000đ",
+      "timeline": "2–5 ngày",
+      "features": [
+        "Xử lý file hàng loạt, đồng bộ API",
+        "Script CLI hoặc tool có giao diện",
+        "Chạy thử trên dữ liệu mẫu của bạn",
+        "README + 1 lần sửa"
+      ]
+    },
+    "design": {
+      "title": "Bộ banner social",
+      "price": "từ 400.000đ",
+      "timeline": "1–2 ngày",
+      "features": [
+        "5 banner, cùng một phong cách",
+        "Đúng kích thước từng nền tảng",
+        "File gốc + PNG",
+        "2 lần sửa"
+      ]
+    }
   },
   "contact": {
     "title": "Liên hệ",
@@ -134,7 +186,23 @@
   },
   "common": {
     "loading": "Đang tải...",
-    "error": "Đã có lỗi xảy ra"
+    "error": "Đã có lỗi xảy ra",
+    "switchLanguage": "Đổi ngôn ngữ",
+    "toggleColorScheme": "Đổi giao diện sáng/tối"
+  },
+  "errors": {
+    "notFound": {
+      "title": "Không tìm thấy trang",
+      "text": "Đường dẫn có thể bị sai, hoặc trang đã được chuyển đi. Về lại trang chủ nhé."
+    },
+    "serverError": {
+      "title": "Đã có lỗi xảy ra",
+      "text": "Có lỗi khi tải trang này. Thử lại, hoặc về trang chủ."
+    },
+    "backHome": "Về trang chủ",
+    "viewProjects": "Xem dự án",
+    "contact": "Liên hệ",
+    "reload": "Thử lại"
   },
   "process": {
     "discovery": {
@@ -209,28 +277,34 @@
     "timeline": "Thời gian",
     "timelineValue": "12 Tuần",
     "role": "Vai trò",
-    "roleValue": "Lead Developer",
     "stack": "Tech Stack",
-    "visitLive": "Xem dự án"
+    "visitLive": "Xem dự án",
+    "info": "Thông tin",
+    "liveDemo": "Live Demo",
+    "demoPreview": "Xem trước demo",
+    "language": "Ngôn ngữ",
+    "githubStars": "Sao GitHub",
+    "roleValue": "Lập trình viên",
+    "viewOnGithub": "Xem trên GitHub"
   },
   "homeExperience": {
     "job1": {
-      "role": "Web Developer",
-      "company": "Tự học & Dự án cá nhân",
-      "period": "2025 — Hiện tại",
-      "description": "Xây dựng các dự án cá nhân và học công nghệ web hiện đại. Tập trung vào React, TypeScript và tạo ứng dụng thực tế."
+      "role": "Front-end Freelance",
+      "company": "Đang nhận việc — remote, GMT+7",
+      "period": "2026",
+      "description": "Làm landing page và sửa lỗi front-end với React, Next.js, TypeScript. Chốt phạm vi bằng văn bản trước khi làm, phản hồi trong vài giờ."
     },
     "job2": {
-      "role": "Open Source Contributor",
-      "company": "Cộng đồng GitHub",
-      "period": "2025 — Hiện tại",
-      "description": "Đóng góp cho các dự án mã nguồn mở và học hỏi từ cộng đồng developer."
+      "role": "Python & Công cụ AI",
+      "company": "Dự án mã nguồn mở trên GitHub",
+      "period": "2025 — 2026",
+      "description": "VoiceToText — app chuyển giọng nói tiếng Việt thành văn bản, có bản .exe; và API phóng to ảnh bằng AI với Real-ESRGAN."
     },
     "job3": {
-      "role": "Học viên",
-      "company": "Khóa học Online & Tutorial",
-      "period": "2025 — Hiện tại",
-      "description": "Hoàn thành các khóa học về frontend, backend cơ bản và best practices trong software engineering."
+      "role": "Dự án học tập full-stack",
+      "company": "Java/Spring, Flutter, React",
+      "period": "2025 — 2026",
+      "description": "Web bán hoa (backend Java), DatVe360 (app Flutter đặt vé) và nhiều giao diện React/Next.js."
     }
   }
 }

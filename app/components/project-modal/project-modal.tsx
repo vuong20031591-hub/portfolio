@@ -102,7 +102,7 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
                   className={styles.toggleButton}
                 >
                   <Info className="w-4 h-4 mr-2" />
-                  Thông tin
+                  {t.projectModal.info}
                 </Button>
                 <Button
                   variant={showIframe ? "default" : "outline"}
@@ -111,13 +111,13 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
                   className={styles.toggleButton}
                 >
                   <Monitor className="w-4 h-4 mr-2" />
-                  Live Demo
+                  {t.projectModal.liveDemo}
                 </Button>
               </div>
             )}
 
             {showIframe && project.liveUrl ? (
-              <IframePreview url={project.liveUrl} />
+              <IframePreview url={project.liveUrl} title={t.projectModal.demoPreview} />
             ) : (
               <ModalContent 
                 project={project} 
@@ -137,9 +137,10 @@ export function ProjectModal({ selectedProject, onClose, projects, initialView =
 /** Component hiển thị iframe preview */
 interface IframePreviewProps {
   url: string;
+  title: string;
 }
 
-function IframePreview({ url }: IframePreviewProps) {
+function IframePreview({ url, title }: IframePreviewProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -150,7 +151,7 @@ function IframePreview({ url }: IframePreviewProps) {
       <iframe
         src={url}
         className={styles.iframe}
-        title="Live Demo Preview"
+        title={title}
         sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
         loading="lazy"
       />
@@ -310,21 +311,21 @@ function ProjectSidebar({ project, t, onExternalClick, onShowDemo }: ProjectSide
     <div className={styles.caseStudySidebar}>
       {project.language && (
         <div className={styles.projectStat}>
-          <span className={styles.projectStatLabel}>Language</span>
+          <span className={styles.projectStatLabel}>{t.projectModal.language}</span>
           <span className={styles.projectStatValue}>{project.language}</span>
         </div>
       )}
 
       {project.stars !== undefined && (
         <div className={styles.projectStat}>
-          <span className={styles.projectStatLabel}>GitHub Stars</span>
+          <span className={styles.projectStatLabel}>{t.projectModal.githubStars}</span>
           <span className={styles.projectStatValue}>{project.stars}</span>
         </div>
       )}
 
       <div className={styles.projectStat}>
         <span className={styles.projectStatLabel}>{t.projectModal.role}</span>
-        <span className={styles.projectStatValue}>Full-stack Developer</span>
+        <span className={styles.projectStatValue}>{t.projectModal.roleValue}</span>
       </div>
 
       <div className={styles.actionButtons}>
@@ -336,7 +337,7 @@ function ProjectSidebar({ project, t, onExternalClick, onShowDemo }: ProjectSide
             onClick={() => onExternalClick(project.githubUrl!)}
           >
             <Github className="mr-2 w-4 h-4" />
-            View on GitHub
+            {t.projectModal.viewOnGithub}
           </Button>
         )}
         {project.liveUrl && (

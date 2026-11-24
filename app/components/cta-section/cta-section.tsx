@@ -11,22 +11,26 @@ import type { CTASectionProps } from "./cta-section.types";
 export function CTASection({ className, isContactOpen, onContactOpenChange }: CTASectionProps) {
   const { t } = useLanguage();
 
+  const scrollToServices = () => {
+    document.getElementById("services")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <section className={styles.ctaSection}>
       <div style={{ width: "100%", height: "100%", position: "relative" }}>
-        {/* Placeholder to maintain layout */}
-        <div className={styles.ctaCardContainer} style={{ opacity: 0, visibility: "hidden" }}>
+        {/* Bản sao ẩn giữ chiều cao cho card định vị absolute bên dưới */}
+        <div className={styles.ctaCardContainer} style={{ opacity: 0, visibility: "hidden" }} aria-hidden="true" inert>
           <div className={styles.ctaContent} style={{ padding: "var(--space-9)" }}>
             <div className={styles.ctaIconWrapper}>
               <Mail className={styles.ctaIcon} />
             </div>
             <h2 className={styles.ctaTitle}>
-              Ready to start <br />
-              <span>your next project?</span>
+              {t.cta.title}
+              <span>{t.cta.titleHighlight}</span>
             </h2>
-            <p className={styles.ctaText}>Placeholder text to maintain height.</p>
+            <p className={styles.ctaText}>{t.cta.text}</p>
             <div className={styles.ctaActions}>
-              <Button>Get in Touch</Button>
+              <Button>{t.cta.getInTouch}</Button>
             </div>
           </div>
         </div>
@@ -74,9 +78,12 @@ export function CTASection({ className, isContactOpen, onContactOpenChange }: CT
                     size="lg"
                     variant="outline"
                     className={styles.ctaButtonOutline}
-                    onClick={(e) => e.stopPropagation()}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      scrollToServices();
+                    }}
                   >
-                    {t.cta.viewResume}
+                    {t.cta.viewServices}
                   </Button>
                 </div>
               </div>

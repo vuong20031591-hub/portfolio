@@ -58,6 +58,8 @@ export function ProjectsSection({
               isSelected={selectedProject === index}
               onSelect={(view) => handleSelectProject(index, view)}
               viewCaseText={t.projects.viewCase}
+              viewGithubText={t.projectModal.viewOnGithub}
+              viewDemoText={t.projects.viewLive}
             />
           </ScrollReveal>
         ))}
@@ -73,10 +75,12 @@ interface ProjectCardProps {
   isSelected: boolean;
   onSelect: (view?: 'info' | 'demo') => void;
   viewCaseText: string;
+  viewGithubText: string;
+  viewDemoText: string;
 }
 
 /** Component hiển thị một project card */
-function ProjectCard({ project, index, isSelected, onSelect, viewCaseText }: ProjectCardProps) {
+function ProjectCard({ project, index, isSelected, onSelect, viewCaseText, viewGithubText, viewDemoText }: ProjectCardProps) {
   if (isSelected) {
     return (
       <div style={{ width: "100%", height: "100%", position: "relative" }}>
@@ -89,7 +93,7 @@ function ProjectCard({ project, index, isSelected, onSelect, viewCaseText }: Pro
   }
 
   // Xử lý click vào GitHub link (mở tab mới)
-  const handleGitHubClick = (e: React.MouseEvent, url?: string) => {
+  const handleGitHubClick = (e: React.MouseEvent, url?: string | null) => {
     e.stopPropagation();
     if (url) {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -166,7 +170,7 @@ function ProjectCard({ project, index, isSelected, onSelect, viewCaseText }: Pro
                   size="icon"
                   className={styles.projectLink}
                   onClick={(e) => handleGitHubClick(e, project.githubUrl)}
-                  aria-label="View on GitHub"
+                  aria-label={viewGithubText}
                 >
                   <Github className="w-5 h-5" />
                 </Button>
@@ -178,7 +182,7 @@ function ProjectCard({ project, index, isSelected, onSelect, viewCaseText }: Pro
                   size="icon"
                   className={styles.projectLink}
                   onClick={handleLiveDemoClick}
-                  aria-label="View live demo"
+                  aria-label={viewDemoText}
                 >
                   <ExternalLink className="w-5 h-5" />
                 </Button>
