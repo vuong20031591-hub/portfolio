@@ -21,6 +21,9 @@ export interface UseContactFormReturn {
   formData: ContactFormData;
   status: SubmitStatus;
   errorMessage: string;
+  captchaToken: string;
+  captchaResetKey: number;
+  setCaptchaToken: (token: string) => void;
   handleChange: (field: keyof ContactFormData, value: string) => void;
   handleSubmit: (e: React.FormEvent) => Promise<void>;
   resetForm: () => void;
@@ -98,6 +101,8 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_DATA);
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
   const submitTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const handleChange = useCallback((field: keyof ContactFormData, value: string) => {
@@ -108,6 +113,8 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
     setFormData(INITIAL_FORM_DATA);
     setStatus("idle");
     setErrorMessage("");
+    setCaptchaToken("");
+    setCaptchaResetKey((prev) => prev + 1);
     if (submitTimeoutRef.current) {
       clearTimeout(submitTimeoutRef.current);
     }
@@ -115,6 +122,12 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
 
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      setStatus("error");
+      setErrorMessage("Please complete the hCaptcha verification before sending.");
+      return;
+    }
     
     // Kiểm tra rate limit
     const rateLimitCheck = checkRateLimit(formName);
@@ -144,6 +157,7 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
         email: formData.email,
         message: formData.message,
         subject: `New Contact Form Submission from ${formData.name}`,
+        "h-captcha-response": captchaToken,
       };
 
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -163,12 +177,16 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
         
         setStatus("success");
         setFormData(INITIAL_FORM_DATA);
+        setCaptchaToken("");
+        setCaptchaResetKey((prev) => prev + 1);
         
         // Auto reset về idle sau 5 giây
         submitTimeoutRef.current = setTimeout(() => {
           setStatus("idle");
         }, 5000);
       } else {
+        setCaptchaToken("");
+        setCaptchaResetKey((prev) => prev + 1);
         throw new Error(result.message || "Failed to send message. Please try again.");
       }
     } catch (error) {
@@ -177,12 +195,15 @@ export function useContactForm(formName: string = "contact"): UseContactFormRetu
         error instanceof Error ? error.message : "Something went wrong. Please try again."
       );
     }
-  }, [formData, formName]);
+  }, [formData, formName, captchaToken]);
 
   return {
     formData,
     status,
     errorMessage,
+    captchaToken,
+    captchaResetKey,
+    setCaptchaToken,
     handleChange,
     handleSubmit,
     resetForm,

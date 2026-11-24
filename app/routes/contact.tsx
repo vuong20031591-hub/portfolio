@@ -8,6 +8,7 @@ import { Navigation } from "~/components/navigation/navigation";
 import { CurvedDivider } from "~/components/ui/curved-divider";
 import { SiteFooter } from "~/components/site-footer";
 import { BackToTop } from "~/components/back-to-top";
+import { HCaptchaWidget } from "~/components/ui/hcaptcha-widget";
 import { useLanguage } from "~/contexts/language";
 import { useContactForm } from "~/hooks/use-contact-form";
 
@@ -26,8 +27,16 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Contact() {
   const { t, language } = useLanguage();
-  const { formData, status, errorMessage, handleChange, handleSubmit, resetForm } =
-    useContactForm("contact");
+  const {
+    formData,
+    status,
+    errorMessage,
+    captchaResetKey,
+    setCaptchaToken,
+    handleChange,
+    handleSubmit,
+    resetForm,
+  } = useContactForm("contact");
   const [copied, setCopied] = useState(false);
 
   const prefersReducedMotion = useReducedMotion();
@@ -184,6 +193,14 @@ export default function Contact() {
                         disabled={isLoading}
                       />
                     </div>
+                  </div>
+
+                  <div className={styles.captchaRow}>
+                    <HCaptchaWidget
+                      onVerify={setCaptchaToken}
+                      onExpire={() => setCaptchaToken("")}
+                      resetKey={captchaResetKey}
+                    />
                   </div>
 
                   {status === "error" && errorMessage && (

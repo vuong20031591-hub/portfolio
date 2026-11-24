@@ -1,6 +1,7 @@
 import { X, Mail, User, MessageSquare, Send, Loader2, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "~/components/ui/button/button";
+import { HCaptchaWidget } from "~/components/ui/hcaptcha-widget";
 import { useLanguage } from "~/contexts/language";
 import { useContactForm } from "~/hooks/use-contact-form";
 import styles from "./contact-modal.module.css";
@@ -14,7 +15,16 @@ const FORM_NAME = "contact-modal";
  */
 export function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const { t } = useLanguage();
-  const { formData, status, handleChange, handleSubmit, resetForm } = useContactForm(FORM_NAME);
+  const {
+    formData,
+    status,
+    errorMessage,
+    captchaResetKey,
+    setCaptchaToken,
+    handleChange,
+    handleSubmit,
+    resetForm,
+  } = useContactForm(FORM_NAME);
 
   const handleClose = () => {
     resetForm();
@@ -57,6 +67,10 @@ export function ContactModal({ isOpen, onClose }: ContactModalProps) {
                 <ContactForm
                   formData={formData}
                   status={status}
+                  errorMessage={errorMessage}
+                  captchaResetKey={captchaResetKey}
+                  onCaptchaVerify={setCaptchaToken}
+                  onCaptchaExpire={() => setCaptchaToken("")}
                   t={t}
                   onChange={handleChange}
                   onSubmit={handleSubmit}
@@ -92,12 +106,26 @@ function SuccessMessage({ message }: { message: string }) {
 interface ContactFormProps {
   formData: { name: string; email: string; message: string };
   status: "idle" | "loading" | "success" | "error";
+  errorMessage: string;
+  captchaResetKey: number;
+  onCaptchaVerify: (token: string) => void;
+  onCaptchaExpire: () => void;
   t: ReturnType<typeof useLanguage>["t"];
   onChange: (field: "name" | "email" | "message", value: string) => void;
   onSubmit: (e: React.FormEvent) => Promise<void>;
 }
 
-function ContactForm({ formData, status, t, onChange, onSubmit }: ContactFormProps) {
+function ContactForm({
+  formData,
+  status,
+  errorMessage,
+  captchaResetKey,
+  onCaptchaVerify,
+  onCaptchaExpire,
+  t,
+  onChange,
+  onSubmit,
+}: ContactFormProps) {
   const isLoading = status === "loading";
 
   return (
@@ -163,6 +191,20 @@ function ContactForm({ formData, status, t, onChange, onSubmit }: ContactFormPro
             />
           </div>
         </div>
+
+        <div>
+          <HCaptchaWidget
+            onVerify={onCaptchaVerify}
+            onExpire={onCaptchaExpire}
+            resetKey={captchaResetKey}
+          />
+        </div>
+
+        {status === "error" && errorMessage && (
+          <p style={{ color: "var(--color-accent-9)", fontSize: "0.9rem", margin: 0 }} role="alert">
+            {errorMessage}
+          </p>
+        )}
 
         <Button size="lg" className={styles.submitButton} disabled={isLoading}>
           {isLoading ? (
